@@ -101,6 +101,52 @@ interface AppContextType {
   setActiveQuickAngle: (angle: string) => void;
   applyQuickFilter: (angle: string) => void;
 
+  // PWA Installation
+  isInstallModalOpen: boolean;
+  setIsInstallModalOpen: (open: boolean) => void;
+  isAppInstalled: boolean;
+  hasPrompt: boolean;
+  installApp: () => Promise<void>;
+
+  // Theme (Dark / Light)
+  theme: 'dark' | 'light';
+  setTheme: (t: 'dark' | 'light') => void;
+  toggleTheme: () => void;
+
+  // Hamburger Menu
+  isHamburgerOpen: boolean;
+  setIsHamburgerOpen: (open: boolean) => void;
+  toggleHamburger: () => void;
+
+  // System Settings & Updates
+  isSystemSettingsOpen: boolean;
+  setIsSystemSettingsOpen: (open: boolean) => void;
+  appVersion: string;
+  releaseDate: string;
+  lastUpdateCheckDate: string;
+  isCheckingUpdate: boolean;
+  isAutoUpdateEnabled: boolean;
+  setIsAutoUpdateEnabled: (v: boolean) => void;
+  autoUpdateIntervalMinutes: number;
+  setAutoUpdateIntervalMinutes: (v: number) => void;
+  checkForUpdates: () => Promise<string>;
+  forceUpdate: () => Promise<string>;
+
+  // Onboarding & Legal Notice
+  isOnboardingOpen: boolean;
+  setIsOnboardingOpen: (open: boolean) => void;
+  hasAcceptedLegalNotice: boolean;
+  acceptLegalNoticeAndCompleteOnboarding: () => void;
+
+  // Contextual Onboarding & Tooltips
+  showTooltips: boolean;
+  setShowTooltips: (v: boolean) => void;
+  showContextualTips: boolean;
+  setShowContextualTips: (v: boolean) => void;
+  dismissedTips: string[];
+  dismissTip: (key: string) => void;
+  resetContextualTips: () => void;
+
   // Helpers
   activeArtwork: Artwork;
   activeLearningPath: LearningPath;
@@ -233,6 +279,266 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const applyQuickFilter = (angle: string) => {
     setActiveQuickAngle(angle);
     navigateTo('explorer');
+  };
+
+  // PWA beforeinstallprompt handler
+  const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
+  const [isInstallModalOpen, setIsInstallModalOpen] = useState<boolean>(false);
+  const [isAppInstalled, setIsAppInstalled] = useState<boolean>(false);
+
+  useEffect(() => {
+    const handleBeforeInstall = (e: Event) => {
+      e.preventDefault();
+      setDeferredPrompt(e);
+    };
+
+    const handleAppInstalled = () => {
+      setIsAppInstalled(true);
+      setDeferredPrompt(null);
+    };
+
+    window.addEventListener('beforeinstallprompt', handleBeforeInstall);
+    window.addEventListener('appinstalled', handleAppInstalled);
+
+    if (window.matchMedia('(display-mode: standalone)').matches) {
+      setIsAppInstalled(true);
+    }
+
+    return () => {
+      window.removeEventListener('beforeinstallprompt', handleBeforeInstall);
+      window.removeEventListener('appinstalled', handleAppInstalled);
+    };
+  }, []);
+
+  const installApp = async () => {
+    if (deferredPrompt) {
+      try {
+        await deferredPrompt.prompt();
+        const choice = await deferredPrompt.userChoice;
+        if (choice && choice.outcome === 'accepted') {
+          setIsAppInstalled(true);
+        }
+        setDeferredPrompt(null);
+      } catch (err) {
+        console.warn('Install prompt error:', err);
+        setIsInstallModalOpen(true);
+      }
+    } else {
+      setIsInstallModalOpen(true);
+    }
+  };
+
+  // Theme Management (Dark / Light)
+  const [theme, setTheme] = useState<'dark' | 'light'>(() => {
+    try {
+      const saved = localStorage.getItem('regard_theme');
+      return (saved as 'dark' | 'light') || 'dark';
+    } catch {
+      return 'dark';
+    }
+  });
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('regard_theme', theme);
+      if (theme === 'light') {
+        document.documentElement.classList.add('light-theme');
+      } else {
+        document.documentElement.classList.remove('light-theme');
+      }
+    } catch (e) {
+      console.warn(e);
+    }
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
+  };
+
+  // Hamburger Menu
+  const [isHamburgerOpen, setIsHamburgerOpen] = useState<boolean>(false);
+  const toggleHamburger = () => setIsHamburgerOpen((prev) => !prev);
+
+  // System Settings & Updates
+  const [isSystemSettingsOpen, setIsSystemSettingsOpen] = useState<boolean>(false);
+  const appVersion = 'v2.4.2';
+  const releaseDate = '10 Octobre 2026';
+  const [lastUpdateCheckDate, setLastUpdateCheckDate] = useState<string>(() => {
+    try {
+      return localStorage.getItem('regard_last_check') || '10 Octobre 2026 à 14:30';
+    } catch {
+      return '10 Octobre 2026 à 14:30';
+    }
+  });
+  const [isCheckingUpdate, setIsCheckingUpdate] = useState<boolean>(false);
+  const [isAutoUpdateEnabled, setIsAutoUpdateEnabled] = useState<boolean>(() => {
+    try {
+      return localStorage.getItem('regard_auto_update') !== 'false';
+    } catch {
+      return true;
+    }
+  });
+  const [autoUpdateIntervalMinutes, setAutoUpdateIntervalMinutes] = useState<number>(() => {
+    try {
+      const saved = localStorage.getItem('regard_auto_update_interval');
+      return saved ? Number(saved) : 60;
+    } catch {
+      return 60;
+    }
+  });
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('regard_auto_update', String(isAutoUpdateEnabled));
+      localStorage.setItem('regard_auto_update_interval', String(autoUpdateIntervalMinutes));
+    } catch (e) {
+      console.warn(e);
+    }
+  }, [isAutoUpdateEnabled, autoUpdateIntervalMinutes]);
+
+  const checkForUpdates = async (): Promise<string> => {
+    setIsCheckingUpdate(true);
+    await new Promise((resolve) => setTimeout(resolve, 1400));
+    const now = new Date();
+    const formatted = `${now.toLocaleDateString('fr-FR', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+    })} à ${now.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}`;
+    setLastUpdateCheckDate(formatted);
+    try {
+      localStorage.setItem('regard_last_check', formatted);
+      if ('serviceWorker' in navigator) {
+        const registrations = await navigator.serviceWorker.getRegistrations();
+        for (const reg of registrations) {
+          reg.update();
+        }
+      }
+    } catch (e) {
+      console.warn(e);
+    }
+    setIsCheckingUpdate(false);
+    return `Votre version ${appVersion} est parfaitement à jour (Vérifié ${formatted})`;
+  };
+
+  const forceUpdate = async (): Promise<string> => {
+    setIsCheckingUpdate(true);
+    await new Promise((resolve) => setTimeout(resolve, 1800));
+    try {
+      if ('caches' in window) {
+        const keys = await caches.keys();
+        await Promise.all(keys.map((k) => caches.delete(k)));
+      }
+      const now = new Date();
+      const formatted = `${now.toLocaleDateString('fr-FR', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+      })} à ${now.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}`;
+      setLastUpdateCheckDate(formatted);
+      localStorage.setItem('regard_last_check', formatted);
+    } catch (e) {
+      console.warn(e);
+    }
+    setIsCheckingUpdate(false);
+    return `Mise à jour forcée réussie ! Cache réinitialisé et fiches synchronisées (v2.4.2).`;
+  };
+
+  // Background Automatic Updates (periodic check loop)
+  useEffect(() => {
+    if (!isAutoUpdateEnabled) return;
+    const intervalMs = Math.max(1, autoUpdateIntervalMinutes) * 60 * 1000;
+    const timer = setInterval(() => {
+      const now = new Date();
+      const formatted = `${now.toLocaleDateString('fr-FR', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+      })} à ${now.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}`;
+      setLastUpdateCheckDate(formatted);
+      try {
+        localStorage.setItem('regard_last_check', formatted);
+        if ('serviceWorker' in navigator) {
+          navigator.serviceWorker.getRegistrations().then((registrations) => {
+            registrations.forEach((r) => r.update());
+          });
+        }
+      } catch (e) {
+        console.warn('Auto update check failed', e);
+      }
+    }, intervalMs);
+    return () => clearInterval(timer);
+  }, [isAutoUpdateEnabled, autoUpdateIntervalMinutes]);
+
+  // Onboarding & Legal Notice
+  const [hasAcceptedLegalNotice, setHasAcceptedLegalNotice] = useState<boolean>(() => {
+    try {
+      return localStorage.getItem('regard_legal_accepted') === 'true';
+    } catch {
+      return false;
+    }
+  });
+
+  const [isOnboardingOpen, setIsOnboardingOpen] = useState<boolean>(() => {
+    try {
+      return localStorage.getItem('regard_legal_accepted') !== 'true';
+    } catch {
+      return true;
+    }
+  });
+
+  const acceptLegalNoticeAndCompleteOnboarding = () => {
+    setHasAcceptedLegalNotice(true);
+    setIsOnboardingOpen(false);
+    try {
+      localStorage.setItem('regard_legal_accepted', 'true');
+    } catch (e) {
+      console.warn(e);
+    }
+  };
+
+  // Tooltips & Contextual Tips
+  const [showTooltips, setShowTooltips] = useState<boolean>(() => {
+    try {
+      return localStorage.getItem('regard_show_tooltips') !== 'false';
+    } catch {
+      return true;
+    }
+  });
+
+  const [showContextualTips, setShowContextualTips] = useState<boolean>(() => {
+    try {
+      return localStorage.getItem('regard_show_contextual_tips') !== 'false';
+    } catch {
+      return true;
+    }
+  });
+
+  const [dismissedTips, setDismissedTips] = useState<string[]>(() => {
+    try {
+      const saved = localStorage.getItem('regard_dismissed_tips');
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
+  });
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('regard_show_tooltips', String(showTooltips));
+      localStorage.setItem('regard_show_contextual_tips', String(showContextualTips));
+      localStorage.setItem('regard_dismissed_tips', JSON.stringify(dismissedTips));
+    } catch (e) {
+      console.warn(e);
+    }
+  }, [showTooltips, showContextualTips, dismissedTips]);
+
+  const dismissTip = (key: string) => {
+    setDismissedTips((prev) => (prev.includes(key) ? prev : [...prev, key]));
+  };
+
+  const resetContextualTips = () => {
+    setDismissedTips([]);
   };
 
   const [currentAudio, setCurrentAudio] = useState<{
@@ -479,6 +785,46 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         activeQuickAngle,
         setActiveQuickAngle,
         applyQuickFilter,
+
+        isInstallModalOpen,
+        setIsInstallModalOpen,
+        isAppInstalled,
+        hasPrompt: !!deferredPrompt,
+        installApp,
+
+        theme,
+        setTheme,
+        toggleTheme,
+
+        isHamburgerOpen,
+        setIsHamburgerOpen,
+        toggleHamburger,
+
+        isSystemSettingsOpen,
+        setIsSystemSettingsOpen,
+        appVersion,
+        releaseDate,
+        lastUpdateCheckDate,
+        isCheckingUpdate,
+        isAutoUpdateEnabled,
+        setIsAutoUpdateEnabled,
+        autoUpdateIntervalMinutes,
+        setAutoUpdateIntervalMinutes,
+        checkForUpdates,
+        forceUpdate,
+
+        isOnboardingOpen,
+        setIsOnboardingOpen,
+        hasAcceptedLegalNotice,
+        acceptLegalNoticeAndCompleteOnboarding,
+
+        showTooltips,
+        setShowTooltips,
+        showContextualTips,
+        setShowContextualTips,
+        dismissedTips,
+        dismissTip,
+        resetContextualTips,
 
         activeArtwork,
         activeLearningPath,

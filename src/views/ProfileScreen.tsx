@@ -15,6 +15,14 @@ export const ProfileScreen: React.FC = () => {
     setDailyNotification,
     notificationHour,
     setNotificationHour,
+    setIsInstallModalOpen,
+    isAppInstalled,
+    installApp,
+    theme,
+    toggleTheme,
+    setIsSystemSettingsOpen,
+    setIsOnboardingOpen,
+    appVersion,
   } = useApp();
 
   const [cacheSize, setCacheSize] = useState<string>('124.6 Mo');
@@ -154,7 +162,53 @@ export const ProfileScreen: React.FC = () => {
           </div>
         </section>
 
-        {/* 2. NOTIFICATIONS LOCALES (SANS SERVEUR) */}
+        {/* 2. INSTALLATION PWA & RACCOURCI SUR L'APPAREIL */}
+        <section className="bg-[#1c1b20] border border-[#f2ca50]/30 rounded-xl p-4 space-y-3.5 relative overflow-hidden gilded-glow">
+          <div className="flex items-center justify-between pb-2 border-b border-[#4d4635]/20">
+            <div className="flex items-center gap-2">
+              <span className="material-symbols-outlined text-[#f2ca50] text-[18px]">install_mobile</span>
+              <h2 className="font-title-editorial text-[16px] text-[#e5e1e8] font-semibold">
+                Installation &amp; Mode PWA
+              </h2>
+            </div>
+            <span className="font-label-caps text-[9px] uppercase px-1.5 py-0.5 rounded bg-[#f2ca50]/15 text-[#f2ca50] border border-[#f2ca50]/30 font-bold">
+              Standalone
+            </span>
+          </div>
+
+          <div className="flex items-center gap-3.5 p-3 rounded-lg bg-[#201f24] border border-white/5">
+            <div className="w-14 h-14 rounded-xl overflow-hidden border border-[#f2ca50]/40 shrink-0 bg-[#0e0e12] shadow-md">
+              <img
+                src="/src/assets/images/regard_pwa_logo_1791643215759.jpg"
+                alt="Logo PWA Regard"
+                className="w-full h-full object-cover"
+                referrerPolicy="no-referrer"
+              />
+            </div>
+            <div className="flex-1 min-w-0">
+              <h3 className="font-title-editorial text-[14px] text-[#e5e1e8] font-bold">
+                Raccourci Bureau &amp; Mobile
+              </h3>
+              <p className="font-body-sm text-[11px] text-[#d0c5af] mt-0.5">
+                Lancez Regard en plein écran sans barre d'adresse du navigateur, avec toutes les toiles en cache local.
+              </p>
+            </div>
+          </div>
+
+          <button
+            onClick={() => setIsInstallModalOpen(true)}
+            className="w-full py-2.5 px-4 bg-[#d4af37] hover:bg-[#f2ca50] text-[#3c2f00] rounded-lg font-label-md text-[12.5px] font-bold flex items-center justify-center gap-2 transition-all active:scale-95 shadow-md cursor-pointer"
+          >
+            <span className="material-symbols-outlined text-[18px]">
+              {isAppInstalled ? 'check_circle' : 'download'}
+            </span>
+            <span>
+              {isAppInstalled ? 'Application installée sur cet appareil' : 'Installer Regard (Téléphone ou PC)'}
+            </span>
+          </button>
+        </section>
+
+        {/* 3. NOTIFICATIONS LOCALES (SANS SERVEUR) */}
         <section className="bg-[#1c1b20] border border-white/5 rounded-xl p-4 space-y-3.5">
           <div className="flex items-center gap-2 pb-2 border-b border-[#4d4635]/20">
             <span className="material-symbols-outlined text-[#f2ca50] text-[18px]">notifications</span>
@@ -275,7 +329,59 @@ export const ProfileScreen: React.FC = () => {
           </div>
         </section>
 
-        {/* 5. INFORMATIONS LÉGALES & SOURCES */}
+        {/* 5. PARAMÈTRES SYSTÈME, MISES À JOUR & THÈME */}
+        <section className="bg-[#1c1b20] border border-[#f2ca50]/20 rounded-xl p-4 space-y-4">
+          <div className="flex items-center justify-between pb-2 border-b border-[#4d4635]/20">
+            <div className="flex items-center gap-2 text-[#e5e1e8]">
+              <span className="material-symbols-outlined text-[#f2ca50] text-[20px]">
+                settings_system_daydream
+              </span>
+              <h2 className="font-title-editorial text-[16px] font-semibold text-[#f2ca50]">
+                Système &amp; Mises à Jour
+              </h2>
+            </div>
+            <span className="font-mono text-[11px] text-[#f2ca50] bg-[#201f24] px-2 py-0.5 rounded border border-[#f2ca50]/30">
+              {appVersion}
+            </span>
+          </div>
+
+          <p className="font-body-sm text-[12px] text-[#d0c5af] leading-relaxed">
+            Consultez les dates de version, vérifiez ou forcez une mise à jour manuelle, configurez
+            les mises à jour automatiques en arrière-plan et personnalisez le thème de l'application.
+          </p>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+            <button
+              onClick={() => setIsSystemSettingsOpen(true)}
+              className="p-3 rounded-lg bg-[#201f24] hover:bg-[#2b292f] border border-[#f2ca50]/30 text-[#f2ca50] flex items-center justify-center gap-2 font-label-caps text-[11px] uppercase tracking-wider transition-all cursor-pointer shadow-sm"
+            >
+              <span className="material-symbols-outlined text-[18px]">sync</span>
+              <span>Paramètres des Mises à Jour</span>
+            </button>
+
+            <button
+              onClick={toggleTheme}
+              className="p-3 rounded-lg bg-[#201f24] hover:bg-[#2b292f] border border-white/10 text-[#e5e1e8] flex items-center justify-center gap-2 font-label-caps text-[11px] uppercase tracking-wider transition-all cursor-pointer"
+            >
+              <span className="material-symbols-outlined text-[18px] text-[#f2ca50]">
+                {theme === 'dark' ? 'light_mode' : 'dark_mode'}
+              </span>
+              <span>Thème : {theme === 'dark' ? 'Passer au Clair' : 'Passer au Sombre'}</span>
+            </button>
+          </div>
+
+          <div className="pt-2 border-t border-white/5 flex items-center justify-between">
+            <button
+              onClick={() => setIsOnboardingOpen(true)}
+              className="text-[12px] text-[#f2ca50] hover:text-[#ffe088] underline flex items-center gap-1 cursor-pointer"
+            >
+              <span className="material-symbols-outlined text-[16px]">help_outline</span>
+              <span>Revoir l'Onboarding &amp; Mentions Légales</span>
+            </button>
+          </div>
+        </section>
+
+        {/* 6. INFORMATIONS LÉGALES & SOURCES */}
         <section className="bg-[#1c1b20] border border-white/5 rounded-xl p-4 space-y-3 text-[#d0c5af] text-[12px]">
           <div className="flex items-center gap-2 pb-2 border-b border-[#4d4635]/20 text-[#e5e1e8]">
             <span className="material-symbols-outlined text-[#f2ca50] text-[18px]">verified_user</span>
@@ -285,7 +391,10 @@ export const ProfileScreen: React.FC = () => {
           </div>
 
           <p>
-            <strong className="text-[#e5e1e8]">Version de l'application :</strong> 1.0.4 — Build SQLite 3.44 FTS5
+            <strong className="text-[#e5e1e8]">Version de l'application :</strong> {appVersion} — Build SQLite 3.44 FTS5
+          </p>
+          <p>
+            <strong className="text-[#e5e1e8]">Mentions légales &amp; Exonération :</strong> L'éditeur décline toute responsabilité quant aux données culturelles, dates, attributions et fiches muséales fournies à titre indicatif.
           </p>
           <p>
             <strong className="text-[#e5e1e8]">Politique de confidentialité :</strong> Aucune donnée personnelle n'est collectée, analysée ou transmise à un serveur tiers. Votre carnet demeure exclusivement sur votre appareil.

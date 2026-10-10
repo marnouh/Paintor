@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useApp } from '../context/AppContext.tsx';
 import { ARTWORKS, Artwork } from '../data/artworks.ts';
+import { ContextualTipBanner } from '../components/ContextualTipBanner.tsx';
 
 export const ExplorerScreen: React.FC = () => {
   const {
@@ -105,6 +106,15 @@ export const ExplorerScreen: React.FC = () => {
 
       {/* Main Container */}
       <main className="pt-16 max-w-xl mx-auto px-4 sm:px-5">
+        <ContextualTipBanner
+          tipKey="explorer_filters"
+          title="Filtres Multicritères & Chronologie"
+          description="Combinez les siècles (Renaissance, XIXe), mouvements et angles curatoriaux pour affiner instantanément votre salon d'étude."
+          icon="filter_alt"
+          actionText="Configurer les filtres"
+          onAction={() => setIsFilterModalOpen(true)}
+        />
+
         {/* Search & Quick Filters Header */}
         <section className="mt-2 space-y-3">
           {/* Search Input */}

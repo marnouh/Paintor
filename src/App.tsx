@@ -15,6 +15,10 @@ import { MovementDetailModal } from './views/MovementDetailModal.tsx';
 import { BottomNavBar } from './components/BottomNavBar.tsx';
 import { FilterModal } from './components/FilterModal.tsx';
 import { AudioPlayerFloating } from './components/AudioPlayerFloating.tsx';
+import { PwaInstallModal } from './components/PwaInstallModal.tsx';
+import { HamburgerMenu } from './components/HamburgerMenu.tsx';
+import { SystemSettingsModal } from './components/SystemSettingsModal.tsx';
+import { OnboardingModal } from './components/OnboardingModal.tsx';
 
 const AppContent: React.FC = () => {
   const {
@@ -57,7 +61,7 @@ const AppContent: React.FC = () => {
     currentScreen !== 'gigapixel-inspector' && currentScreen !== 'quiz';
 
   return (
-    <div className="min-h-screen bg-[#141318] text-[#e5e1e8]">
+    <div className="min-h-screen bg-[#141318] text-[#e5e1e8] transition-colors duration-300">
       {renderScreen()}
       {showBottomNav && <BottomNavBar />}
       <FilterModal />
@@ -73,6 +77,11 @@ const AppContent: React.FC = () => {
         onClose={closeMovement}
         onSelectArtwork={openArtwork}
       />
+      <PwaInstallModal />
+      {/* Hamburger Drawer, System Settings & Onboarding */}
+      <HamburgerMenu />
+      <SystemSettingsModal />
+      <OnboardingModal />
     </div>
   );
 };

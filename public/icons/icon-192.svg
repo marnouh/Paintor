@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" width="192" height="192">
+  <rect width="192" height="192" rx="38" fill="#141318"/>
+  <circle cx="96" cy="96" r="84" fill="none" stroke="#f2ca50" stroke-width="2" stroke-opacity="0.35"/>
+  <g transform="translate(96, 90) scale(0.48)">
+    <path d="M-110,60 C-150,-10 -110,-110 0,-130 C110,-150 160,-70 150,20 C140,80 80,110 30,110 C-10,110 -20,80 -40,80 C-60,80 -80,110 -110,60 Z" fill="none" stroke="#f2ca50" stroke-width="12" stroke-linejoin="round"/>
+    <path d="M-90,-15 C-40,-75 40,-75 90,-15 C40,45 -40,45 -90,-15 Z" fill="#1c1b20" stroke="#f2ca50" stroke-width="10"/>
+    <circle cx="0" cy="-15" r="32" fill="#d4af37" stroke="#f2ca50" stroke-width="5"/>
+    <circle cx="0" cy="-15" r="15" fill="#141318"/>
+    <circle cx="-6" cy="-21" r="5" fill="#ffffff"/>
+    <circle cx="85" cy="40" r="12" fill="#f2ca50"/>
+    <circle cx="55" cy="70" r="10" fill="#e9c349"/>
+  </g>
+  <text x="96" y="162" font-family="'Playfair Display', Georgia, serif" font-size="18" font-weight="700" fill="#f2ca50" text-anchor="middle" letter-spacing="4">REGARD</text>
+</svg>

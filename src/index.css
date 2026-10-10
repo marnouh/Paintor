@@ -208,3 +208,142 @@ html.reduce-motion-mode *::after {
   animation-iteration-count: 1 !important;
   transition-duration: 0.001ms !important;
 }
+
+/* Animations for Drawers and Modals */
+@keyframes slideRight {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.animate-slide-right {
+  animation: slideRight 0.26s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes scaleUp {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-scale-up {
+  animation: scaleUp 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.2s ease-out forwards;
+}
+
+/* ==========================================================================
+   MUSEUM DAYLIGHT GALLERY - THEME CLAIR
+   ========================================================================== */
+html.light-theme {
+  color-scheme: light;
+}
+
+html.light-theme body {
+  background-color: #f7f5f0 !important;
+  color: #1a1815 !important;
+}
+
+html.light-theme header,
+html.light-theme nav {
+  background-color: rgba(247, 245, 240, 0.94) !important;
+  border-color: rgba(60, 50, 30, 0.12) !important;
+}
+
+/* Background mappings */
+html.light-theme .bg-\[\#141318\],
+html.light-theme .bg-\[\#141318\]\/90 {
+  background-color: #f7f5f0 !important;
+}
+
+html.light-theme .bg-\[\#0e0e12\],
+html.light-theme .bg-\[\#0e0e12\]\/95,
+html.light-theme .bg-\[\#0e0e12\]\/85,
+html.light-theme .bg-\[\#0e0e12\]\/80 {
+  background-color: #ece8df !important;
+}
+
+html.light-theme .bg-\[\#1c1b20\] {
+  background-color: #ffffff !important;
+  box-shadow: 0 2px 12px rgba(40, 30, 15, 0.05);
+}
+
+html.light-theme .bg-\[\#201f24\],
+html.light-theme .bg-\[\#201f24\]\/90 {
+  background-color: #f2efe7 !important;
+}
+
+html.light-theme .bg-\[\#2b292f\] {
+  background-color: #e8e3d8 !important;
+}
+
+html.light-theme .bg-\[\#36343a\] {
+  background-color: #ded8cb !important;
+}
+
+/* Text color mappings */
+html.light-theme .text-\[\#e5e1e8\] {
+  color: #1c1a17 !important;
+}
+
+html.light-theme .text-\[\#d0c5af\] {
+  color: #4b463d !important;
+}
+
+html.light-theme .text-\[\#99907c\] {
+  color: #6b6352 !important;
+}
+
+html.light-theme .text-\[\#f2ca50\] {
+  color: #9c7310 !important;
+}
+
+html.light-theme .text-\[\#ffe088\] {
+  color: #7b5805 !important;
+}
+
+/* Border mappings */
+html.light-theme .border-white\/\[0\.08\],
+html.light-theme .border-white\/\[0\.06\],
+html.light-theme .border-white\/\[0\.07\],
+html.light-theme .border-white\/5,
+html.light-theme .border-white\/10,
+html.light-theme .border-white\/20,
+html.light-theme .border-\[\#4d4635\]\/20,
+html.light-theme .border-\[\#4d4635\]\/30,
+html.light-theme .border-\[\#4d4635\]\/25,
+html.light-theme .border-\[\#4d4635\]\/15 {
+  border-color: rgba(60, 50, 30, 0.12) !important;
+}
+
+html.light-theme .border-\[\#f2ca50\]\/30,
+html.light-theme .border-\[\#f2ca50\]\/40,
+html.light-theme .border-\[\#f2ca50\]\/50,
+html.light-theme .border-\[\#f2ca50\]\/35,
+html.light-theme .border-\[\#f2ca50\]\/20 {
+  border-color: rgba(156, 115, 16, 0.35) !important;
+}
+
+html.light-theme .border-\[\#f2ca50\] {
+  border-color: #9c7310 !important;
+}
+

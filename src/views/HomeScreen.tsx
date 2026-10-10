@@ -1,6 +1,7 @@
 import React from 'react';
 import { useApp } from '../context/AppContext.tsx';
 import { TopAppBar } from '../components/TopAppBar.tsx';
+import { ContextualTipBanner } from '../components/ContextualTipBanner.tsx';
 
 export const HomeScreen: React.FC = () => {
   const {
@@ -12,6 +13,7 @@ export const HomeScreen: React.FC = () => {
     toggleAudioPlayback,
     navigateTo,
     applyQuickFilter,
+    toggleHamburger,
   } = useApp();
 
   return (
@@ -25,6 +27,15 @@ export const HomeScreen: React.FC = () => {
       />
 
       <main className="max-w-xl mx-auto pt-16 px-4 sm:px-5">
+        <ContextualTipBanner
+          tipKey="home_welcome"
+          title="Guide du Conservateur"
+          description="Touchez les points dorés vibrants sur les toiles pour révéler les repentirs et secrets picturaux en quelques secondes."
+          icon="auto_awesome"
+          actionText="Ouvrir le menu des fonctionnalités"
+          onAction={toggleHamburger}
+        />
+
         {/* Accroche Éditoriale & Date */}
         <section className="mt-4 mb-5 flex items-end justify-between border-b border-[#4d4635]/30 pb-3">
           <div>
