@@ -1,0 +1,8 @@
+{
+  "name": "Regard — L'Art de la Peinture",
+  "description": "Musée immersif et carnet d'art curatorial pour contempler, apprendre et explorer les chefs-d'œuvre de la peinture mondiale.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
