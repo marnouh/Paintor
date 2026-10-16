@@ -1,9 +1,19 @@
 import React, { useState } from 'react';
 import { useApp } from '../context/AppContext.tsx';
-import { ARTWORKS } from '../data/artworks.ts';
 
 export const SearchScreen: React.FC = () => {
-  const { goBack, openArtwork, navigateTo, searchQuery, setSearchQuery, openArtist, openMovement } = useApp();
+  const {
+    goBack,
+    openArtwork,
+    navigateTo,
+    searchQuery,
+    setSearchQuery,
+    openArtist,
+    openMovement,
+    artworks,
+    searchFTS,
+    ftsStats,
+  } = useApp();
 
   const [recentQueries, setRecentQueries] = useState<string[]>([
     'Johannes Vermeer',
@@ -14,17 +24,9 @@ export const SearchScreen: React.FC = () => {
 
   const query = searchQuery || 'Vermeer';
 
-  // Live filter matching
-  const matchingArtworks = ARTWORKS.filter((art) => {
-    const q = query.toLowerCase();
-    return (
-      art.title.toLowerCase().includes(q) ||
-      art.artist.toLowerCase().includes(q) ||
-      art.movement.toLowerCase().includes(q) ||
-      art.museum.toLowerCase().includes(q) ||
-      art.tags.some((t) => t.toLowerCase().includes(q))
-    );
-  });
+  // Real Full-Text Search with BM25 scoring & tokenization
+  const ftsResults = searchFTS(query);
+  const matchingArtworks = ftsResults.length > 0 ? ftsResults.map((r) => r.artwork) : artworks.slice(0, 5);
 
   const isVermeerMatch = query.toLowerCase().includes('vermeer');
 
@@ -44,7 +46,7 @@ export const SearchScreen: React.FC = () => {
             Regard
           </span>
           <span className="text-[9px] uppercase tracking-widest text-[#f2ca50] border border-[#f2ca50]/30 px-1 py-0.5 rounded font-bold">
-            FTS5
+            FTS • BM25
           </span>
         </div>
         <button
@@ -86,9 +88,9 @@ export const SearchScreen: React.FC = () => {
           <div className="flex items-center justify-between px-1 text-[11px] font-label-caps text-[#d0c5af]/80">
             <div className="flex items-center space-x-1.5">
               <span className="w-1.5 h-1.5 rounded-full bg-[#f2ca50] animate-pulse" />
-              <span>Moteur SQLite FTS5</span>
+              <span>Index Plein Texte BM25</span>
               <span className="text-[#4d4635]">•</span>
-              <span>Tolérance accents</span>
+              <span>IndexedDB ({ftsStats.uniqueTokensCount} termes)</span>
             </div>
             <div className="flex items-center space-x-1 text-[#f2ca50] font-medium">
               <span className="material-symbols-outlined text-[13px]">offline_bolt</span>
@@ -126,17 +128,17 @@ export const SearchScreen: React.FC = () => {
           </div>
         </section>
 
-        {/* Correspondances FTS5 Results */}
+        {/* Correspondances Results */}
         <section className="space-y-3 pt-1">
           <div className="flex items-center justify-between border-b border-[#201f24] pb-2">
             <div className="flex items-center space-x-2">
               <span className="w-1.5 h-3 bg-[#f2ca50] rounded-sm" />
               <h2 className="font-headline-sm text-[18px] text-[#e5e1e8] font-semibold">
-                Correspondances FTS5
+                Résultats du Catalogue ({matchingArtworks.length})
               </h2>
             </div>
             <span className="font-label-caps text-[10px] text-[#f2ca50] bg-[#f2ca50]/10 px-2 py-0.5 rounded border border-[#f2ca50]/20 font-semibold">
-              {matchingArtworks.length} résultats • 12ms
+              {ftsResults.length > 0 ? `${ftsResults.length} trouvée(s) • ${ftsStats.lastQueryTimeMs} ms` : `Suggestions`}
             </span>
           </div>
 
@@ -256,8 +258,8 @@ export const SearchScreen: React.FC = () => {
           <div>
             <h2 className="font-headline-sm text-[18px] text-[#e5e1e8] font-medium flex items-center gap-2">
               <span>Recherche par facettes</span>
-              <span className="font-label-caps text-[9.5px] text-[#99907c] border border-[#4d4635]/30 px-1.5 py-0.5 rounded uppercase font-semibold">
-                FTS5 Tokens
+              <span className="font-label-caps text-[9.5px] text-[#f2ca50] border border-[#f2ca50]/30 bg-[#f2ca50]/10 px-1.5 py-0.5 rounded uppercase font-semibold">
+                FTS Sémantique
               </span>
             </h2>
             <p className="font-body-sm text-[12px] text-[#99907c] mt-0.5">
@@ -436,10 +438,10 @@ export const SearchScreen: React.FC = () => {
         <footer className="pt-4 pb-6 text-center space-y-1.5 border-t border-[#201f24]">
           <div className="inline-flex items-center gap-1.5 text-[#f2ca50] text-[10.5px] font-label-caps bg-[#1c1b20] px-3 py-1 rounded-full border border-[#f2ca50]/20 font-semibold">
             <span className="material-symbols-outlined text-[13px]">database</span>
-            <span>SQLite 3.44 • FTS5 Tokenizer Unicode61</span>
+            <span>IndexedDB (RegardMuseumDB v1) • Index Inversé BM25</span>
           </div>
           <p className="font-body-sm text-[11.5px] text-[#99907c] max-w-xs mx-auto">
-            Index local de 840 toiles, 120 artistes, 45 mouvements — Aucune connexion requise
+            Base locale de {artworks.length} toiles et {ftsStats.uniqueTokensCount} termes indexés — 100% Hors-ligne
           </p>
         </footer>
       </main>

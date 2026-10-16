@@ -1,6 +1,6 @@
 import React from 'react';
+import { useApp } from '../context/AppContext.tsx';
 import { MOVEMENTS, Movement } from '../data/movements.ts';
-import { ARTWORKS } from '../data/artworks.ts';
 
 interface MovementDetailModalProps {
   movementId: string | null;
@@ -13,16 +13,18 @@ export const MovementDetailModal: React.FC<MovementDetailModalProps> = ({
   onClose,
   onSelectArtwork,
 }) => {
+  const { artworks } = useApp();
+
   if (!movementId) return null;
 
   const movement =
     MOVEMENTS.find((m) => m.id === movementId || m.name.toLowerCase().includes(movementId.toLowerCase())) ||
     MOVEMENTS[0];
 
-  const relatedArtworks = ARTWORKS.filter(
+  const relatedArtworks = artworks.filter(
     (art) =>
       art.movement.toLowerCase().includes(movement.name.toLowerCase()) ||
-      movement.associatedArtworkIds.includes(art.id)
+      (movement.associatedArtworkIds && movement.associatedArtworkIds.includes(art.id))
   );
 
   return (

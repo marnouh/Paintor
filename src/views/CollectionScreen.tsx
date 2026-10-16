@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useApp } from '../context/AppContext.tsx';
-import { ARTWORKS } from '../data/artworks.ts';
 
 export const CollectionScreen: React.FC = () => {
   const {
@@ -14,15 +13,27 @@ export const CollectionScreen: React.FC = () => {
     clearHistory,
     userPoints,
     userLevel,
+    completedSteps,
     exportDatabaseJSON,
+    openBackupModal,
+    artworks,
+    userNotes,
+    addNote,
+    deleteNote,
   } = useApp();
+
+  // Real immersion calculations
+  const totalMinutes = history.reduce((sum, h) => sum + (h.readMinutes || 2), 0);
+  const hours = Math.floor(totalMinutes / 60);
+  const mins = totalMinutes % 60;
+  const readingTimeDisplay = totalMinutes === 0
+    ? '0 min'
+    : hours > 0
+    ? `${hours}h ${mins > 0 ? `${mins}m` : ''}`
+    : `${mins} min`;
 
   const [activeTab, setActiveTab] = useState<'favoris' | 'historique' | 'parcours' | 'notes'>('favoris');
   const [filterType, setFilterType] = useState<'tous' | 'chefs' | 'artistes' | 'recents'>('tous');
-  const [notesList, setNotesList] = useState<string[]>([
-    "La touche cézannienne préfigure le cubisme par l'orthogonalité de ses facettes.",
-    "Le blanc de plomb sur la perle de Vermeer n'est constitué que de deux virgules d'huile pure.",
-  ]);
   const [newNote, setNewNote] = useState<string>('');
   const [showAddSalonModal, setShowAddSalonModal] = useState<boolean>(false);
   const [newSalonName, setNewSalonName] = useState<string>('');
@@ -33,7 +44,7 @@ export const CollectionScreen: React.FC = () => {
     setTimeout(() => setToastMessage(null), 3500);
   };
 
-  const bookmarkedArtworks = ARTWORKS.filter((art) => bookmarkedIds.includes(art.id));
+  const bookmarkedArtworks = artworks.filter((art) => bookmarkedIds.includes(art.id));
 
   const filteredBookmarks = bookmarkedArtworks.filter((art) => {
     if (filterType === 'chefs') return art.isIncontournable;
@@ -41,11 +52,12 @@ export const CollectionScreen: React.FC = () => {
     return true;
   });
 
-  const handleAddNote = (e: React.FormEvent) => {
+  const handleAddNote = async (e: React.FormEvent) => {
     e.preventDefault();
     if (newNote.trim()) {
-      setNotesList([newNote.trim(), ...notesList]);
+      await addNote(newNote.trim());
       setNewNote('');
+      showToast('Note enregistrée dans IndexedDB');
     }
   };
 
@@ -91,19 +103,20 @@ export const CollectionScreen: React.FC = () => {
               </p>
             </div>
 
-            {/* Actions: Export JSON & Settings */}
+            {/* Actions: Export/Restore JSON & Settings */}
             <div className="flex items-center gap-1.5 pt-1">
               <button
-                onClick={exportDatabaseJSON}
-                className="border border-white/10 bg-[#201f24] hover:bg-[#2b292f] text-[#d0c5af] hover:text-[#f2ca50] active:scale-90 transition-all p-2 rounded-lg flex items-center justify-center shadow-sm cursor-pointer"
-                title="Exporter la base SQLite chiffrée (Fichier JSON)"
+                onClick={openBackupModal}
+                className="border border-[#f2ca50]/30 bg-[#201f24] hover:bg-[#2b292f] text-[#f2ca50] hover:text-[#ffe088] active:scale-90 transition-all px-2.5 py-1.5 rounded-lg flex items-center gap-1.5 shadow-sm cursor-pointer"
+                title="Sauvegarde sécurisée chiffrée AES-256 ou Restauration"
               >
-                <span className="material-symbols-outlined text-[19px]">download</span>
+                <span className="material-symbols-outlined text-[18px]">lock_reset</span>
+                <span className="text-[11px] font-label-caps uppercase font-bold hidden sm:inline">Sauvegarde</span>
               </button>
               <button
-                onClick={() => showToast("Chiffrement local AES-256 actif. Aucune donnée n'est transmise à des tiers.")}
+                onClick={() => showToast("Magasins d'objets IndexedDB (RegardMuseumDB) actifs. Stockage 100% hors-ligne.")}
                 className="border border-white/10 bg-[#201f24] hover:bg-[#2b292f] text-[#d0c5af] hover:text-[#f2ca50] active:scale-90 transition-all p-2 rounded-lg flex items-center justify-center shadow-sm cursor-pointer"
-                title="Paramètres de stockage local"
+                title="Paramètres de stockage IndexedDB"
               >
                 <span className="material-symbols-outlined text-[19px]">settings</span>
               </button>
@@ -114,7 +127,7 @@ export const CollectionScreen: React.FC = () => {
           <div className="mt-3.5 inline-flex items-center gap-2 py-1 px-3 bg-[#1c1b20] rounded-lg border border-white/5">
             <span className="material-symbols-outlined text-[#f2ca50] text-[14px]">database</span>
             <span className="font-label-caps text-[10px] sm:text-[10.5px] text-[#d0c5af] tracking-wider">
-              Stockage 100% local • Aucune donnée cloud • Chiffrement AES-256
+              Stockage local IndexedDB (7 magasins) • PWA Hors-ligne
             </span>
           </div>
         </section>
@@ -171,7 +184,7 @@ export const CollectionScreen: React.FC = () => {
             }`}
           >
             <span className="material-symbols-outlined text-[14px]">draw</span>
-            <span>Notes ({notesList.length})</span>
+            <span>Notes ({userNotes.length})</span>
           </button>
         </nav>
 
@@ -195,36 +208,44 @@ export const CollectionScreen: React.FC = () => {
           <div className="grid grid-cols-2 gap-2.5 pt-3.5 pb-3">
             <div className="bg-[#201f24] p-3 rounded-lg border border-white/5">
               <div className="flex items-baseline gap-1.5">
-                <span className="font-headline-lg text-[28px] text-[#f2ca50] font-bold">42</span>
-                <span className="font-body-sm text-[12px] text-[#d0c5af]">toiles</span>
+                <span className="font-headline-lg text-[28px] text-[#f2ca50] font-bold">
+                  {history.length}
+                </span>
+                <span className="font-body-sm text-[12px] text-[#d0c5af]">toile{history.length > 1 ? 's' : ''}</span>
               </div>
-              <p className="font-body-sm text-[11px] text-[#99907c] mt-0.5">Contemplées au calme</p>
+              <p className="font-body-sm text-[11px] text-[#99907c] mt-0.5">Contemplée{history.length > 1 ? 's' : ''} au calme</p>
             </div>
 
             <div className="bg-[#201f24] p-3 rounded-lg border border-white/5">
               <div className="flex items-baseline gap-1.5">
-                <span className="font-headline-lg text-[28px] text-[#e5e1e8] font-bold">14h 30</span>
+                <span className="font-headline-lg text-[28px] text-[#e5e1e8] font-bold">
+                  {readingTimeDisplay}
+                </span>
               </div>
               <p className="font-body-sm text-[11px] text-[#99907c] mt-0.5">Lecture &amp; contemplation</p>
             </div>
 
             <div className="bg-[#201f24] p-3 rounded-lg border border-white/5">
               <div className="flex items-baseline gap-1.5">
-                <span className="font-headline-md text-[22px] text-[#e5e1e8] font-semibold">2</span>
-                <span className="font-body-sm text-[12px] text-[#f2ca50] font-medium">terminés</span>
+                <span className="font-headline-md text-[22px] text-[#e5e1e8] font-semibold">
+                  {completedSteps.length}
+                </span>
+                <span className="font-body-sm text-[12px] text-[#f2ca50] font-medium">étape{completedSteps.length > 1 ? 's' : ''}</span>
               </div>
               <p className="font-body-sm text-[11px] text-[#99907c] mt-0.5 truncate">
-                Pionnières • Art du Regard
+                {completedSteps.length > 0 ? `${completedSteps.length} étape${completedSteps.length > 1 ? 's' : ''} validée${completedSteps.length > 1 ? 's' : ''}` : 'Aucune étape validée'}
               </p>
             </div>
 
             <div className="bg-[#201f24] p-3 rounded-lg border border-white/5">
               <div className="flex items-baseline gap-1.5">
-                <span className="font-headline-md text-[22px] text-[#f2ca50] font-semibold">1</span>
-                <span className="font-body-sm text-[12px] text-[#d0c5af]">en cours</span>
+                <span className="font-headline-md text-[22px] text-[#f2ca50] font-semibold">
+                  {userNotes.length}
+                </span>
+                <span className="font-body-sm text-[12px] text-[#d0c5af]">note{userNotes.length > 1 ? 's' : ''}</span>
               </div>
               <p className="font-body-sm text-[11px] text-[#99907c] mt-0.5 truncate">
-                Maîtres de la Couleur (50%)
+                {userNotes.length > 0 ? `${userNotes.length} observation${userNotes.length > 1 ? 's' : ''}` : 'Carnet d\'étude vierge'}
               </p>
             </div>
           </div>
@@ -455,46 +476,59 @@ export const CollectionScreen: React.FC = () => {
             </button>
           </div>
 
-          <div className="border border-white/5 bg-[#1c1b20] rounded-xl divide-y divide-[#4d4635]/15 overflow-hidden">
-            {history.map((item, idx) => {
-              const art = ARTWORKS.find((a) => a.id === item.artworkId) || ARTWORKS[idx % ARTWORKS.length];
-              return (
-                <div
-                  key={art.id + idx}
-                  onClick={() => openArtwork(art.id)}
-                  className="p-3 flex items-center justify-between hover:bg-[#201f24] transition-colors group cursor-pointer"
-                >
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-lg bg-[#0e0e12] overflow-hidden border border-white/5 shrink-0">
-                      <img
-                        src={art.imageUrl}
-                        alt={art.title}
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                      />
+          {history.length === 0 ? (
+            <div className="p-6 text-center bg-[#1c1b20] rounded-xl border border-white/5 space-y-2">
+              <span className="material-symbols-outlined text-[32px] text-[#99907c]">visibility_off</span>
+              <p className="font-body-md text-[13px] text-[#d0c5af]">
+                Votre historique de visite est actuellement vierge.
+              </p>
+              <p className="font-body-sm text-[11px] text-[#99907c]">
+                Consultez des toiles pour enregistrer automatiquement vos séances de contemplation dans la base locale IndexedDB.
+              </p>
+            </div>
+          ) : (
+            <div className="border border-white/5 bg-[#1c1b20] rounded-xl divide-y divide-[#4d4635]/15 overflow-hidden">
+              {history.map((item, idx) => {
+                const art = artworks.find((a) => a.id === item.artworkId);
+                if (!art) return null;
+                return (
+                  <div
+                    key={art.id + idx}
+                    onClick={() => openArtwork(art.id)}
+                    className="p-3 flex items-center justify-between hover:bg-[#201f24] transition-colors group cursor-pointer"
+                  >
+                    <div className="flex items-center gap-3">
+                      <div className="w-12 h-12 rounded-lg bg-[#0e0e12] overflow-hidden border border-white/5 shrink-0">
+                        <img
+                          src={art.imageUrl}
+                          alt={art.title}
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                        />
+                      </div>
+                      <div>
+                        <h3 className="font-title-editorial text-[14px] text-[#e5e1e8] group-hover:text-[#f2ca50] transition-colors font-semibold">
+                          {art.title}
+                        </h3>
+                        <p className="font-body-sm text-[11px] text-[#99907c]">
+                          {art.artist} • {art.year}
+                        </p>
+                      </div>
                     </div>
-                    <div>
-                      <h3 className="font-title-editorial text-[14px] text-[#e5e1e8] group-hover:text-[#f2ca50] transition-colors font-semibold">
-                        {art.title}
-                      </h3>
-                      <p className="font-body-sm text-[11px] text-[#99907c]">
-                        {art.artist} • {art.year}
-                      </p>
-                    </div>
-                  </div>
 
-                  <div className="text-right flex flex-col items-end">
-                    <span className="font-label-caps text-[9.5px] text-[#f2ca50] bg-[#f2ca50]/10 px-2 py-0.5 rounded font-semibold">
-                      {item.timeAgo}
-                    </span>
-                    <span className="font-body-sm text-[11px] text-[#99907c] mt-1 flex items-center gap-0.5">
-                      <span>{item.readMinutes} min lues</span>
-                      <span className="material-symbols-outlined text-[14px]">chevron_right</span>
-                    </span>
+                    <div className="text-right flex flex-col items-end">
+                      <span className="font-label-caps text-[9.5px] text-[#f2ca50] bg-[#f2ca50]/10 px-2 py-0.5 rounded font-semibold">
+                        {item.timeAgo}
+                      </span>
+                      <span className="font-body-sm text-[11px] text-[#99907c] mt-1 flex items-center gap-0.5">
+                        <span>{item.readMinutes} min lues</span>
+                        <span className="material-symbols-outlined text-[14px]">chevron_right</span>
+                      </span>
+                    </div>
                   </div>
-                </div>
-              );
-            })}
-          </div>
+                );
+              })}
+            </div>
+          )}
         </section>
 
         {/* SECTION: NOTES & DÉTAILS (if tab active) */}
@@ -521,11 +555,40 @@ export const CollectionScreen: React.FC = () => {
             </form>
 
             <div className="space-y-2 pt-2">
-              {notesList.map((note, i) => (
-                <div key={i} className="p-3 bg-[#1c1b20] border border-white/5 rounded-lg text-[13px] text-[#d0c5af]">
-                  « {note} »
+              {userNotes.length === 0 ? (
+                <div className="p-4 text-center bg-[#1c1b20] rounded-lg border border-white/5 text-[12px] text-[#99907c]">
+                  Aucune note rédigée. Vos observations curatoriales sont enregistrées de façon permanente dans le magasin IndexedDB « notes ».
                 </div>
-              ))}
+              ) : (
+                userNotes.map((note) => (
+                  <div
+                    key={note.id}
+                    className="p-3 bg-[#1c1b20] border border-white/5 rounded-lg text-[13px] text-[#d0c5af] flex items-start justify-between gap-3 group"
+                  >
+                    <div>
+                      {note.title && (
+                        <h4 className="font-semibold text-white text-[12px] mb-0.5">{note.title}</h4>
+                      )}
+                      <p className="italic">« {note.content} »</p>
+                      <span className="text-[10px] text-[#99907c] mt-1 block">
+                        {new Date(note.updatedAt).toLocaleDateString('fr-FR', {
+                          day: 'numeric',
+                          month: 'short',
+                          hour: '2-digit',
+                          minute: '2-digit',
+                        })}
+                      </span>
+                    </div>
+                    <button
+                      onClick={() => deleteNote(note.id)}
+                      className="text-[#99907c] hover:text-red-400 p-1 opacity-60 hover:opacity-100 transition-opacity cursor-pointer"
+                      title="Supprimer la note"
+                    >
+                      <span className="material-symbols-outlined text-[16px]">delete</span>
+                    </button>
+                  </div>
+                ))
+              )}
             </div>
           </section>
         )}
@@ -539,7 +602,7 @@ export const CollectionScreen: React.FC = () => {
             </span>
           </div>
           <p className="font-body-sm text-[11px] text-[#99907c] max-w-sm mx-auto leading-relaxed">
-            Données strictement confinées à la base SQLite locale de cet appareil. Vos favoris et notes sont préservés lors des mises à jour du catalogue.
+            Données strictement confinées aux magasins d'objets IndexedDB locaux de cet appareil. Vos favoris et notes sont préservés lors des mises à jour du catalogue.
           </p>
         </footer>
       </main>

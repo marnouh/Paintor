@@ -5,11 +5,11 @@ import { COLORIST_QUIZ } from '../data/learningExtras.ts';
 export const QuizScreen: React.FC = () => {
   const { goBack, addPoints } = useApp();
 
-  const [questionIndex, setQuestionIndex] = useState<number>(2); // Start at Question 3 (index 2) as in the screenshot!
-  const [selectedOption, setSelectedOption] = useState<string>('B'); // B is selected as in screenshot
-  const [showHint, setShowHint] = useState<boolean>(true);
+  const [questionIndex, setQuestionIndex] = useState<number>(0);
+  const [selectedOption, setSelectedOption] = useState<string | null>(null);
+  const [showHint, setShowHint] = useState<boolean>(false);
   const [isAnswerConfirmed, setIsAnswerConfirmed] = useState<boolean>(false);
-  const [scoreCount, setScoreCount] = useState<number>(2);
+  const [scoreCount, setScoreCount] = useState<number>(0);
   const [isQuizCompleted, setIsQuizCompleted] = useState<boolean>(false);
   const [isLoupeZoomed, setIsLoupeZoomed] = useState<boolean>(false);
 
@@ -26,19 +26,30 @@ export const QuizScreen: React.FC = () => {
       // Go to next question or complete
       if (questionIndex < COLORIST_QUIZ.length - 1) {
         setQuestionIndex(questionIndex + 1);
-        setSelectedOption('A');
+        setSelectedOption(null);
         setIsAnswerConfirmed(false);
+        setShowHint(false);
       } else {
         setIsQuizCompleted(true);
-        addPoints(100);
+        addPoints(scoreCount * 25);
       }
     } else {
+      if (!selectedOption) return;
       const selected = currentQ.options.find((o) => o.id === selectedOption);
       if (selected?.isCorrect) {
         setScoreCount((prev) => prev + 1);
       }
       setIsAnswerConfirmed(true);
     }
+  };
+
+  const handleRestartQuiz = () => {
+    setQuestionIndex(0);
+    setSelectedOption(null);
+    setIsAnswerConfirmed(false);
+    setShowHint(false);
+    setScoreCount(0);
+    setIsQuizCompleted(false);
   };
 
   return (
@@ -139,24 +150,37 @@ export const QuizScreen: React.FC = () => {
             <div className="p-4 bg-[#1c1b20] rounded-xl border border-[#f2ca50]/30 w-full text-left space-y-2">
               <div className="flex justify-between text-[12px] font-label-caps text-[#e5e1e8]">
                 <span>Score obtenu</span>
-                <span className="text-[#f2ca50] font-bold">5/5 (100%)</span>
+                <span className="text-[#f2ca50] font-bold">
+                  {scoreCount}/{COLORIST_QUIZ.length} ({Math.round((scoreCount / COLORIST_QUIZ.length) * 100)}%)
+                </span>
               </div>
               <div className="flex justify-between text-[12px] font-label-caps text-[#e5e1e8]">
                 <span>Points d'immersion</span>
-                <span className="text-[#f2ca50] font-bold">+100 pts</span>
+                <span className="text-[#f2ca50] font-bold">+{scoreCount * 25} pts</span>
               </div>
               <div className="flex justify-between text-[12px] font-label-caps text-[#e5e1e8]">
-                <span>Nouveau titre</span>
-                <span className="text-[#f2ca50] font-bold">Regard Éclairé (Niveau 3)</span>
+                <span>Niveau d'acuité</span>
+                <span className="text-[#f2ca50] font-bold">
+                  {scoreCount >= 4 ? 'Maître du Regard (Validé)' : 'Initié au Beau'}
+                </span>
               </div>
             </div>
 
-            <button
-              onClick={goBack}
-              className="w-full py-3.5 px-4 rounded-lg bg-[#f2ca50] text-[#3c2f00] font-label-md text-[14px] font-bold shadow-lg hover:bg-[#ffe088] transition-all cursor-pointer"
-            >
-              Retourner aux cycles
-            </button>
+            <div className="w-full space-y-2">
+              <button
+                onClick={handleRestartQuiz}
+                className="w-full py-3 px-4 rounded-lg bg-[#201f24] hover:bg-[#2b292f] border border-[#f2ca50]/40 text-[#f2ca50] font-label-md text-[13px] font-bold transition-all cursor-pointer flex items-center justify-center gap-2"
+              >
+                <span className="material-symbols-outlined text-[18px]">restart_alt</span>
+                <span>Recommencer l'évaluation</span>
+              </button>
+              <button
+                onClick={goBack}
+                className="w-full py-3.5 px-4 rounded-lg bg-[#f2ca50] text-[#3c2f00] font-label-md text-[14px] font-bold shadow-lg hover:bg-[#ffe088] transition-all cursor-pointer"
+              >
+                Retourner aux cycles
+              </button>
+            </div>
           </div>
         ) : (
           /* CORE EXAMINATION BODY */
@@ -231,24 +255,43 @@ export const QuizScreen: React.FC = () => {
             <section className="flex flex-col gap-2.5">
               {currentQ.options.map((option) => {
                 const isSelected = selectedOption === option.id;
+                const isCorrect = option.isCorrect;
+
+                let cardStyle = 'bg-[#1c1b20] hover:bg-[#201f24] border-white/[0.07] hover:border-[#4d4635]/40';
+                if (isAnswerConfirmed) {
+                  if (isCorrect) {
+                    cardStyle = 'bg-emerald-950/40 border-2 border-emerald-500 text-emerald-100';
+                  } else if (isSelected) {
+                    cardStyle = 'bg-rose-950/40 border-2 border-rose-500 text-rose-100';
+                  } else {
+                    cardStyle = 'bg-[#1c1b20]/50 border-white/[0.04] opacity-50';
+                  }
+                } else if (isSelected) {
+                  cardStyle = 'bg-[#201f24] border-2 border-[#d4af37] gilded-glow';
+                }
+
                 return (
                   <div
                     key={option.id}
                     onClick={() => handleSelect(option.id)}
-                    className={`relative rounded p-3.5 flex items-start gap-3 cursor-pointer transition-all active:scale-[0.99] border ${
-                      isSelected
-                        ? 'bg-[#201f24] border-2 border-[#d4af37] gilded-glow'
-                        : 'bg-[#1c1b20] hover:bg-[#201f24] border-white/[0.07] hover:border-[#4d4635]/40'
-                    }`}
+                    className={`relative rounded p-3.5 flex items-start gap-3 cursor-pointer transition-all active:scale-[0.99] border ${cardStyle}`}
                   >
                     <div
                       className={`mt-0.5 w-5 h-5 rounded-full flex items-center justify-center shrink-0 transition-colors ${
-                        isSelected
+                        isAnswerConfirmed && isCorrect
+                          ? 'bg-emerald-500 text-black font-bold'
+                          : isAnswerConfirmed && isSelected
+                          ? 'bg-rose-500 text-white font-bold'
+                          : isSelected
                           ? 'bg-[#d4af37] text-[#3c2f00] font-bold'
                           : 'border border-[#99907c] text-[#99907c]'
                       }`}
                     >
-                      {isSelected ? (
+                      {isAnswerConfirmed && isCorrect ? (
+                        <span className="material-symbols-outlined text-[13px] font-bold">check</span>
+                      ) : isAnswerConfirmed && isSelected ? (
+                        <span className="material-symbols-outlined text-[13px] font-bold">close</span>
+                      ) : isSelected ? (
                         <span className="material-symbols-outlined text-[13px] font-bold">check</span>
                       ) : (
                         <span className="text-[10px] font-label-caps font-semibold">{option.id}</span>
@@ -263,7 +306,19 @@ export const QuizScreen: React.FC = () => {
                       >
                         {option.text}
                       </p>
-                      {isSelected && (
+                      {isAnswerConfirmed ? (
+                        isCorrect ? (
+                          <div className="mt-2 flex items-center gap-1.5 text-[10px] font-label-caps text-emerald-400 font-bold">
+                            <span className="material-symbols-outlined text-[14px]">check_circle</span>
+                            <span>BONNE RÉPONSE ({option.tag})</span>
+                          </div>
+                        ) : isSelected ? (
+                          <div className="mt-2 flex items-center gap-1.5 text-[10px] font-label-caps text-rose-400 font-bold">
+                            <span className="material-symbols-outlined text-[14px]">cancel</span>
+                            <span>VOTRE CHOIX ({option.tag})</span>
+                          </div>
+                        ) : null
+                      ) : isSelected ? (
                         <div className="mt-2 flex items-center gap-2 flex-wrap">
                           <span className="text-[9.5px] font-label-caps text-[#f2ca50] bg-[#f2ca50]/10 border border-[#f2ca50]/20 px-2 py-0.5 rounded font-semibold">
                             SÉLECTION EN COURS
@@ -272,7 +327,7 @@ export const QuizScreen: React.FC = () => {
                             {option.tag}
                           </span>
                         </div>
-                      )}
+                      ) : null}
                     </div>
                   </div>
                 );
@@ -339,16 +394,31 @@ export const QuizScreen: React.FC = () => {
             <div className="flex flex-col gap-2 pt-1">
               <button
                 onClick={handleConfirmAnswer}
-                className="w-full bg-[#d4af37] hover:bg-[#f2ca50] text-[#3c2f00] active:scale-[0.98] transition-all duration-150 py-3.5 px-4 rounded font-label-md text-[13px] font-bold flex items-center justify-center gap-2 gilded-glow cursor-pointer shadow-md"
+                disabled={!selectedOption && !isAnswerConfirmed}
+                className={`w-full py-3.5 px-4 rounded font-label-md text-[13px] font-bold flex items-center justify-center gap-2 transition-all duration-150 shadow-md ${
+                  !selectedOption && !isAnswerConfirmed
+                    ? 'bg-[#36343a] text-[#99907c] cursor-not-allowed border border-white/5 opacity-60'
+                    : 'bg-[#d4af37] hover:bg-[#f2ca50] text-[#3c2f00] cursor-pointer gilded-glow active:scale-[0.98]'
+                }`}
               >
-                <span>{isAnswerConfirmed ? 'Question suivante' : 'Confirmer la réponse'}</span>
-                <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
+                <span>
+                  {isAnswerConfirmed
+                    ? questionIndex < COLORIST_QUIZ.length - 1
+                      ? 'Question suivante'
+                      : 'Voir mon bilan d\'évaluation'
+                    : selectedOption
+                    ? 'Confirmer la réponse'
+                    : 'Sélectionnez une réponse'}
+                </span>
+                <span className="material-symbols-outlined text-[18px]">
+                  {isAnswerConfirmed ? 'arrow_forward' : selectedOption ? 'check_circle' : 'touch_app'}
+                </span>
               </button>
 
               <div className="pt-1 pb-4 text-center">
                 <p className="text-[11px] font-body-sm text-[#99907c] flex items-center justify-center gap-1.5 flex-wrap">
                   <span className="material-symbols-outlined text-[13px]">storage</span>
-                  <span>Évaluation corrigée localement (Moteur SQLite)</span>
+                  <span>Évaluation calculée localement (Moteur IndexedDB)</span>
                   <span>•</span>
                   <span className="text-[#d0c5af]">Déblocage hors-ligne du badge « Maître de la Couleur »</span>
                 </p>

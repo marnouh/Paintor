@@ -540,7 +540,7 @@ export const PathDetailScreen: React.FC = () => {
               <span className="font-body-sm text-[11.5px]">
                 Progression stockée dans{' '}
                 <code className="bg-[#2b292f] px-1.5 py-0.5 rounded text-[#f2ca50] font-mono text-[11px]">
-                  sqlite3: user_progress
+                  IndexedDB: user_progress
                 </code>{' '}
                 (0 octet consommé sur le réseau).
               </span>

@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { useApp } from '../context/AppContext.tsx';
-import { ARTWORKS, Artwork } from '../data/artworks.ts';
+import { Artwork } from '../data/artworks.ts';
 import { ContextualTipBanner } from '../components/ContextualTipBanner.tsx';
 
 export const ExplorerScreen: React.FC = () => {
   const {
+    artworks,
+    openCatalogModal,
     openArtwork,
     isBookmarked,
     toggleBookmark,
@@ -27,8 +29,8 @@ export const ExplorerScreen: React.FC = () => {
 
   const [sortOption, setSortOption] = useState<'chrono' | 'popularity' | 'alpha'>('chrono');
 
-  // Filter artworks dynamically
-  const filteredArtworks = ARTWORKS.filter((art) => {
+  // Filter artworks dynamically from active context
+  const filteredArtworks = artworks.filter((art) => {
     // Search query matching
     if (searchQuery.trim()) {
       const q = searchQuery.toLowerCase();
@@ -80,12 +82,25 @@ export const ExplorerScreen: React.FC = () => {
             <h1 className="font-title-editorial text-[17px] text-[#e5e1e8] tracking-tight font-semibold">
               Explorer
             </h1>
-            <span className="font-label-caps text-[9.5px] tracking-wider text-[#99907c] uppercase font-semibold">
-              Catalogue raisonné (840 toiles)
-            </span>
+            <button
+              onClick={openCatalogModal}
+              className="text-left font-label-caps text-[9.5px] tracking-wider text-[#f2ca50] hover:underline uppercase font-semibold flex items-center gap-1 cursor-pointer"
+              title="Gérer / Importer des œuvres JSON"
+            >
+              <span>Catalogue raisonné ({artworks.length} toiles)</span>
+              <span className="material-symbols-outlined text-[11px]">database</span>
+            </button>
           </div>
         </div>
         <div className="flex items-center gap-1">
+          <button
+            onClick={openCatalogModal}
+            aria-label="Gérer le catalogue et importer JSON"
+            className="p-2 text-[#f2ca50] hover:brightness-125 transition-colors duration-200 active:scale-95 cursor-pointer"
+            title="Importer / Exporter le catalogue JSON"
+          >
+            <span className="material-symbols-outlined text-[20px]">file_upload</span>
+          </button>
           <button
             onClick={() => setIsFilterModalOpen(true)}
             aria-label="Changer de vue"
@@ -284,7 +299,7 @@ export const ExplorerScreen: React.FC = () => {
         </section>
 
         {/* Results Subheader with Count & Sort */}
-        <div className="mt-5 mb-4 flex items-center justify-between border-b border-[#4d4635]/15 pb-2">
+        <div className="mt-5 mb-4 flex flex-wrap items-center justify-between gap-2 border-b border-[#4d4635]/15 pb-2">
           <div className="flex items-baseline gap-1.5">
             <span className="font-headline-sm text-[18px] text-[#e5e1e8] font-semibold">
               {sortedArtworks.length}
@@ -292,24 +307,35 @@ export const ExplorerScreen: React.FC = () => {
             <span className="font-body-sm text-[12px] text-[#99907c]">œuvres répertoriées</span>
           </div>
 
-          <div className="flex items-center gap-1 bg-[#1c1b20] px-2 py-1 rounded border border-white/[0.07]">
-            <span className="material-symbols-outlined text-[15px] text-[#f2ca50]">sort</span>
-            <select
-              value={sortOption}
-              onChange={(e) => setSortOption(e.target.value as any)}
-              aria-label="Ordre de tri"
-              className="bg-transparent text-[#d0c5af] font-label-caps text-[11px] uppercase tracking-wider focus:outline-none cursor-pointer pr-1"
+          <div className="flex items-center gap-2">
+            <button
+              onClick={openCatalogModal}
+              className="flex items-center gap-1 bg-[#201f24] hover:bg-[#2b292f] text-[#f2ca50] border border-[#f2ca50]/30 hover:border-[#f2ca50] px-2.5 py-1 rounded text-[11px] font-label-caps uppercase transition-colors cursor-pointer"
+              title="Importer ou exporter des œuvres en JSON"
             >
-              <option value="chrono" className="bg-[#2b292f] text-[#e5e1e8]">
-                Chronologique (Ancien → Récent)
-              </option>
-              <option value="popularity" className="bg-[#2b292f] text-[#e5e1e8]">
-                Par popularité
-              </option>
-              <option value="alpha" className="bg-[#2b292f] text-[#e5e1e8]">
-                Par artiste (A-Z)
-              </option>
-            </select>
+              <span className="material-symbols-outlined text-[15px]">file_upload</span>
+              <span>Importer JSON</span>
+            </button>
+
+            <div className="flex items-center gap-1 bg-[#1c1b20] px-2 py-1 rounded border border-white/[0.07]">
+              <span className="material-symbols-outlined text-[15px] text-[#f2ca50]">sort</span>
+              <select
+                value={sortOption}
+                onChange={(e) => setSortOption(e.target.value as any)}
+                aria-label="Ordre de tri"
+                className="bg-transparent text-[#d0c5af] font-label-caps text-[11px] uppercase tracking-wider focus:outline-none cursor-pointer pr-1"
+              >
+                <option value="chrono" className="bg-[#2b292f] text-[#e5e1e8]">
+                  Chronologique (Ancien → Récent)
+                </option>
+                <option value="popularity" className="bg-[#2b292f] text-[#e5e1e8]">
+                  Par popularité
+                </option>
+                <option value="alpha" className="bg-[#2b292f] text-[#e5e1e8]">
+                  Par artiste (A-Z)
+                </option>
+              </select>
+            </div>
           </div>
         </div>
 

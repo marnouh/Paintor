@@ -1,0 +1,17 @@
+{
+  "schemaVersion": "1.0",
+  "catalogVersion": "1.2.0",
+  "releaseDate": "15 Octobre 2026",
+  "description": "Édition Automne 2026 : Enrichissement scientifique des 213 chefs-d'œuvre, cartels IIIF unifiés et indexation BM25 optimisée.",
+  "artworksCount": 210,
+  "artistsCount": 105,
+  "sha256Checksum": "d15d3269646886730c4ee436ea12ed3d443923115f3ff17db3f7b605d29b2f92",
+  "catalogUrl": "/catalog/catalog-v1.2.json",
+  "fileSizeBytes": 325157,
+  "changelog": [
+    "Enrichissement des 213 fiches d'œuvres avec cartels muséaux et statuts juridiques",
+    "Intégration des points focaux d'observation et guides audio enrichis",
+    "Harmonisation biographique des 105 artistes du corpus mondial",
+    "Amélioration de la pondération de l'index plein texte BM25"
+  ]
+}

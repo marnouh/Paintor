@@ -1,6 +1,20 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { ARTWORKS, Artwork } from '../data/artworks.ts';
+import { ARTISTS, Artist } from '../data/artists.ts';
 import { LEARNING_PATHS, LearningPath } from '../data/learningPaths.ts';
+import { audioManager, CurrentAudioState } from '../services/audioManager.ts';
+import { validateArtworksJson } from '../services/catalogValidator.ts';
+import {
+  indexedDbService,
+  StoredNote,
+  StorageDiagnostics,
+} from '../services/indexedDbService.ts';
+import {
+  searchEngine,
+  SearchResultItem,
+  SearchEngineStats,
+} from '../services/searchEngine.ts';
+import { catalogUpdateService } from '../services/catalogUpdateService.ts';
 
 export type ScreenType =
   | 'accueil'
@@ -18,7 +32,21 @@ export interface HistoryItem {
   artworkId: string;
   timeAgo: string;
   readMinutes: number;
+  lastVisitedAt: number;
 }
+
+export const formatTimeAgo = (timestamp: number): string => {
+  const diffSec = Math.floor((Date.now() - timestamp) / 1000);
+  if (diffSec < 60) return 'À l’instant';
+  const diffMin = Math.floor(diffSec / 60);
+  if (diffMin < 60) return `Il y a ${diffMin} min`;
+  const diffHours = Math.floor(diffMin / 60);
+  if (diffHours < 24) return `Il y a ${diffHours} h`;
+  const diffDays = Math.floor(diffHours / 24);
+  if (diffDays === 1) return 'Hier';
+  if (diffDays < 7) return `Il y a ${diffDays} j`;
+  return new Date(timestamp).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' });
+};
 
 interface AppContextType {
   // Navigation
@@ -77,14 +105,23 @@ interface AppContextType {
   completedSteps: number[];
   completeStep: (stepNumber: number) => void;
 
-  // Audio Tour Global Simulation
-  currentAudio: {
-    title: string;
-    speaker: string;
-    isPlaying: boolean;
-  } | null;
-  toggleAudioPlayback: (title?: string, speaker?: string) => void;
+  // Guide Audio Réel & Lecteur Interactif
+  currentAudio: CurrentAudioState | null;
+  playAudio: (artworkId: string, forceMode?: 'file' | 'speech') => Promise<void>;
+  toggleAudioPlayback: (titleOrArtworkId?: string, speaker?: string) => void;
+  pauseAudio: () => void;
+  resumeAudio: () => Promise<void>;
+  seekAudio: (seconds: number) => void;
+  skipAudio: (deltaSeconds: number) => void;
+  setAudioPlaybackRate: (rate: number) => void;
+  setAudioVolume: (volume: number) => void;
+  toggleAudioMute: () => void;
+  switchAudioMode: (mode: 'file' | 'speech') => Promise<void>;
+  retryAudio: () => Promise<void>;
   stopAudio: () => void;
+  isAudioModalOpen: boolean;
+  setIsAudioModalOpen: (open: boolean) => void;
+  openAudioModal: (artworkId?: string) => void;
 
   // User Preferences & Accessibility
   fontSize: 'standard' | 'confort' | 'grand';
@@ -151,6 +188,35 @@ interface AppContextType {
   activeArtwork: Artwork;
   activeLearningPath: LearningPath;
   exportDatabaseJSON: () => void;
+
+  // Catalogue & Import/Export d'œuvres (JSON)
+  artworks: Artwork[];
+  artists: Artist[];
+  totalArtworksCount: number;
+  totalArtistsCount: number;
+  isCatalogModalOpen: boolean;
+  setIsCatalogModalOpen: (open: boolean) => void;
+  openCatalogModal: () => void;
+  importCatalogJson: (json: string, mode?: 'merge' | 'replace') => Promise<number>;
+  exportCatalogJson: () => void;
+  resetCatalogToDefault: () => Promise<void>;
+
+  // Architecture de stockage IndexedDB & Recherche Plein Texte FTS
+  storageDriver: 'IndexedDB';
+  storageDiagnostics: StorageDiagnostics | null;
+  refreshStorageDiagnostics: () => Promise<void>;
+  userNotes: StoredNote[];
+  addNote: (content: string, title?: string, artworkId?: string) => Promise<StoredNote>;
+  deleteNote: (id: string) => Promise<void>;
+  searchFTS: (query: string) => SearchResultItem[];
+  ftsStats: SearchEngineStats;
+
+  // Sauvegarde Chiffrée & Restauration
+  isBackupModalOpen: boolean;
+  setIsBackupModalOpen: (open: boolean) => void;
+  openBackupModal: () => void;
+  refreshUserData: () => Promise<void>;
+  catalogVersion: string;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -164,6 +230,164 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [isFilterModalOpen, setIsFilterModalOpen] = useState<boolean>(false);
   const [selectedArtistId, setSelectedArtistId] = useState<string | null>(null);
   const [selectedMovementId, setSelectedMovementId] = useState<string | null>(null);
+
+  // Dynamic Catalog State (IndexedDB)
+  const [artworks, setArtworks] = useState<Artwork[]>(() => ARTWORKS);
+  const [artists, setArtists] = useState<Artist[]>(() => ARTISTS);
+  const [isCatalogModalOpen, setIsCatalogModalOpen] = useState<boolean>(false);
+
+  // Real IndexedDB Stores (starts clean without dummy values)
+  const [bookmarkedIds, setBookmarkedIds] = useState<string[]>([]);
+  const [history, setHistory] = useState<HistoryItem[]>([]);
+  const [userPoints, setUserPoints] = useState<number>(0);
+  const [completedSteps, setCompletedSteps] = useState<number[]>([]);
+  const [userNotes, setUserNotes] = useState<StoredNote[]>([]);
+  const [storageDiagnostics, setStorageDiagnostics] = useState<StorageDiagnostics | null>(null);
+  const [isDbReady, setIsDbReady] = useState<boolean>(false);
+  const [isBackupModalOpen, setIsBackupModalOpen] = useState<boolean>(false);
+  const [catalogVersion, setCatalogVersion] = useState<string>('1.1.0');
+
+  const openBackupModal = () => setIsBackupModalOpen(true);
+
+  const refreshStorageDiagnostics = async () => {
+    try {
+      const diag = await indexedDbService.getDiagnostics();
+      setStorageDiagnostics(diag);
+    } catch (e) {
+      console.warn('Failed to refresh diagnostics:', e);
+    }
+  };
+
+  const refreshUserData = async () => {
+    try {
+      const [loadedArts, loadedArtists, bmarks, hist, notes, prog, diag] = await Promise.all([
+        indexedDbService.getArtworks(),
+        indexedDbService.getArtists(),
+        indexedDbService.getBookmarkIds(),
+        indexedDbService.getHistory(),
+        indexedDbService.getNotes(),
+        indexedDbService.getUserProgress(),
+        indexedDbService.getDiagnostics(),
+      ]);
+
+      setArtworks(loadedArts);
+      setArtists(loadedArtists);
+      searchEngine.indexArtworks(loadedArts);
+
+      setBookmarkedIds(bmarks);
+      setHistory(
+        hist.map((h) => ({
+          artworkId: h.artworkId,
+          timeAgo: formatTimeAgo(h.lastVisitedAt),
+          readMinutes: h.readMinutes,
+          lastVisitedAt: h.lastVisitedAt,
+        }))
+      );
+      setUserNotes(notes);
+      setUserPoints(prog.points);
+      setCompletedSteps(prog.completedSteps);
+      setStorageDiagnostics(diag);
+
+      const ver = await catalogUpdateService.getCurrentCatalogVersion();
+      setCatalogVersion(ver);
+    } catch (e) {
+      console.warn('Failed to refresh user data:', e);
+    }
+  };
+
+  // Initial Seed & Load from IndexedDB on startup
+  useEffect(() => {
+    let isMounted = true;
+    const initializeDb = async () => {
+      try {
+        await indexedDbService.initAndSeed();
+
+        const [loadedArts, loadedArtists, bmarks, hist, notes, prog, diag] = await Promise.all([
+          indexedDbService.getArtworks(),
+          indexedDbService.getArtists(),
+          indexedDbService.getBookmarkIds(),
+          indexedDbService.getHistory(),
+          indexedDbService.getNotes(),
+          indexedDbService.getUserProgress(),
+          indexedDbService.getDiagnostics(),
+        ]);
+
+        if (!isMounted) return;
+
+        setArtworks(loadedArts);
+        setArtists(loadedArtists);
+        searchEngine.indexArtworks(loadedArts);
+
+        setBookmarkedIds(bmarks);
+        setHistory(
+          hist.map((h) => ({
+            artworkId: h.artworkId,
+            timeAgo: formatTimeAgo(h.lastVisitedAt),
+            readMinutes: h.readMinutes,
+            lastVisitedAt: h.lastVisitedAt,
+          }))
+        );
+        setUserNotes(notes);
+        setUserPoints(prog.points);
+        setCompletedSteps(prog.completedSteps);
+        setStorageDiagnostics(diag);
+        setIsDbReady(true);
+      } catch (err) {
+        console.warn('Error booting IndexedDB:', err);
+        searchEngine.indexArtworks(ARTWORKS);
+      }
+    };
+
+    initializeDb();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  const openCatalogModal = () => setIsCatalogModalOpen(true);
+
+  const totalArtworksCount = artworks.length;
+  const totalArtistsCount = Array.from(new Set(artworks.map((a) => a.artist))).filter(Boolean).length;
+
+  const importCatalogJson = async (json: string, mode: 'merge' | 'replace' = 'merge'): Promise<number> => {
+    const result = validateArtworksJson(json);
+    if (result.sanitizedArtworks.length === 0) return 0;
+
+    if (mode === 'replace') {
+      setArtworks(result.sanitizedArtworks);
+      searchEngine.indexArtworks(result.sanitizedArtworks);
+      await indexedDbService.saveArtworks(result.sanitizedArtworks);
+      await refreshStorageDiagnostics();
+      return result.sanitizedArtworks.length;
+    } else {
+      const map = new Map<string, Artwork>();
+      artworks.forEach((item) => map.set(item.id, item));
+      result.sanitizedArtworks.forEach((item) => map.set(item.id, item));
+      const merged = Array.from(map.values());
+      setArtworks(merged);
+      searchEngine.indexArtworks(merged);
+      await indexedDbService.saveArtworks(merged);
+      await refreshStorageDiagnostics();
+      return result.sanitizedArtworks.length;
+    }
+  };
+
+  const exportCatalogJson = () => {
+    const blob = new Blob([JSON.stringify(artworks, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `regard-catalogue-${artworks.length}-oeuvres.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
+  const resetCatalogToDefault = async () => {
+    setArtworks(ARTWORKS);
+    searchEngine.indexArtworks(ARTWORKS);
+    await indexedDbService.resetArtworksToDefault();
+    await refreshStorageDiagnostics();
+  };
 
   const openArtist = (id: string) => setSelectedArtistId(id);
   const closeArtist = () => setSelectedArtistId(null);
@@ -182,32 +406,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     withAudioOnly: false,
   });
 
-  // Local Storage persisted states
-  const [bookmarkedIds, setBookmarkedIds] = useState<string[]>(() => {
-    try {
-      const saved = localStorage.getItem('regard_bookmarks');
-      return saved ? JSON.parse(saved) : ['starry-night', 'girl-pearl-earring', 'judith-holofernes', 'thorn-necklace'];
-    } catch {
-      return ['starry-night', 'girl-pearl-earring', 'judith-holofernes', 'thorn-necklace'];
-    }
-  });
+  const searchFTS = (query: string) => {
+    return searchEngine.search(query).results;
+  };
 
-  const [history, setHistory] = useState<HistoryItem[]>([
-    { artworkId: 'milkmaid', timeAgo: 'Il y a 2h', readMinutes: 8 },
-    { artworkId: 'third-of-may', timeAgo: 'Hier', readMinutes: 15 },
-    { artworkId: 'impression-sunrise', timeAgo: 'Il y a 3 jours', readMinutes: 4 },
-  ]);
-
-  const [userPoints, setUserPoints] = useState<number>(() => {
-    try {
-      const saved = localStorage.getItem('regard_points');
-      return saved ? Number(saved) : 780;
-    } catch {
-      return 780;
-    }
-  });
-
-  const [completedSteps, setCompletedSteps] = useState<number[]>([1, 2, 3]);
+  const ftsStats = searchEngine.getStats();
 
   // Accessibility & System Preferences
   const [fontSize, setFontSize] = useState<'standard' | 'confort' | 'grand'>(() => {
@@ -361,7 +564,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   // System Settings & Updates
   const [isSystemSettingsOpen, setIsSystemSettingsOpen] = useState<boolean>(false);
-  const appVersion = 'v2.4.2';
+  const appVersion = 'v2.5.0';
   const releaseDate = '10 Octobre 2026';
   const [lastUpdateCheckDate, setLastUpdateCheckDate] = useState<string>(() => {
     try {
@@ -398,37 +601,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   const checkForUpdates = async (): Promise<string> => {
     setIsCheckingUpdate(true);
-    await new Promise((resolve) => setTimeout(resolve, 1400));
-    const now = new Date();
-    const formatted = `${now.toLocaleDateString('fr-FR', {
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric',
-    })} à ${now.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}`;
-    setLastUpdateCheckDate(formatted);
     try {
-      localStorage.setItem('regard_last_check', formatted);
-      if ('serviceWorker' in navigator) {
-        const registrations = await navigator.serviceWorker.getRegistrations();
-        for (const reg of registrations) {
-          reg.update();
-        }
-      }
-    } catch (e) {
-      console.warn(e);
-    }
-    setIsCheckingUpdate(false);
-    return `Votre version ${appVersion} est parfaitement à jour (Vérifié ${formatted})`;
-  };
-
-  const forceUpdate = async (): Promise<string> => {
-    setIsCheckingUpdate(true);
-    await new Promise((resolve) => setTimeout(resolve, 1800));
-    try {
-      if ('caches' in window) {
-        const keys = await caches.keys();
-        await Promise.all(keys.map((k) => caches.delete(k)));
-      }
+      const checkResult = await catalogUpdateService.checkForUpdate();
       const now = new Date();
       const formatted = `${now.toLocaleDateString('fr-FR', {
         day: 'numeric',
@@ -437,11 +611,62 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       })} à ${now.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}`;
       setLastUpdateCheckDate(formatted);
       localStorage.setItem('regard_last_check', formatted);
-    } catch (e) {
-      console.warn(e);
+
+      if (checkResult.isOffline) {
+        setIsCheckingUpdate(false);
+        return checkResult.message;
+      }
+
+      if (checkResult.hasUpdate && checkResult.manifest) {
+        setIsCheckingUpdate(false);
+        return `Nouvelle édition ${checkResult.manifest.catalogVersion} disponible (${checkResult.manifest.artworksCount} toiles). Cliquez sur « Forcer la mise à jour » pour l'installer.`;
+      } else {
+        setIsCheckingUpdate(false);
+        return checkResult.message;
+      }
+    } catch (e: any) {
+      setIsCheckingUpdate(false);
+      return `Vérification échouée : ${e.message}`;
     }
-    setIsCheckingUpdate(false);
-    return `Mise à jour forcée réussie ! Cache réinitialisé et fiches synchronisées (v2.4.2).`;
+  };
+
+  const forceUpdate = async (): Promise<string> => {
+    setIsCheckingUpdate(true);
+    try {
+      // 1. Check manifest
+      const checkResult = await catalogUpdateService.checkForUpdate();
+      if (checkResult.isOffline) {
+        setIsCheckingUpdate(false);
+        return checkResult.message;
+      }
+
+      if (!checkResult.manifest) {
+        setIsCheckingUpdate(false);
+        return 'Impossible de récupérer le manifeste distant de mise à jour.';
+      }
+
+      // 2. Download, verify SHA-256 and apply update
+      const updateResult = await catalogUpdateService.applyUpdate(checkResult.manifest);
+      if (updateResult.success) {
+        await refreshUserData();
+        const now = new Date();
+        const formatted = `${now.toLocaleDateString('fr-FR', {
+          day: 'numeric',
+          month: 'long',
+          year: 'numeric',
+        })} à ${now.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}`;
+        setLastUpdateCheckDate(formatted);
+        localStorage.setItem('regard_last_check', formatted);
+        setIsCheckingUpdate(false);
+        return `Mise à jour v${updateResult.newVersion} installée avec succès ! ${updateResult.artworksCount} toiles synchronisées. Vos favoris et notes sont préservés.`;
+      } else {
+        setIsCheckingUpdate(false);
+        return `Échec de mise à jour : ${updateResult.error || updateResult.message}`;
+      }
+    } catch (e: any) {
+      setIsCheckingUpdate(false);
+      return `Erreur lors de la mise à jour : ${e.message}`;
+    }
   };
 
   // Background Automatic Updates (periodic check loop)
@@ -541,11 +766,15 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setDismissedTips([]);
   };
 
-  const [currentAudio, setCurrentAudio] = useState<{
-    title: string;
-    speaker: string;
-    isPlaying: boolean;
-  } | null>(null);
+  const [currentAudio, setCurrentAudio] = useState<CurrentAudioState | null>(null);
+  const [isAudioModalOpen, setIsAudioModalOpen] = useState<boolean>(false);
+
+  useEffect(() => {
+    const unsubscribe = audioManager.subscribe((state) => {
+      setCurrentAudio(state);
+    });
+    return () => unsubscribe();
+  }, []);
 
   // Save changes to localStorage
   useEffect(() => {
@@ -587,10 +816,17 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const openArtwork = (id: string, mode: 'decouvrir' | 'approfondir' = 'decouvrir') => {
     setSelectedArtworkId(id);
     setArtworkReadingMode(mode);
-    // Add to history if not present
-    setHistory((prev) => {
-      const filtered = prev.filter((item) => item.artworkId !== id);
-      return [{ artworkId: id, timeAgo: 'À l’instant', readMinutes: 2 }, ...filtered];
+    indexedDbService.recordVisit(id, 2).then(async () => {
+      const hist = await indexedDbService.getHistory();
+      setHistory(
+        hist.map((h) => ({
+          artworkId: h.artworkId,
+          timeAgo: formatTimeAgo(h.lastVisitedAt),
+          readMinutes: h.readMinutes,
+          lastVisitedAt: h.lastVisitedAt,
+        }))
+      );
+      await refreshStorageDiagnostics();
     });
     navigateTo('artwork-detail');
   };
@@ -611,29 +847,51 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     navigateTo('quiz');
   };
 
-  const toggleBookmark = (id: string) => {
-    setBookmarkedIds((prev) => {
-      if (prev.includes(id)) {
-        return prev.filter((item) => item !== id);
-      } else {
-        return [id, ...prev];
-      }
-    });
+  const toggleBookmark = async (id: string) => {
+    await indexedDbService.toggleBookmark(id);
+    const updated = await indexedDbService.getBookmarkIds();
+    setBookmarkedIds(updated);
+    await refreshStorageDiagnostics();
   };
 
   const isBookmarked = (id: string) => bookmarkedIds.includes(id);
 
-  const clearHistory = () => {
+  const clearHistory = async () => {
+    await indexedDbService.clearHistory();
     setHistory([]);
+    await refreshStorageDiagnostics();
   };
 
   const addPoints = (pts: number) => {
-    setUserPoints((prev) => Math.min(1000, prev + pts));
+    setUserPoints((prev) => {
+      const next = Math.min(1000, prev + pts);
+      indexedDbService.saveUserProgress(next, completedSteps);
+      return next;
+    });
   };
 
   const completeStep = (stepNumber: number) => {
-    setCompletedSteps((prev) => (prev.includes(stepNumber) ? prev : [...prev, stepNumber]));
+    setCompletedSteps((prev) => {
+      const next = prev.includes(stepNumber) ? prev : [...prev, stepNumber];
+      indexedDbService.saveUserProgress(userPoints + 50, next);
+      return next;
+    });
     addPoints(50);
+  };
+
+  const addNote = async (content: string, title?: string, artworkId?: string): Promise<StoredNote> => {
+    const note = await indexedDbService.saveNote(content, title, artworkId);
+    const updated = await indexedDbService.getNotes();
+    setUserNotes(updated);
+    await refreshStorageDiagnostics();
+    return note;
+  };
+
+  const deleteNote = async (id: string): Promise<void> => {
+    await indexedDbService.deleteNote(id);
+    const updated = await indexedDbService.getNotes();
+    setUserNotes(updated);
+    await refreshStorageDiagnostics();
   };
 
   const togglePeriod = (p: string) => {
@@ -682,41 +940,77 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       ? 'Amateur Averti (Niveau 2)'
       : 'Initié au Beau (Niveau 1)';
 
-  const toggleAudioPlayback = (title = 'Commentaire du Conservateur', speaker = 'Claire D.') => {
-    if (currentAudio && currentAudio.isPlaying) {
-      setCurrentAudio({ ...currentAudio, isPlaying: false });
+  const playAudio = async (artworkId: string, forceMode?: 'file' | 'speech') => {
+    const art = artworks.find((a) => a.id === artworkId);
+    await audioManager.playArtwork(artworkId, forceMode, art);
+  };
+
+  const toggleAudioPlayback = (titleOrArtworkId?: string, _speaker?: string) => {
+    if (titleOrArtworkId) {
+      const foundArtwork =
+        artworks.find((a) => a.id === titleOrArtworkId) ||
+        artworks.find(
+          (a) =>
+            a.title.toLowerCase().includes(titleOrArtworkId.toLowerCase()) ||
+            (a.audioGuide && a.audioGuide.title.toLowerCase().includes(titleOrArtworkId.toLowerCase()))
+        );
+
+      if (foundArtwork) {
+        if (currentAudio?.artworkId === foundArtwork.id) {
+          audioManager.togglePlay();
+          return;
+        } else {
+          audioManager.playArtwork(foundArtwork.id, undefined, foundArtwork);
+          return;
+        }
+      }
+    }
+
+    if (currentAudio) {
+      audioManager.togglePlay();
+    } else if (selectedArtworkId) {
+      const art = artworks.find((a) => a.id === selectedArtworkId);
+      audioManager.playArtwork(selectedArtworkId, undefined, art);
     } else {
-      setCurrentAudio({ title, speaker, isPlaying: true });
+      audioManager.playArtwork(artworks[0]?.id || 'starry-night', undefined, artworks[0]);
     }
   };
 
-  const stopAudio = () => {
-    setCurrentAudio(null);
+  const pauseAudio = () => audioManager.pause();
+  const resumeAudio = async () => audioManager.resume();
+  const seekAudio = (seconds: number) => audioManager.seek(seconds);
+  const skipAudio = (delta: number) => audioManager.skip(delta);
+  const setAudioPlaybackRate = (rate: number) => audioManager.setPlaybackRate(rate);
+  const setAudioVolume = (vol: number) => audioManager.setVolume(vol);
+  const toggleAudioMute = () => audioManager.toggleMute();
+  const switchAudioMode = async (mode: 'file' | 'speech') => audioManager.switchMode(mode);
+  const retryAudio = async () => audioManager.retry();
+  const stopAudio = () => audioManager.stop();
+
+  const openAudioModal = (artworkId?: string) => {
+    if (artworkId && artworkId !== currentAudio?.artworkId) {
+      const art = artworks.find((a) => a.id === artworkId);
+      audioManager.playArtwork(artworkId, undefined, art);
+    }
+    setIsAudioModalOpen(true);
   };
 
-  const exportDatabaseJSON = () => {
-    const backupData = {
-      exportDate: new Date().toISOString(),
-      app: 'Regard - L Art de la Peinture',
-      storageEngine: 'SQLite FTS5 Local Storage Wrapper',
-      user: {
-        points: userPoints,
-        level: userLevel,
-        bookmarks: bookmarkedIds,
-        completedSteps: completedSteps,
-        history: history,
-      },
-    };
-    const blob = new Blob([JSON.stringify(backupData, null, 2)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `regard_backup_${Date.now()}.json`;
-    a.click();
-    URL.revokeObjectURL(url);
+  const exportDatabaseJSON = async () => {
+    try {
+      const jsonString = await indexedDbService.exportCompleteDatabaseJson();
+      const blob = new Blob([jsonString], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `regard_sauvegarde_indexeddb_${Date.now()}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+    } catch (e) {
+      console.warn('Export database error:', e);
+    }
   };
 
-  const activeArtwork = ARTWORKS.find((a) => a.id === selectedArtworkId) || ARTWORKS[0];
+  const activeArtwork = artworks.find((a) => a.id === selectedArtworkId) || artworks[0];
   const activeLearningPath = LEARNING_PATHS.find((p) => p.id === selectedPathId) || LEARNING_PATHS[0];
 
   return (
@@ -769,8 +1063,21 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         completeStep,
 
         currentAudio,
+        playAudio,
         toggleAudioPlayback,
+        pauseAudio,
+        resumeAudio,
+        seekAudio,
+        skipAudio,
+        setAudioPlaybackRate,
+        setAudioVolume,
+        toggleAudioMute,
+        switchAudioMode,
+        retryAudio,
         stopAudio,
+        isAudioModalOpen,
+        setIsAudioModalOpen,
+        openAudioModal,
 
         fontSize,
         setFontSize,
@@ -829,6 +1136,35 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         activeArtwork,
         activeLearningPath,
         exportDatabaseJSON,
+
+        // Catalogue & Import/Export d'œuvres (JSON)
+        artworks,
+        artists,
+        totalArtworksCount,
+        totalArtistsCount,
+        isCatalogModalOpen,
+        setIsCatalogModalOpen,
+        openCatalogModal,
+        importCatalogJson,
+        exportCatalogJson,
+        resetCatalogToDefault,
+
+        // IndexedDB & Recherche Plein Texte
+        storageDriver: 'IndexedDB',
+        storageDiagnostics,
+        refreshStorageDiagnostics,
+        userNotes,
+        addNote,
+        deleteNote,
+        searchFTS,
+        ftsStats,
+
+        // Sauvegarde Chiffrée & Restauration
+        isBackupModalOpen,
+        setIsBackupModalOpen,
+        openBackupModal,
+        refreshUserData,
+        catalogVersion,
       }}
     >
       {children}

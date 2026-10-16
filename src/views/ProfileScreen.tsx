@@ -23,6 +23,9 @@ export const ProfileScreen: React.FC = () => {
     setIsSystemSettingsOpen,
     setIsOnboardingOpen,
     appVersion,
+    storageDiagnostics,
+    openCatalogModal,
+    openBackupModal,
   } = useApp();
 
   const [cacheSize, setCacheSize] = useState<string>('124.6 Mo');
@@ -273,8 +276,10 @@ export const ProfileScreen: React.FC = () => {
 
           <div className="space-y-2">
             <div className="flex justify-between text-[12.5px] p-2 bg-[#201f24] rounded border border-white/5">
-              <span className="text-[#d0c5af]">Base de données SQLite (FTS5 + Schéma)</span>
-              <span className="font-mono text-[#f2ca50] font-semibold">48.2 Mo</span>
+              <span className="text-[#d0c5af]">Base IndexedDB (RegardMuseumDB v1)</span>
+              <span className="font-mono text-[#f2ca50] font-semibold">
+                {storageDiagnostics?.storageQuota?.usageFormatted || '3.8 Mo'} ({storageDiagnostics?.stores.artworksCount ?? 213} toiles)
+              </span>
             </div>
             <div className="flex justify-between text-[12.5px] p-2 bg-[#201f24] rounded border border-white/5">
               <span className="text-[#d0c5af]">Cache des photographies d'art</span>
@@ -310,21 +315,21 @@ export const ProfileScreen: React.FC = () => {
 
           <div className="grid grid-cols-2 gap-2.5 pt-1">
             <button
-              onClick={exportDatabaseJSON}
+              onClick={openBackupModal}
               className="p-3 rounded-lg bg-[#201f24] border border-[#f2ca50]/30 hover:border-[#f2ca50] text-[#e5e1e8] flex flex-col items-center text-center gap-1.5 transition-all cursor-pointer"
             >
-              <span className="material-symbols-outlined text-[#f2ca50] text-[20px]">download</span>
-              <span className="font-label-md text-[12px] font-bold">Exporter ma collection</span>
-              <span className="text-[10px] text-[#99907c]">Fichier JSON chiffré</span>
+              <span className="material-symbols-outlined text-[#f2ca50] text-[20px]">lock_reset</span>
+              <span className="font-label-md text-[12px] font-bold">Sauvegarde Chiffrée</span>
+              <span className="text-[10px] text-[#99907c]">AES-256 ou Restauration</span>
             </button>
 
             <button
-              onClick={handleImportCataloguePackage}
+              onClick={openCatalogModal}
               className="p-3 rounded-lg bg-[#201f24] border border-[#f2ca50]/30 hover:border-[#f2ca50] text-[#e5e1e8] flex flex-col items-center text-center gap-1.5 transition-all cursor-pointer"
             >
               <span className="material-symbols-outlined text-[#f2ca50] text-[20px]">publish</span>
-              <span className="font-label-md text-[12px] font-bold">Importer un paquet</span>
-              <span className="text-[10px] text-[#99907c]">Catalogue sans serveur</span>
+              <span className="font-label-md text-[12px] font-bold">Gérer le Catalogue</span>
+              <span className="text-[10px] text-[#99907c]">Import / Export JSON</span>
             </button>
           </div>
         </section>
@@ -391,7 +396,7 @@ export const ProfileScreen: React.FC = () => {
           </div>
 
           <p>
-            <strong className="text-[#e5e1e8]">Version de l'application :</strong> {appVersion} — Build SQLite 3.44 FTS5
+            <strong className="text-[#e5e1e8]">Version de l'application :</strong> {appVersion} — Architecture PWA IndexedDB (RegardMuseumDB v1 + FTS BM25)
           </p>
           <p>
             <strong className="text-[#e5e1e8]">Mentions légales &amp; Exonération :</strong> L'éditeur décline toute responsabilité quant aux données culturelles, dates, attributions et fiches muséales fournies à titre indicatif.

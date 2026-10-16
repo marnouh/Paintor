@@ -11,9 +11,13 @@ export const HomeScreen: React.FC = () => {
     toggleBookmark,
     isBookmarked,
     toggleAudioPlayback,
+    currentAudio,
     navigateTo,
     applyQuickFilter,
     toggleHamburger,
+    totalArtworksCount,
+    totalArtistsCount,
+    openCatalogModal,
   } = useApp();
 
   return (
@@ -151,12 +155,20 @@ export const HomeScreen: React.FC = () => {
                   </span>
                 </button>
                 <button
-                  onClick={() => toggleAudioPlayback('La lumière de Delft', 'Claire D.')}
+                  onClick={() => toggleAudioPlayback('girl-pearl-earring')}
                   aria-label="Guide audio rapide"
-                  className="p-3 rounded-lg bg-[#201f24] text-[#e5e1e8] hover:text-[#f2ca50] border border-white/10 transition-colors active:scale-95 cursor-pointer"
-                  title="Écouter le guide audio"
+                  className={`p-3 rounded-lg border transition-all active:scale-95 cursor-pointer ${
+                    currentAudio?.isPlaying && currentAudio.artworkId === 'girl-pearl-earring'
+                      ? 'bg-[#f2ca50] text-[#3c2f00] border-[#f2ca50] shadow-md'
+                      : 'bg-[#201f24] text-[#e5e1e8] hover:text-[#f2ca50] border-white/10'
+                  }`}
+                  title="Écouter le guide audio de la Jeune Fille à la perle"
                 >
-                  <span className="material-symbols-outlined text-[20px]">headphones</span>
+                  <span className="material-symbols-outlined text-[20px]">
+                    {currentAudio?.isPlaying && currentAudio.artworkId === 'girl-pearl-earring'
+                      ? 'pause'
+                      : 'headphones'}
+                  </span>
                 </button>
               </div>
             </div>
@@ -169,10 +181,14 @@ export const HomeScreen: React.FC = () => {
             <h3 className="font-label-caps text-[11px] text-[#99907c] tracking-widest uppercase">
               Axes d'exploration
             </h3>
-            <span className="font-body-sm text-[12px] text-[#99907c] flex items-center gap-1">
-              <span className="material-symbols-outlined text-[14px] text-[#f2ca50]">database</span>
-              Base locale 840 œuvres
-            </span>
+            <button
+              onClick={openCatalogModal}
+              className="font-body-sm text-[12px] text-[#f2ca50] hover:text-[#ffe088] flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#f2ca50]/10 border border-[#f2ca50]/30 transition-colors cursor-pointer group"
+              title="Gérer le catalogue d'œuvres (210+ toiles, 105 peintres, import JSON)"
+            >
+              <span className="material-symbols-outlined text-[14px] text-[#f2ca50] group-hover:scale-110 transition-transform">database</span>
+              <span className="font-medium">Base : {totalArtworksCount} toiles • {totalArtistsCount} peintres</span>
+            </button>
           </div>
 
           <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-1 -mx-4 px-4 sm:-mx-0 sm:px-0">

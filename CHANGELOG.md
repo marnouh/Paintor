@@ -4,6 +4,28 @@ Toutes les modifications notables apportées au projet **Regard — L'Art de la 
 
 ---
 
+## [2.5.0] - 2026-10-10
+
+### 🎧 Guide Audio Réel & Lecteur Interactif Déployé
+- **Vrais fichiers audio natifs** :
+  - Génération et intégration d'une bibliothèque complète de pistes audio pour chaque chef-d'œuvre dans `/public/audio/` (carillons de musée, résonances acoustiques harmoniques, ambiance de galerie).
+  - Couverture complète des œuvres du musée (Van Gogh, Vermeer, Frida Kahlo, Goya, Monet, Artemisia Gentileschi, Cézanne, De Vinci, Le Caravage, Hokusai, Lascaux).
+  - Intégration du moteur HTML5 `Audio` avec écouteurs d'événements réels (`timeupdate`, `durationchange`, `play`, `pause`, `waiting`, `canplay`, `error`, `ended`).
+- **Contrôles Complets de Progression & Navigation Temporelle** :
+  - Curseur de défilement interactif (scrubber) permettant de sauter instantanément à n'importe quel moment de la piste audio.
+  - Horodatage précis en direct : temps écoulé / durée totale (`00:42 / 02:14`) et temps restant.
+  - Boutons de saut temporel d'avance et de recul rapide de 10 secondes (`-10s` / `+10s`).
+  - Sélecteur de vitesse de lecture configurable (`0.75x`, `1.0x`, `1.25x`, `1.5x`, `2.0x`).
+  - Contrôle du volume sonore et bouton de coupure (sourdine / mute).
+- **Gestion Avancée des Erreurs & Résilience** :
+  - Détection automatique et gestion des erreurs de chargement, de réseau ou de décodage (`hasError`, `errorMessage`).
+  - Bannière d'alerte claire avec bouton **« Réessayer »** pour relancer la lecture.
+  - Bascule instantanée de secours vers la **Synthèse Vocale Assistée (Web Speech API)** en langue française (`fr-FR`) pour garantir que l'utilisateur ne soit jamais privé de l'explication curatoriale.
+- **Lecteur Flottant & Grand Format Dédié** :
+  - Barre flottante persistante (`AudioPlayerFloating`) avec miniature, titres, barre de progression interactive, contrôles de transport et bouton de minimisation.
+  - Nouveau lecteur grand format (`AudioPlayerModal`) avec visuel haute définition, commandes enrichies, transcription intégrale du commentaire et raccourci direct vers le mode Gigapixel.
+  - Intégration dans la fiche de l'œuvre (`ArtworkDetailScreen`) avec curseur en direct et transcription textuelle dépliable.
+
 ## [2.4.2] - 2026-10-10
 
 ### ✨ Ajouté

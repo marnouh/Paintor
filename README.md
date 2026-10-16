@@ -7,11 +7,11 @@
 **Musée immersif autonome, carnet curatorial local et exploration scientifique des chefs-d'œuvre de la peinture mondiale.**
 
 [![PWA Ready](https://img.shields.io/badge/PWA-Installable-F2CA50?style=for-the-badge&logo=pwa&logoColor=141318)](https://web.dev/progressive-web-apps/)
-[![100% Offline](https://img.shields.io/badge/Mode-100%25%20Hors--ligne-2ECC71?style=for-the-badge&logo=sqlite&logoColor=white)](#souveraineté-des-données)
+[![100% Offline](https://img.shields.io/badge/Stockage-IndexedDB%20%2B%20BM25-2ECC71?style=for-the-badge&logo=w3c&logoColor=white)](#-architecture-de-stockage-local-indexeddb-option-a)
 [![TypeScript](https://img.shields.io/badge/TypeScript-ES2022-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Tailwind CSS v4](https://img.shields.io/badge/TailwindCSS-v4.0-38BDF8?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
 
-[✨ Découvrir l'Application](#-fonctionnalités-phares) • [📱 Mode PWA & Raccourci](#-installation-pwa--raccourci) • [🔬 Visionneuse Gigapixel](#-visionneuse-ultra-hd-gigapixel) • [📚 Parcours & Histoire de l'Art](#-parcours-pédagogiques--quiz)
+[✨ Découvrir l'Application](#-fonctionnalités-phares) • [📱 Mode PWA & Raccourci](#-installation-pwa--raccourci) • [🗄️ Stockage IndexedDB](#-architecture-de-stockage-local-indexeddb-option-a) • [🔬 Visionneuse Gigapixel](#-visionneuse-ultra-hd-gigapixel) • [📚 Parcours & Histoire de l'Art](#-parcours-pédagogiques--quiz)
 
 </div>
 
@@ -21,7 +21,7 @@
 
 **Regard** est conçu pour transformer l'apprentissage de l'histoire de l'art en une expérience sensorielle, silencieuse et scientifique. Inspiré par les plus prestigieuses salles d'exposition nocturnes (Mauritshuis, Musée d'Orsay, National Gallery, Louvre), l'application privilégie la **contemplation active** face aux flux d'images éphémères des réseaux sociaux.
 
-L'application fonctionne à **100% en mode autonome et local** : aucune dépendance serveur, aucun pistage publicitaire, et une indexation textuelle intégrale avec tolérance orthographique assurée par un moteur de recherche plein texte SQLite FTS5.
+L'application fonctionne à **100% en mode autonome et local** : aucune dépendance serveur, aucun pistage publicitaire, et une architecture de persistance structurée **IndexedDB (RegardMuseumDB v1)** couplée à un moteur de recherche plein texte à index inversé (BM25) avec accent folding et pondération multicritère.
 
 ---
 
@@ -56,7 +56,8 @@ L'application fonctionne à **100% en mode autonome et local** : aucune dépenda
 - **Mode Découvrir (2 min)** : Citation curatoriale, accroche synthétique, observation première et hotspots visuels.
 - **Mode Approfondir** : 4 chapitres scientifiques déployables (Composition & Rythme, Technique & Pigments, Contexte & Correspondances, Postérité & Mythe).
 - **Cartel muséal complet** : Technique, support, dimensions, lieu de conservation, numéro d'inventaire officiel et statut juridique (domaine public mondial / patrimoine).
-- **Audio guide flottant** : Commentaire vocal de conservateur avec forme d'onde animée et contrôle persistant.
+- **Lecteur Audio Studio Réel** : Fichiers audio natifs dans `/public/audio/`, curseur de défilement interactif (scrubber), sauts rapides -10s/+10s, réglage de la vitesse (0.75x à 2.0x), gestion des erreurs avec bouton « Réessayer » et bascule de secours vers la synthèse vocale française (Web Speech API).
+- **Lecteur Grand Format Dédié (`AudioPlayerModal`)** : Transcription intégrale du commentaire pour lire en silence, commande de volume sonore et raccourci direct vers le laboratoire Gigapixel.
 
 ### 3. 🔍 Visionneuse Ultra-HD Gigapixel
 - **Échelle macroscopique** : Paliers de zoom 1×, 2×, 2.8× et 4×.
@@ -108,6 +109,70 @@ L'application fonctionne à **100% en mode autonome et local** : aucune dépenda
 
 ---
 
+## 🗄️ Architecture de Stockage Local : Option A (IndexedDB)
+
+Conformément au cahier des charges et aux arbitrages techniques d'architecture pour une Progressive Web App autonome, **l'Option A : Architecture IndexedDB Complète** a été retenue et intégrée.
+
+### 1. Pourquoi IndexedDB plutôt que SQLite WASM ?
+
+| Critère | Architecture Retenue : IndexedDB (Option A) | Alternative : SQLite WASM / FTS5 |
+| :--- | :--- | :--- |
+| **Poids & Téléchargement initial** | **0 Ko de surcoût** — API native intégrée dans 100% des navigateurs modernes. | **+1,5 à 4,5 Mo** de binaire WebAssembly (`sqlite3.wasm`) à charger au démarrage. |
+| **Gestion mémoire (RAM)** | **Asynchrone non-bloquante**, gérée par le thread de stockage du navigateur. | Consommation importante de heap WASM (32–64 Mo) pouvant planter les navigateurs mobiles. |
+| **Contraintes de Sécurité PWA** | **Aucun prérequis d'en-têtes HTTP**. Fonctionne sur tout hébergement statique ou CDN. | Nécessite des en-têtes stricts `COOP` (Same-Origin) et `COEP` (Require-Corp) qui **bloquent les images et audios externes**. |
+| **Quota & Persistance** | **Multi-gigaoctets** (API `navigator.storage.estimate()`), persistance garantie sans perte. | Fichier virtuel OPFS / IDBFS sujet à des corruptions lors de fermetures intempestives d'onglets. |
+| **Modèle de Données** | **Objets TypeScript structurés** sans désérialisation lourde. | Requêtes textuelles SQL avec sérialisation/désérialisation obligatoire. |
+
+### 2. Schéma de la Base de Données `RegardMuseumDB` (v1)
+
+L'ensemble des données réside dans la base IndexedDB locale `RegardMuseumDB` répartie en **7 ObjectStores** spécialisés :
+
+1. `artworks` (clé primaire `id`) :
+   - Contient l'intégralité du corpus de peintures (213+ toiles canoniques enrichies avec dimensions, pigments, cartel muséal, 4 chapitres scientifiques et points d'intérêt).
+   - Index secondaires : `artist`, `movement`, `period`, `year`.
+   - Modifiable à tout moment par l'utilisateur via le gestionnaire de catalogue (import/export JSON avec validation de schéma stricte).
+2. `artists` (clé primaire `id`) :
+   - Répertoire biographique des 105 peintres du monde (dates de naissance/mort, nationalité, biographies courte & longue, mouvements principaux, citations et contexte historique).
+   - Index secondaire : `name`.
+3. `bookmarks` (clé primaire `artworkId`) :
+   - Sauvegarde des toiles favorites avec horodatage d'ajout réel (`addedAt`).
+4. `history` (clé primaire `artworkId`) :
+   - Historique d'exploration **réel et vierge à l'installation**. Enregistre les consultations effectives de l'utilisateur avec horodatage (`lastVisitedAt`), compteur de visites (`visitCount`) et durée cumulée de lecture (`readMinutes`).
+5. `notes` (clé primaire `id`) :
+   - Carnet d'analyse curatorial de l'utilisateur (CRUD complet de notes d'étude liées ou non à une œuvre spécifique, avec date de création et mise à jour).
+6. `user_progress` (clé primaire `key`) :
+   - Enregistrement des points d'érudition esthétique, paliers franchis (ex. *Initié*, *Amateur Éclairé*, *Conservateur Adjoint*), étapes de parcours complétées et badges débloqués.
+7. `app_settings` (clé primaire `key`) :
+   - Préférences utilisateur (thème sombre nocturne ou clair diurne, fréquence des mises à jour automatiques, activation des infobulles et bannières contextuelles).
+
+### 3. Moteur de Recherche Plein Texte (FTS) Inversé BM25
+
+Pour offrir la même puissance de recherche qu'un moteur SQLite FTS5 sans son surcoût binaire, l'application intègre un **moteur de recherche à index inversé en mémoire (BM25)** (`src/services/searchEngine.ts`) synchronisé avec IndexedDB :
+- **Tokenisation & Pliage d'Accents (Accent Folding)** : Normalisation Unicode NFD, suppression des diacritiques (`é` → `e`, `à` → `a`, `ç` → `c`) et insensible à la casse.
+- **Filtrage des Mots Vides (Stopwords)** : Élimination des termes parasites de la langue française (`le`, `la`, `de`, `du`, `dans`, etc.).
+- **Pondération Multicritère** : Titre (poids 6.0), Sous-titre (4.0), Artiste (4.5), Mouvement (3.0), Technique (2.0), Musée (1.5), Tags (2.2), Description curatoriale & transcription audio (1.0).
+- **Tolérance & Préfixes** : Correspondance instantanée dès 2 caractères saisis, recherche croisée toiles/artistes/mouvements/siècles en moins de 1 milliseconde.
+
+### 4. Sauvegarde Chiffrée (AES-GCM 256 bits), Restauration & Mises à Jour Vérifiables
+
+- **Sauvegarde Chiffrée Web Crypto API** (`src/services/cryptoBackupService.ts`) :
+  - **Chiffrement fort AES-GCM 256 bits** avec tag d'authentification garantissant l'intégrité et la confidentialité.
+  - Dérivation de clé par **PBKDF2-HMAC-SHA256** avec sel aléatoire de 16 octets et **100 000 itérations** (OWASP).
+  - Vecteur d'initialisation (IV) de 12 octets aléatoires à chaque export.
+  - Deux modes au choix : **Conteneur chiffré sécurisé** (`.regard.json` protégé par mot de passe/phrase secrète) ou **Export JSON standard**.
+- **Restauration avec Vérification & Prévisualisation** (`src/components/BackupRestoreModal.tsx`) :
+  - Analyse préalable du fichier, contrôle de structure et déchiffrement authentifié (rejet immédiat si mot de passe erroné ou fichier altéré).
+  - Écran de **prévisualisation détaillée** des données authentifiées (œuvres, favoris, notes, visites réelles, points).
+  - Deux modes d'application : **Fusionner (Recommandé)** pour préserver les données existantes sans écrasement, ou **Remplacer**.
+- **Mises à Jour Réelles & Déterministes du Catalogue** (`src/services/catalogUpdateService.ts`) :
+  - Téléchargement du manifeste officiel `public/catalog/manifest.json` avec version (`1.2.0`) et journal des modifications.
+  - **Contrôle d'intégrité cryptographique SHA-256** calculé dans le navigateur avant toute injection dans la base de données.
+  - Validation stricte du schéma muséal des toiles (`catalogValidator.ts`).
+  - Application atomique dans IndexedDB (`artworks`) sans jamais altérer les favoris, notes ou l'historique personnel de l'utilisateur.
+  - Prise en charge transparente et gracieuse du mode 100% hors-ligne (aucune erreur bloquante en l'absence de réseau).
+
+---
+
 ## 🛠️ Stack Technique
 
 ```
@@ -119,9 +184,11 @@ L'application fonctionne à **100% en mode autonome et local** : aucune dépenda
 │ Système de Design     │ Tailwind CSS v4 (@theme tokens)│
 │ Typographies          │ Playfair Display & Plus Jakarta│
 │ Iconographie          │ Google Material Symbols        │
-│ Indexation Locale     │ Moteur FTS5 Unicode61          │
+│ Stockage Local        │ IndexedDB W3C (RegardMuseumDB) │
+│ Indexation Plein Texte│ Moteur Inversé BM25 en mémoire │
+│ Audio & Multimédia    │ HTML5 Audio + Web Speech API   │
 │ Offline & Cache       │ Service Worker + Cache API     │
-│ Architecture          │ Composants modulaires fonctionnels│
+│ Architecture          │ Composants modulaires / Hooks  │
 └───────────────────────┴────────────────────────────────┘
 ```
 

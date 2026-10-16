@@ -8,6 +8,15 @@ export interface Hotspot {
   image: string;
 }
 
+export interface AudioGuideData {
+  title: string;
+  duration: string;
+  durationSeconds: number;
+  speaker: string;
+  audioSrc: string;
+  transcript: string;
+}
+
 export interface Artwork {
   id: string;
   title: string;
@@ -29,11 +38,7 @@ export interface Artwork {
   quote?: string;
   openingText?: string;
   firstObservation?: string;
-  audioGuide?: {
-    title: string;
-    duration: string;
-    speaker: string;
-  };
+  audioGuide?: AudioGuideData;
   hotspots?: Hotspot[];
   deepDive?: {
     composition: string[];
@@ -62,7 +67,9 @@ export interface Artwork {
   formatCategory?: 'col-span-2' | 'col-span-1';
 }
 
-export const ARTWORKS: Artwork[] = [
+import { MASTERPIECES_200 } from './masterpieces200.ts';
+
+const BASE_DETAILED_ARTWORKS: Artwork[] = [
   {
     id: 'starry-night',
     title: 'La Nuit étoilée',
@@ -86,7 +93,10 @@ export const ARTWORKS: Artwork[] = [
     audioGuide: {
       title: 'Regard de conservateur',
       duration: '2 min 14 s',
-      speaker: 'Claire D.',
+      durationSeconds: 134,
+      speaker: 'Claire D., Conservatrice',
+      audioSrc: '/audio/starry-night.wav',
+      transcript: "Bienvenue devant La Nuit étoilée de Vincent van Gogh. Peinte en juin 1889 depuis l'asile Saint-Paul-de-Mausole à Saint-Rémy-de-Provence, cette toile ne cherche pas à reproduire fidèlement le ciel nocturne, mais à en exprimer la pulsation cosmique. Observez l'immense cyprès sombre au premier plan : il s'élance comme une flamme funéraire reliant la terre des hommes aux tourbillons incandescents de la voûte céleste. Van Gogh applique la matière par touches sculpturales et épaisses, conférant au ciel une énergie cinétique hypnotique.",
     },
     hotspots: [
       {
@@ -167,7 +177,10 @@ export const ARTWORKS: Artwork[] = [
     audioGuide: {
       title: 'La lumière de Delft',
       duration: '3 min 10 s',
-      speaker: 'Claire D.',
+      durationSeconds: 190,
+      speaker: 'Claire D., Conservatrice',
+      audioSrc: '/audio/girl-pearl-earring.wav',
+      transcript: "Vous contemplez La Jeune Fille à la perle de Johannes Vermeer, réalisée vers 1665. Cette œuvre n'est pas un portrait de commande conventionnel, mais une 'tronie' : une étude de caractère et d'expression d'un personnage anonyme vêtu à l'orientale. Vermeer utilise le lapis-lazuli d'outremer pour draper le turban. Mais c'est la perle qui concentre tout le magnétisme du tableau : deux simples touches de blanc pur suffisent à créer l'illusion d'une sphère nacrée captant la clarté de l'atelier.",
     },
     hotspots: [
       {
@@ -228,7 +241,10 @@ export const ARTWORKS: Artwork[] = [
     audioGuide: {
       title: 'Le corps sacrifié',
       duration: '2 min 45 s',
-      speaker: 'Claire D.',
+      durationSeconds: 165,
+      speaker: 'Claire D., Conservatrice',
+      audioSrc: '/audio/thorn-necklace.wav',
+      transcript: "Voici l'Autoportrait au collier d'épines et au colibri de Frida Kahlo, peint en 1940. Après sa rupture avec Diego Rivera, l'artiste mexicaine convertit sa souffrance intime et corporelle en icône hiératique. Le feuillage touffu isole son visage comme dans une jungle étouffante. Autour de son cou, le collier d'épines s'enfonce dans la chair en perles de sang, retenant un colibri sans vie.",
     },
     tags: ['Symbolisme', 'Femme artiste', 'Art moderne', 'Mexique'],
     isFemaleArtist: true,
@@ -258,7 +274,10 @@ export const ARTWORKS: Artwork[] = [
     audioGuide: {
       title: 'Lumière et terreur',
       duration: '3 min 20 s',
-      speaker: 'Claire D.',
+      durationSeconds: 200,
+      speaker: 'Claire D., Conservatrice',
+      audioSrc: '/audio/third-of-may.wav',
+      transcript: "Le 3 Mai 1808 de Francisco de Goya marque l'avènement de la peinture moderne d'histoire. Sur la colline du Príncipe Pío à Madrid, face au peloton d'exécution napoléonien anonyme, un patriote en chemise blanche éclatante ouvre les bras en croix dans un geste sacrificiel. Le fanal cubique au sol projette une lumière crue séparant la tyrannie mécanique de la dignité humaine.",
     },
     tags: ['Romantisme', 'Clair-obscur', 'Espagne 1814', 'Grands formats'],
     isIncontournable: true,
@@ -289,7 +308,10 @@ export const ARTWORKS: Artwork[] = [
     audioGuide: {
       title: "L'aube d'un mouvement",
       duration: '2 min 30 s',
-      speaker: 'Claire D.',
+      durationSeconds: 150,
+      speaker: 'Claire D., Conservatrice',
+      audioSrc: '/audio/impression-sunrise.wav',
+      transcript: "Impression, soleil levant de Claude Monet, peinte en 1872 depuis une fenêtre du port du Havre. Cette vue brumeuse de l'avant-port dans la lumière orangée du matin va donner son nom à l'impressionnisme. Monet s'émancipe du dessin académique au profit d'une notation visuelle fugitive de reflets sur l'eau.",
     },
     tags: ['Impressionnisme', 'Paysages marins', 'Plein air', 'Paris'],
     associatedPath: {
@@ -324,7 +346,10 @@ export const ARTWORKS: Artwork[] = [
     audioGuide: {
       title: 'Le triomphe de la peintre',
       duration: '3 min 15 s',
-      speaker: 'Claire D.',
+      durationSeconds: 195,
+      speaker: 'Claire D., Conservatrice',
+      audioSrc: '/audio/judith-holofernes.wav',
+      transcript: "Judith décapitant Holopherne d'Artemisia Gentileschi, créée vers 1620. Formée dans le sillage du Caravage, Artemisia injecte à l'épisode biblique une intensité physique et psychologique sans équivalent. Remarquez la géométrie implacable des avant-bras croisés de Judith et de sa servante Abra maintenant le général assyrien.",
     },
     tags: ['Baroque italien', 'Femme artiste', 'Ténébrisme', 'Florence'],
     isFemaleArtist: true,
@@ -356,7 +381,10 @@ export const ARTWORKS: Artwork[] = [
     audioGuide: {
       title: 'Le silence domestique',
       duration: '2 min 40 s',
-      speaker: 'Claire D.',
+      durationSeconds: 160,
+      speaker: 'Claire D., Conservatrice',
+      audioSrc: '/audio/milkmaid.wav',
+      transcript: "La Laitière de Johannes Vermeer, peinte vers 1658 au Rijksmuseum. Vermeer transforme une scène domestique modeste en un monument de plénitude. Admirez le filet de lait continu s'écoulant dans le récipient de terre cuite et la texture granuleuse du pain illuminé par la clarté rasante de la fenêtre.",
     },
     tags: ["Âge d'or hollandais", 'Scène de genre', 'Pigment outremer', 'Amsterdam'],
     isIncontournable: true,
@@ -385,7 +413,10 @@ export const ARTWORKS: Artwork[] = [
     audioGuide: {
       title: 'Voix du conservateur',
       duration: '1 min 45 s',
+      durationSeconds: 105,
       speaker: 'Dr. Hélène de Saint-Germain',
+      audioSrc: '/audio/cezanne-sainte-victoire.wav',
+      transcript: "La Montagne Sainte-Victoire de Paul Cézanne. Cézanne refuse le modelé classique par le clair-obscur : chaque facette de bleu outremer et d'ocre jaune construit le volume de la falaise comme une architecture autonome, jetant les ponts vers l'art moderne.",
     },
     hotspots: [
       {
@@ -450,7 +481,10 @@ export const ARTWORKS: Artwork[] = [
     audioGuide: {
       title: 'Le mystère du sfumato',
       duration: '3 min 05 s',
-      speaker: 'Claire D.',
+      durationSeconds: 185,
+      speaker: 'Claire D., Conservatrice',
+      audioSrc: '/audio/joconde.wav',
+      transcript: "La Joconde de Léonard de Vinci, peinte au Musée du Louvre. Le célèbre sfumato efface les contours rigides autour des commissures des yeux et de la bouche. En appliquant de multiples couches de glacis translucides de quelques microns d'épaisseur, Léonard donne à la chair un rayonnement intérieur vivant.",
     },
     hotspots: [
       {
@@ -485,7 +519,7 @@ export const ARTWORKS: Artwork[] = [
   {
     id: 'caravaggio-matthieu',
     title: 'La Vocation de saint Matthieu',
-    artist: 'Caravage',
+    artist: 'Le Caravage',
     artistDates: '1571–1610',
     artistOrigin: 'Rome (Italie)',
     year: 1600,
@@ -505,7 +539,10 @@ export const ARTWORKS: Artwork[] = [
     audioGuide: {
       title: "L'éclair du clair-obscur",
       duration: '3 min 10 s',
-      speaker: 'Claire D.',
+      durationSeconds: 190,
+      speaker: 'Claire D., Conservatrice',
+      audioSrc: '/audio/caravaggio-matthieu.wav',
+      transcript: "La Vocation de saint Matthieu du Caravage. Dans la pénombre d'une taverne romaine, un faisceau de lumière oblique déchire l'obscurité. Le Christ désigne Matthieu au comptoir de douane, introduisant le drame sacré dans le réalisme populaire du quotidien.",
     },
     tags: ['Baroque italien', 'Ténébrisme', 'Rome 1600', 'Grands formats', 'Clair-obscur'],
     associatedPath: {
@@ -539,6 +576,14 @@ export const ARTWORKS: Artwork[] = [
     quote: "« Le déferlement monumental de la nature et l'immuable sérénité du Fuji éternel. »",
     openingText: "Chef-d'œuvre de l'art graphique japonais ayant bouleversé les impressionnistes et Van Gogh à Paris. L'introduction récente du bleu de Prusse chimique confère à cette vague écumante une profondeur cosmique.",
     firstObservation: "L'écume en griffes féroces semble prête à engloutir les barques de pêcheurs d'oshiokuri-bune tandis que le mont Fuji enneigé apparaît minuscule sous la crête.",
+    audioGuide: {
+      title: 'La vague et le mont Fuji',
+      duration: '2 min 15 s',
+      durationSeconds: 135,
+      speaker: 'Claire D., Conservatrice',
+      audioSrc: '/audio/general-guide.wav',
+      transcript: "La Grande Vague de Kanagawa de Katsushika Hokusai, chef-d'œuvre de l'estampe japonaise Ukiyo-e. La composition oppose la fureur écumante et dynamique de la vague à la sérénité immuable et sacrée du mont Fuji dans le lointain.",
+    },
     tags: ['Traditions mondiales', 'Ukiyo-e', 'Estampe', 'Japon', 'Bleu de Prusse'],
     isIncontournable: true,
     formatCategory: 'col-span-1',
@@ -547,7 +592,7 @@ export const ARTWORKS: Artwork[] = [
     id: 'lascaux-aurochs',
     title: 'La Frise des Cerfs & Aurochs',
     subtitle: 'Art pariétal magdalénien',
-    artist: 'Artistes anonymes de Lascaux',
+    artist: 'Artistes paléolithiques de Lascaux',
     artistDates: '~17 000 av. J.-C.',
     artistOrigin: 'Vallée de la Vézère, Dordogne (France)',
     year: -17000,
@@ -564,8 +609,23 @@ export const ARTWORKS: Artwork[] = [
     quote: "« La première aurore du génie humain : quand le trait anime la pierre brute d'un souffle sacré. »",
     openingText: "Bien avant l'écriture, les chasseurs-cueilleurs du Magdalénien exploitent les anfractuosités naturelles de la roche calcaire pour conférer du volume et du mouvement aux silhouettes d'aurochs, de chevaux et de cerfs.",
     firstObservation: "L'utilisation de charbon de bois pour les contours noirs et d'oxydes de fer pour les ocres rouges appliqués par projection de salive et de pigments.",
+    audioGuide: {
+      title: 'Le souffle pariétal',
+      duration: '2 min 00 s',
+      durationSeconds: 120,
+      speaker: 'Claire D., Conservatrice',
+      audioSrc: '/audio/general-guide.wav',
+      transcript: "La Frise des Cerfs et Aurochs de Lascaux. Réalisée il y a 17 000 ans au Paléolithique supérieur, cette fresque monumentale tire parti des anfractuosités de la pierre pour insuffler vie et volume aux bêtes sacrées.",
+    },
     tags: ['Antiquité & Moyen Âge', 'Origines', 'Art pariétal', 'Pigments naturels'],
     isRareMasterpiece: true,
     formatCategory: 'col-span-2',
   },
 ];
+
+// Combine the 12 deep-dive interactive artworks with the 200+ canonical masterpieces catalog
+export const ARTWORKS: Artwork[] = [
+  ...BASE_DETAILED_ARTWORKS,
+  ...MASTERPIECES_200.filter((m) => !BASE_DETAILED_ARTWORKS.some((b) => b.id === m.id)),
+];
+

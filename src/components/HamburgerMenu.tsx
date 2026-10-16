@@ -8,6 +8,9 @@ export const HamburgerMenu: React.FC = () => {
     navigateTo,
     openGigapixel,
     openQuiz,
+    openAudioModal,
+    openCatalogModal,
+    totalArtworksCount,
     theme,
     toggleTheme,
     setIsSystemSettingsOpen,
@@ -104,7 +107,7 @@ export const HamburgerMenu: React.FC = () => {
                 </span>
                 <div className="flex-1 min-w-0">
                   <div className="text-[13px] font-medium leading-tight">Recherche Plein Texte</div>
-                  <div className="text-[11px] text-[#99907c] truncate">Moteur SQLite FTS5 instantané</div>
+                  <div className="text-[11px] text-[#99907c] truncate">Moteur FTS BM25 & IndexedDB</div>
                 </div>
               </button>
 
@@ -118,6 +121,37 @@ export const HamburgerMenu: React.FC = () => {
                 <div className="flex-1 min-w-0">
                   <div className="text-[13px] font-medium leading-tight">Laboratoire Gigapixel Ultra-HD</div>
                   <div className="text-[11px] text-[#99907c] truncate">Macro-zoom, spectre, pigments</div>
+                </div>
+              </button>
+
+              <button
+                onClick={() => handleNav(() => openAudioModal())}
+                className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left hover:bg-[#201f24] text-[#e5e1e8] hover:text-[#f2ca50] transition-colors group cursor-pointer"
+              >
+                <span className="material-symbols-outlined text-[20px] text-[#d0c5af] group-hover:text-[#f2ca50]">
+                  headphones
+                </span>
+                <div className="flex-1 min-w-0">
+                  <div className="text-[13px] font-medium leading-tight">Guides Audio & Narrations</div>
+                  <div className="text-[11px] text-[#99907c] truncate">Lecteur studio, transcriptions & voix</div>
+                </div>
+              </button>
+
+              <button
+                onClick={() => handleNav(() => openCatalogModal())}
+                className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left hover:bg-[#201f24] text-[#e5e1e8] hover:text-[#f2ca50] transition-colors group cursor-pointer"
+              >
+                <span className="material-symbols-outlined text-[20px] text-[#f2ca50] group-hover:scale-110 transition-transform">
+                  database
+                </span>
+                <div className="flex-1 min-w-0">
+                  <div className="text-[13px] font-medium leading-tight flex items-center justify-between">
+                    <span>Catalogue & Import JSON</span>
+                    <span className="text-[10px] px-1.5 py-0.5 rounded bg-[#f2ca50]/20 text-[#f2ca50] font-mono">
+                      {totalArtworksCount} œuvres
+                    </span>
+                  </div>
+                  <div className="text-[11px] text-[#99907c] truncate">Importer, exporter et valider</div>
                 </div>
               </button>
             </div>

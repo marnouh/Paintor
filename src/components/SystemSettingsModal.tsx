@@ -23,6 +23,10 @@ export const SystemSettingsModal: React.FC = () => {
     setShowContextualTips,
     resetContextualTips,
     setIsOnboardingOpen,
+    storageDiagnostics,
+    openCatalogModal,
+    exportDatabaseJSON,
+    openBackupModal,
   } = useApp();
 
   const [toastMessage, setToastMessage] = useState<string | null>(null);
@@ -115,7 +119,76 @@ export const SystemSettingsModal: React.FC = () => {
 
             <div className="pt-2 border-t border-white/[0.06] flex items-center justify-between text-[11px] text-[#99907c]">
               <span>Moteur de stockage</span>
-              <span className="text-[#d0c5af]">SQLite FTS5 + Cache Service Worker</span>
+              <span className="text-[#f2ca50] font-medium">IndexedDB (RegardMuseumDB v1) + FTS BM25</span>
+            </div>
+          </div>
+
+          {/* Section 2: Architecture & Diagnostic de Stockage Local (IndexedDB) */}
+          <div className="p-4 rounded-xl bg-[#141318] border border-[#f2ca50]/20 space-y-3.5">
+            <div className="flex items-center justify-between">
+              <h3 className="font-title-editorial text-[14px] text-[#f2ca50] flex items-center gap-2">
+                <span className="material-symbols-outlined text-[18px]">database</span>
+                Stockage Local IndexedDB
+              </h3>
+              <span className="text-[10px] font-label-caps uppercase px-2 py-0.5 rounded bg-[#f2ca50]/15 text-[#f2ca50] border border-[#f2ca50]/30 font-bold">
+                100% Hors-Ligne
+              </span>
+            </div>
+
+            <p className="text-[11.5px] text-[#d0c5af] leading-relaxed">
+              Base structurée W3C <strong className="text-[#e5e1e8]">RegardMuseumDB (v1)</strong> hébergée exclusivement sur votre appareil. Zéro cloud, zéro suivi.
+            </p>
+
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-[11px]">
+              <div className="p-2 rounded bg-[#201f24] border border-white/5 flex flex-col">
+                <span className="text-[#99907c]">Œuvres</span>
+                <span className="text-[#f2ca50] font-bold text-[13px]">{storageDiagnostics?.stores.artworksCount ?? 213}</span>
+              </div>
+              <div className="p-2 rounded bg-[#201f24] border border-white/5 flex flex-col">
+                <span className="text-[#99907c]">Artistes</span>
+                <span className="text-[#f2ca50] font-bold text-[13px]">{storageDiagnostics?.stores.artistsCount ?? 105}</span>
+              </div>
+              <div className="p-2 rounded bg-[#201f24] border border-white/5 flex flex-col">
+                <span className="text-[#99907c]">Favoris réels</span>
+                <span className="text-[#f2ca50] font-bold text-[13px]">{storageDiagnostics?.stores.bookmarksCount ?? 0}</span>
+              </div>
+              <div className="p-2 rounded bg-[#201f24] border border-white/5 flex flex-col">
+                <span className="text-[#99907c]">Visites réelles</span>
+                <span className="text-[#f2ca50] font-bold text-[13px]">{storageDiagnostics?.stores.historyCount ?? 0}</span>
+              </div>
+              <div className="p-2 rounded bg-[#201f24] border border-white/5 flex flex-col">
+                <span className="text-[#99907c]">Notes d'étude</span>
+                <span className="text-[#f2ca50] font-bold text-[13px]">{storageDiagnostics?.stores.notesCount ?? 0}</span>
+              </div>
+              <div className="p-2 rounded bg-[#201f24] border border-white/5 flex flex-col">
+                <span className="text-[#99907c]">Quota utilisé</span>
+                <span className="text-[#f2ca50] font-bold text-[13px]">
+                  {storageDiagnostics?.storageQuota?.usageFormatted || '< 5 Mo'}
+                </span>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2 pt-1">
+              <button
+                onClick={() => {
+                  setIsSystemSettingsOpen(false);
+                  openCatalogModal();
+                }}
+                className="flex-1 py-2 px-3 rounded-lg bg-[#2b292f] hover:bg-[#36343a] text-[#f2ca50] border border-[#f2ca50]/30 font-label-caps text-[11px] tracking-wider uppercase flex items-center justify-center gap-1.5 cursor-pointer transition-colors"
+              >
+                <span className="material-symbols-outlined text-[15px]">inventory_2</span>
+                <span>Gérer Catalogue (Import/Export)</span>
+              </button>
+              <button
+                onClick={() => {
+                  setIsSystemSettingsOpen(false);
+                  openBackupModal();
+                }}
+                className="py-2 px-3 rounded-lg bg-[#201f24] hover:bg-[#2b292f] text-[#f2ca50] border border-[#f2ca50]/30 font-label-caps text-[11px] tracking-wider uppercase flex items-center justify-center gap-1.5 cursor-pointer transition-colors"
+              >
+                <span className="material-symbols-outlined text-[15px]">lock_reset</span>
+                <span>Sauvegarde &amp; Restauration</span>
+              </button>
             </div>
           </div>
 

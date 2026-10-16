@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
 import { useApp } from '../context/AppContext.tsx';
-import { ARTWORKS } from '../data/artworks.ts';
 
 export const GigapixelInspectorScreen: React.FC = () => {
-  const { goBack, selectedArtworkId, completeStep, addPoints } = useApp();
+  const { goBack, selectedArtworkId, completeStep, addPoints, artworks } = useApp();
 
   const artwork =
-    ARTWORKS.find((a) => a.id === selectedArtworkId) ||
-    ARTWORKS.find((a) => a.id === 'cezanne-sainte-victoire') ||
-    ARTWORKS[0];
+    artworks.find((a) => a.id === selectedArtworkId) ||
+    artworks.find((a) => a.id === 'cezanne-sainte-victoire') ||
+    artworks[0];
 
   const [zoomLevel, setZoomLevel] = useState<number>(2.8);
   const [showGrid, setShowGrid] = useState<boolean>(true);
@@ -166,11 +165,11 @@ export const GigapixelInspectorScreen: React.FC = () => {
         <aside className="absolute top-16 left-4 flex flex-col gap-1 z-20 pointer-events-none">
           <div className="flex items-center gap-2 px-2.5 py-1 rounded bg-[#0e0e12]/85 backdrop-blur-sm border border-[#4d4635]/30 text-[#d0c5af] font-label-caps text-[10.5px]">
             <span className="w-1.5 h-1.5 rounded-full bg-[#f2ca50] animate-pulse" />
-            <span>Zoom {zoomLevel}× • Résolution Gigapixel Locale (Tuilage SQLite)</span>
+            <span>Zoom {zoomLevel}× • Résolution Gigapixel Haute Définition Locale</span>
           </div>
           <div className="hidden sm:inline-flex items-center gap-1 text-[10px] text-[#99907c] font-label-caps px-1">
             <span className="material-symbols-outlined text-[12px]">database</span>
-            <span>Cache blob 48.2 Mo • 0 ms latence cloud</span>
+            <span>IndexedDB Cache Local • 0 ms latence cloud</span>
           </div>
         </aside>
 

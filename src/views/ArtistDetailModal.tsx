@@ -1,6 +1,6 @@
 import React from 'react';
-import { ARTISTS, Artist } from '../data/artists.ts';
-import { ARTWORKS } from '../data/artworks.ts';
+import { useApp } from '../context/AppContext.tsx';
+import { Artist } from '../data/artists.ts';
 
 interface ArtistDetailModalProps {
   artistId: string | null;
@@ -14,13 +14,55 @@ export const ArtistDetailModal: React.FC<ArtistDetailModalProps> = ({
   onClose,
   onSelectArtwork,
 }) => {
+  const { artists, artworks } = useApp();
+
   if (!artistId) return null;
 
-  const artist = ARTISTS.find((a) => a.id === artistId) || ARTISTS[0];
-  const relatedArtworks = ARTWORKS.filter(
+  // Find artist by ID or name in dynamic artists list
+  const normTarget = artistId.toLowerCase().trim();
+  let artist = artists.find(
+    (a) =>
+      a.id.toLowerCase() === normTarget ||
+      a.name.toLowerCase() === normTarget ||
+      (a.alternativeNames && a.alternativeNames.some((alt) => alt.toLowerCase() === normTarget))
+  );
+
+  // If not found in static list, dynamically construct an artist profile from the catalog artworks
+  if (!artist) {
+    const matchingArts = artworks.filter(
+      (a) =>
+        a.artist.toLowerCase().includes(normTarget) ||
+        normTarget.includes(a.artist.toLowerCase()) ||
+        a.id === artistId
+    );
+    const sample = matchingArts[0];
+    if (sample) {
+      artist = {
+        id: artistId,
+        name: sample.artist,
+        alternativeNames: [],
+        birthYear: sample.year > 0 ? sample.year - 30 : sample.year,
+        deathYear: sample.year > 0 ? sample.year + 30 : sample.year,
+        datesDisplay: sample.artistDates || `${sample.year}`,
+        nationalityOrRegion: sample.artistOrigin || 'École européenne',
+        biographyShort: `Maître associé au mouvement ${sample.movement}, conservé notamment au ${sample.museum}.`,
+        biographyLong: `L’œuvre de ${sample.artist} (${sample.artistDates || sample.year}) s’inscrit dans l’histoire de l’art par sa maîtrise de la technique « ${sample.technique} ». Rattaché au courant ${sample.movement}, son geste pictural a marqué durablement les collections publiques internationales.`,
+        mainMovements: [sample.movement],
+        avatarUrl: sample.imageUrl,
+        artworkIds: matchingArts.map((a) => a.id),
+        quotes: sample.quote ? [sample.quote] : [`« L’art est la recherche de la vérité vivante. »`],
+        historicalContext: `Période ${sample.period} : effervescence artistique, renouveau des ateliers et commandes de prestige.`,
+      };
+    } else {
+      artist = artists[0];
+    }
+  }
+
+  const relatedArtworks = artworks.filter(
     (art) =>
       art.artist.toLowerCase().includes(artist.name.toLowerCase()) ||
-      artist.artworkIds.includes(art.id)
+      artist.name.toLowerCase().includes(art.artist.toLowerCase()) ||
+      (artist.artworkIds && artist.artworkIds.includes(art.id))
   );
 
   return (

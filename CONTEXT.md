@@ -19,11 +19,13 @@ Sur les plateformes numériques modernes et les réseaux sociaux, les œuvres d'
 
 ## 2. Principes Fondamentaux d'Architecture
 
-### A. Souveraineté Totale des Données & Fonctionnement 100% Hors-ligne
+### A. Souveraineté Totale des Données & Fonctionnement 100% Hors-ligne (Architecture Option A : IndexedDB)
 L'application a été conçue selon un impératif technique strict : **zéro dépendance vis-à-vis d'un serveur applicatif ou d'une base de données cloud propriétaire**.
-- **Index Local SQLite FTS5** : La recherche fonctionne instantanément sur l'ensemble du corpus de toiles, d'artistes et de mouvements, avec prise en compte automatique de la tolérance aux accents et des minuscules/majuscules.
-- **Stockage Local Chiffré** : Les favoris, l'historique de contemplation, les notes de carnet et les scores de progression sont conservés dans le stockage local de l'appareil de l'utilisateur.
-- **Sauvegarde Autonome** : L'utilisateur peut à tout moment exporter l'intégralité de sa collection dans un fichier JSON exportable et le restaurer sur un autre appareil sans intermédiaire.
+- **Base Structurée IndexedDB (`RegardMuseumDB` v1)** : Stockage pérenne W3C asynchrone non-bloquant en 7 ObjectStores distincts (`artworks`, `artists`, `bookmarks`, `history`, `notes`, `user_progress`, `app_settings`).
+- **Moteur FTS BM25 en Mémoire** : Index inversé local avec pliage d'accents (accent folding), élimination des stopwords et pondération multicritère garantissant une recherche instantanée sous la milliseconde sans le surcoût de 4 Mo d'un binaire SQLite WASM.
+- **Historique Réel d'Exploration** : L'historique démarre vierge à l'installation et enregistre les toiles effectivement consultées par l'utilisateur, avec calcul de la durée de lecture et des occurrences de visite.
+- **Sauvegarde Autonome Chiffrée (AES-GCM 256 bits)** : L'utilisateur peut à tout moment exporter sa collection au format JSON clair ou chiffré par mot de passe (dérivation PBKDF2 100 000 itérations), et la restaurer avec vérification et prévisualisation préalable (mode fusion ou remplacement).
+- **Mises à Jour Déterministes Vérifiables** : Téléchargement du catalogue officiel via un manifeste versionné avec contrôle d'intégrité cryptographique SHA-256 et synchronisation PWA hors-ligne.
 
 ### B. Norme PWA (Progressive Web App)
 Regard est configurée selon les standards PWA du W3C et du Web App Manifest :

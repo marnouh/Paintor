@@ -15,10 +15,13 @@ import { MovementDetailModal } from './views/MovementDetailModal.tsx';
 import { BottomNavBar } from './components/BottomNavBar.tsx';
 import { FilterModal } from './components/FilterModal.tsx';
 import { AudioPlayerFloating } from './components/AudioPlayerFloating.tsx';
+import { AudioPlayerModal } from './components/AudioPlayerModal.tsx';
 import { PwaInstallModal } from './components/PwaInstallModal.tsx';
 import { HamburgerMenu } from './components/HamburgerMenu.tsx';
 import { SystemSettingsModal } from './components/SystemSettingsModal.tsx';
 import { OnboardingModal } from './components/OnboardingModal.tsx';
+import { CatalogManagerModal } from './components/CatalogManagerModal.tsx';
+import { BackupRestoreModal } from './components/BackupRestoreModal.tsx';
 
 const AppContent: React.FC = () => {
   const {
@@ -66,6 +69,7 @@ const AppContent: React.FC = () => {
       {showBottomNav && <BottomNavBar />}
       <FilterModal />
       <AudioPlayerFloating />
+      <AudioPlayerModal />
       {/* Artist & Movement detail modals */}
       <ArtistDetailModal
         artistId={selectedArtistId}
@@ -82,6 +86,8 @@ const AppContent: React.FC = () => {
       <HamburgerMenu />
       <SystemSettingsModal />
       <OnboardingModal />
+      <CatalogManagerModal />
+      <BackupRestoreModal />
     </div>
   );
 };

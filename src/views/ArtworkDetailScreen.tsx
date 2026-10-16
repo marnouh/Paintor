@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useApp } from '../context/AppContext.tsx';
 import { TopAppBar } from '../components/TopAppBar.tsx';
 import { ARTISTS } from '../data/artists.ts';
+import { formatAudioTime } from '../components/AudioPlayerFloating.tsx';
 
 export const ArtworkDetailScreen: React.FC = () => {
   const {
@@ -11,15 +12,20 @@ export const ArtworkDetailScreen: React.FC = () => {
     openLearningPath,
     openGigapixel,
     toggleAudioPlayback,
+    seekAudio,
+    openAudioModal,
+    retryAudio,
+    switchAudioMode,
     currentAudio,
     openArtist,
     openMovement,
   } = useApp();
 
   const [activeHotspotDetail, setActiveHotspotDetail] = useState<number | null>(null);
+  const [showInlineTranscript, setShowInlineTranscript] = useState<boolean>(false);
 
-  const isAudioPlayingThis =
-    currentAudio?.isPlaying && currentAudio.title === (activeArtwork.audioGuide?.title || 'Regard de conservateur');
+  const isAudioActiveThis = currentAudio?.artworkId === activeArtwork.id;
+  const isAudioPlayingThis = isAudioActiveThis && currentAudio?.isPlaying;
 
   return (
     <div className="min-h-screen bg-[#0e0e12] text-[#e5e1e8] pb-28 selection:bg-[#d4af37] selection:text-[#3c2f00]">
@@ -310,55 +316,148 @@ export const ArtworkDetailScreen: React.FC = () => {
             </section>
 
             {/* Écoute Audio Guidée Contextuelle */}
-            <section className="p-4 bg-[#201f24] rounded-xl border border-[#4d4635]/30 flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <button
-                  onClick={() =>
-                    toggleAudioPlayback(
-                      activeArtwork.audioGuide?.title || 'Regard de conservateur',
-                      activeArtwork.audioGuide?.speaker || 'Claire D.'
-                    )
-                  }
-                  aria-label="Lancer la lecture audio"
-                  className="w-11 h-11 rounded-full bg-[#f2ca50] hover:bg-[#ffe088] text-[#3c2f00] flex items-center justify-center shadow-lg active:scale-95 transition-transform cursor-pointer"
-                >
-                  <span
-                    className="material-symbols-outlined text-[24px]"
-                    style={{ fontVariationSettings: "'FILL' 1" }}
-                  >
-                    {isAudioPlayingThis ? 'pause' : 'play_arrow'}
-                  </span>
-                </button>
-                <div>
-                  <span className="font-label-caps text-[10px] text-[#f2ca50] uppercase font-semibold">
-                    Commentaire Audio
-                  </span>
-                  <div className="font-label-md text-[13px] text-[#e5e1e8] font-semibold">
-                    {activeArtwork.audioGuide?.title || 'Regard de conservateur'}
+            <section className="p-4 bg-[#201f24] rounded-2xl border border-[#4d4635]/30 space-y-3">
+              {/* Error indicator if playback failed */}
+              {isAudioActiveThis && currentAudio?.hasError && (
+                <div className="p-2.5 bg-red-950/60 border border-red-500/40 rounded-xl flex items-center justify-between text-[11px] text-red-200">
+                  <div className="flex items-center gap-1.5 truncate">
+                    <span className="material-symbols-outlined text-[16px] text-red-400 shrink-0">
+                      error
+                    </span>
+                    <span className="truncate">
+                      {currentAudio.errorMessage || 'Erreur audio source'}
+                    </span>
                   </div>
-                  <span className="font-body-sm text-[11px] text-[#d0c5af]">
-                    {activeArtwork.audioGuide?.duration || '2 min 14 s'} • Voix de{' '}
-                    {activeArtwork.audioGuide?.speaker || 'Claire D.'}
-                  </span>
+                  <div className="flex items-center gap-1 shrink-0">
+                    <button
+                      onClick={() => retryAudio()}
+                      className="px-2 py-0.5 rounded bg-red-800 hover:bg-red-700 text-white font-medium text-[10px] cursor-pointer"
+                    >
+                      Réessayer
+                    </button>
+                    <button
+                      onClick={() => switchAudioMode('speech')}
+                      className="px-2 py-0.5 rounded bg-[#f2ca50] text-[#3c2f00] font-bold text-[10px] cursor-pointer"
+                    >
+                      TTS
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              <div className="flex items-center justify-between gap-3">
+                <div className="flex items-center gap-3">
+                  <button
+                    onClick={() => toggleAudioPlayback(activeArtwork.id)}
+                    aria-label={isAudioPlayingThis ? 'Mettre en pause' : 'Lancer la lecture audio'}
+                    className="w-12 h-12 rounded-full bg-[#f2ca50] hover:bg-[#ffe088] text-[#3c2f00] flex items-center justify-center shadow-lg active:scale-95 transition-transform cursor-pointer shrink-0"
+                  >
+                    {isAudioActiveThis && currentAudio?.isLoading ? (
+                      <span className="w-5 h-5 border-2 border-[#3c2f00] border-t-transparent rounded-full animate-spin" />
+                    ) : (
+                      <span
+                        className="material-symbols-outlined text-[26px]"
+                        style={{ fontVariationSettings: "'FILL' 1" }}
+                      >
+                        {isAudioPlayingThis ? 'pause' : 'play_arrow'}
+                      </span>
+                    )}
+                  </button>
+                  <div>
+                    <span className="font-label-caps text-[10px] text-[#f2ca50] uppercase font-bold tracking-wider">
+                      {isAudioActiveThis && currentAudio?.mode === 'speech'
+                        ? 'Voix Synthèse (TTS)'
+                        : 'Commentaire Audio Studio'}
+                    </span>
+                    <div className="font-label-md text-[13.5px] text-[#e5e1e8] font-semibold">
+                      {activeArtwork.audioGuide?.title || 'Regard de conservateur'}
+                    </div>
+                    <span className="font-body-sm text-[11px] text-[#d0c5af]">
+                      {activeArtwork.audioGuide?.duration || '2 min 14 s'} • Voix de{' '}
+                      {activeArtwork.audioGuide?.speaker || 'Claire D.'}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => openAudioModal(activeArtwork.id)}
+                    className="p-2 rounded-lg bg-[#2b292f] text-[#d0c5af] hover:text-[#f2ca50] border border-white/5 transition-colors cursor-pointer"
+                    title="Ouvrir le lecteur complet avec transcription"
+                  >
+                    <span className="material-symbols-outlined text-[18px]">open_in_full</span>
+                  </button>
+                  <div className="flex items-center gap-1 text-[#f2ca50]">
+                    <span
+                      className={`w-1 rounded-full bg-[#f2ca50] transition-all ${
+                        isAudioPlayingThis ? 'h-4 animate-pulse' : 'h-2'
+                      }`}
+                    />
+                    <span
+                      className={`w-1 rounded-full bg-[#f2ca50] transition-all ${
+                        isAudioPlayingThis ? 'h-6 animate-pulse [animation-delay:150ms]' : 'h-4'
+                      }`}
+                    />
+                    <span
+                      className={`w-1 rounded-full bg-[#f2ca50] transition-all ${
+                        isAudioPlayingThis ? 'h-3 animate-pulse [animation-delay:300ms]' : 'h-1.5'
+                      }`}
+                    />
+                  </div>
                 </div>
               </div>
-              <div className="flex items-center gap-1 text-[#f2ca50]">
-                <span
-                  className={`w-1 rounded-full bg-[#f2ca50] transition-all ${
-                    isAudioPlayingThis ? 'h-4 animate-pulse' : 'h-2'
-                  }`}
-                />
-                <span
-                  className={`w-1 rounded-full bg-[#f2ca50] transition-all ${
-                    isAudioPlayingThis ? 'h-6 animate-pulse [animation-delay:150ms]' : 'h-4'
-                  }`}
-                />
-                <span
-                  className={`w-1 rounded-full bg-[#f2ca50] transition-all ${
-                    isAudioPlayingThis ? 'h-3 animate-pulse [animation-delay:300ms]' : 'h-1.5'
-                  }`}
-                />
-              </div>
+
+              {/* Live interactive progress scrubber if this track is active */}
+              {isAudioActiveThis && currentAudio && (
+                <div className="pt-2 border-t border-white/5 space-y-1">
+                  <input
+                    type="range"
+                    min={0}
+                    max={currentAudio.duration || 100}
+                    step={0.5}
+                    value={currentAudio.currentTime}
+                    onChange={(e) => seekAudio(Number(e.target.value))}
+                    aria-label="Position audio de l'œuvre"
+                    className="w-full h-1.5 bg-[#36343a] rounded-lg appearance-none cursor-pointer accent-[#f2ca50]"
+                    style={{
+                      background: `linear-gradient(to right, #f2ca50 ${
+                        (currentAudio.currentTime / (currentAudio.duration || 1)) * 100
+                      }%, #36343a ${(currentAudio.currentTime / (currentAudio.duration || 1)) * 100}%)`,
+                    }}
+                  />
+                  <div className="flex items-center justify-between text-[10.5px] font-mono text-[#99907c]">
+                    <span className="text-[#e5e1e8] font-medium">
+                      {formatAudioTime(currentAudio.currentTime)}
+                    </span>
+                    <span>{formatAudioTime(currentAudio.duration)}</span>
+                  </div>
+                </div>
+              )}
+
+              {/* Inline Transcript Toggle */}
+              {activeArtwork.audioGuide?.transcript && (
+                <div className="pt-1">
+                  <button
+                    onClick={() => setShowInlineTranscript(!showInlineTranscript)}
+                    className="flex items-center gap-1.5 text-[11px] text-[#f2ca50] hover:underline cursor-pointer"
+                  >
+                    <span className="material-symbols-outlined text-[15px]">
+                      {showInlineTranscript ? 'expand_less' : 'notes'}
+                    </span>
+                    <span>
+                      {showInlineTranscript
+                        ? 'Masquer le texte du commentaire'
+                        : 'Lire la transcription intégrale'}
+                    </span>
+                  </button>
+
+                  {showInlineTranscript && (
+                    <div className="mt-2 p-3 bg-[#1c1b20] rounded-xl border border-white/5 text-[12px] text-[#d0c5af] leading-relaxed italic animate-fade-in">
+                      « {activeArtwork.audioGuide.transcript} »
+                    </div>
+                  )}
+                </div>
+              )}
             </section>
           </div>
         )}
