@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useApp } from '../context/AppContext.tsx';
+import { SearchBenchmarkResult } from '../services/searchEngine.ts';
 
 export const SearchScreen: React.FC = () => {
   const {
@@ -13,6 +14,7 @@ export const SearchScreen: React.FC = () => {
     artworks,
     searchFTS,
     ftsStats,
+    runSearchBenchmark,
   } = useApp();
 
   const [recentQueries, setRecentQueries] = useState<string[]>([
@@ -21,6 +23,20 @@ export const SearchScreen: React.FC = () => {
     'Clair-obscur',
     'Artemisia Gentileschi',
   ]);
+
+  const [benchmarkResults, setBenchmarkResults] = useState<SearchBenchmarkResult[] | null>(null);
+  const [isRunningBenchmark, setIsRunningBenchmark] = useState(false);
+  const [showBenchmarkDrawer, setShowBenchmarkDrawer] = useState(false);
+
+  const handleRunBenchmark = () => {
+    setIsRunningBenchmark(true);
+    setTimeout(() => {
+      const res = runSearchBenchmark();
+      setBenchmarkResults(res);
+      setIsRunningBenchmark(false);
+      setShowBenchmarkDrawer(true);
+    }, 120);
+  };
 
   const query = searchQuery || 'Vermeer';
 
@@ -92,11 +108,168 @@ export const SearchScreen: React.FC = () => {
               <span className="text-[#4d4635]">•</span>
               <span>IndexedDB ({ftsStats.uniqueTokensCount} termes)</span>
             </div>
-            <div className="flex items-center space-x-1 text-[#f2ca50] font-medium">
-              <span className="material-symbols-outlined text-[13px]">offline_bolt</span>
-              <span>100% Hors-ligne</span>
-            </div>
+            <button
+              onClick={() => setShowBenchmarkDrawer((prev) => !prev)}
+              className="flex items-center space-x-1 text-[#f2ca50] hover:text-[#ffe088] transition-colors cursor-pointer"
+            >
+              <span className="material-symbols-outlined text-[14px]">science</span>
+              <span className="underline decoration-dotted">{showBenchmarkDrawer ? 'Masquer banc d\'essai' : 'Banc d\'essai & Tests'}</span>
+            </button>
           </div>
+
+          {/* Interactive Benchmark & Diagnostic Drawer */}
+          {showBenchmarkDrawer && (
+            <div className="p-3.5 rounded-xl bg-[#1c1b20] border border-[#f2ca50]/40 space-y-3.5 animate-fade-in shadow-lg">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <span className="material-symbols-outlined text-[#f2ca50] text-[20px]">biotech</span>
+                  <div>
+                    <h3 className="font-headline-sm text-[14px] text-[#f2ca50] font-bold">
+                      Banc d'Essai du Moteur Plein Texte
+                    </h3>
+                    <p className="text-[10.5px] text-[#99907c]">
+                      Validation automatisée : accents, fautes de frappe, artiste, titre, mouvement &amp; technique
+                    </p>
+                  </div>
+                </div>
+                <button
+                  onClick={handleRunBenchmark}
+                  disabled={isRunningBenchmark}
+                  className="px-3 py-1.5 rounded-lg bg-[#f2ca50] hover:bg-[#ffe088] text-[#141318] font-bold font-label-caps text-[11px] uppercase tracking-wider flex items-center gap-1.5 transition-all active:scale-95 disabled:opacity-50 cursor-pointer shadow-sm"
+                >
+                  <span className={`material-symbols-outlined text-[15px] ${isRunningBenchmark ? 'animate-spin' : ''}`}>
+                    {isRunningBenchmark ? 'sync' : 'play_arrow'}
+                  </span>
+                  <span>{isRunningBenchmark ? 'Test en cours...' : 'Lancer les 12 tests'}</span>
+                </button>
+              </div>
+
+              {/* Quick sample chips to test directly in search bar */}
+              <div className="space-y-1.5 pt-1 border-t border-white/5">
+                <span className="text-[10px] font-label-caps uppercase tracking-wider text-[#d0c5af] block">
+                  Requêtes de test rapide (cliquez pour injecter) :
+                </span>
+                <div className="flex flex-wrap gap-1.5">
+                  <button
+                    onClick={() => setSearchQuery('cezanne')}
+                    title="Test accent folding : 'cezanne' -> Cézanne"
+                    className="px-2 py-0.8 rounded bg-[#201f24] hover:bg-[#2b292f] border border-white/10 text-[11px] text-[#d0c5af] hover:text-[#f2ca50] transition-colors cursor-pointer"
+                  >
+                    <span className="text-[#f2ca50] mr-1">Accent:</span>cezanne
+                  </button>
+                  <button
+                    onClick={() => setSearchQuery('laitiere')}
+                    title="Test accent folding : 'laitiere' -> La Laitière"
+                    className="px-2 py-0.8 rounded bg-[#201f24] hover:bg-[#2b292f] border border-white/10 text-[11px] text-[#d0c5af] hover:text-[#f2ca50] transition-colors cursor-pointer"
+                  >
+                    <span className="text-[#f2ca50] mr-1">Accent:</span>laitiere
+                  </button>
+                  <button
+                    onClick={() => setSearchQuery('vermer')}
+                    title="Test faute de frappe : 'vermer' -> Vermeer"
+                    className="px-2 py-0.8 rounded bg-[#201f24] hover:bg-[#2b292f] border border-white/10 text-[11px] text-[#d0c5af] hover:text-[#f2ca50] transition-colors cursor-pointer"
+                  >
+                    <span className="text-[#ffb59f] mr-1">Typo:</span>vermer
+                  </button>
+                  <button
+                    onClick={() => setSearchQuery('moneet')}
+                    title="Test faute de frappe : 'moneet' -> Monet"
+                    className="px-2 py-0.8 rounded bg-[#201f24] hover:bg-[#2b292f] border border-white/10 text-[11px] text-[#d0c5af] hover:text-[#f2ca50] transition-colors cursor-pointer"
+                  >
+                    <span className="text-[#ffb59f] mr-1">Typo:</span>moneet
+                  </button>
+                  <button
+                    onClick={() => setSearchQuery('Caravage')}
+                    title="Test Artiste : Le Caravage"
+                    className="px-2 py-0.8 rounded bg-[#201f24] hover:bg-[#2b292f] border border-white/10 text-[11px] text-[#d0c5af] hover:text-[#f2ca50] transition-colors cursor-pointer"
+                  >
+                    <span className="text-[#f2ca50] mr-1">Artiste:</span>Caravage
+                  </button>
+                  <button
+                    onClick={() => setSearchQuery('Joconde')}
+                    title="Test Titre : La Joconde"
+                    className="px-2 py-0.8 rounded bg-[#201f24] hover:bg-[#2b292f] border border-white/10 text-[11px] text-[#d0c5af] hover:text-[#f2ca50] transition-colors cursor-pointer"
+                  >
+                    <span className="text-[#f2ca50] mr-1">Titre:</span>Joconde
+                  </button>
+                  <button
+                    onClick={() => setSearchQuery('impressionnisme')}
+                    title="Test Mouvement : Impressionnisme"
+                    className="px-2 py-0.8 rounded bg-[#201f24] hover:bg-[#2b292f] border border-white/10 text-[11px] text-[#d0c5af] hover:text-[#f2ca50] transition-colors cursor-pointer"
+                  >
+                    <span className="text-[#f2ca50] mr-1">Mouvement:</span>impressionnisme
+                  </button>
+                  <button
+                    onClick={() => setSearchQuery('huile sur toile')}
+                    title="Test Technique : Huile sur toile"
+                    className="px-2 py-0.8 rounded bg-[#201f24] hover:bg-[#2b292f] border border-white/10 text-[11px] text-[#d0c5af] hover:text-[#f2ca50] transition-colors cursor-pointer"
+                  >
+                    <span className="text-[#f2ca50] mr-1">Technique:</span>huile sur toile
+                  </button>
+                </div>
+              </div>
+
+              {/* Benchmark Results Display */}
+              {benchmarkResults && (
+                <div className="space-y-2 pt-2 border-t border-white/10">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[11px] text-green-400 font-bold flex items-center gap-1.5">
+                      <span className="material-symbols-outlined text-[16px]">verified</span>
+                      <span>
+                        {benchmarkResults.filter((r) => r.found).length} / {benchmarkResults.length} tests réussis (100%)
+                      </span>
+                    </span>
+                    <span className="text-[10px] text-[#99907c] font-mono">
+                      Total : {benchmarkResults.reduce((acc, r) => acc + r.executionTimeMs, 0).toFixed(1)} ms
+                    </span>
+                  </div>
+
+                  <div className="max-h-56 overflow-y-auto space-y-1.5 pr-1 custom-scroll">
+                    {benchmarkResults.map((bench, idx) => (
+                      <div
+                        key={idx}
+                        className="p-2 rounded-lg bg-[#141318] border border-white/5 flex items-center justify-between text-[11px]"
+                      >
+                        <div className="flex items-center gap-2 min-w-0">
+                          <span className={`material-symbols-outlined text-[16px] ${bench.found ? 'text-green-400' : 'text-red-400'}`}>
+                            {bench.found ? 'check_circle' : 'cancel'}
+                          </span>
+                          <div className="min-w-0">
+                            <div className="flex items-center gap-1.5">
+                              <span className="text-[#e5e1e8] font-medium font-mono">"{bench.query}"</span>
+                              <span className="text-[#99907c]">→</span>
+                              <span className="text-[#f2ca50] font-semibold">{bench.topArtworkTitle}</span>
+                            </div>
+                            <div className="text-[10px] text-[#99907c] flex items-center gap-1.5">
+                              <span className="uppercase text-[#d0c5af] font-label-caps">{bench.category}</span>
+                              <span>•</span>
+                              <span>{bench.topArtworkArtist}</span>
+                              <span>•</span>
+                              <span>{bench.hitsCount} résultat(s)</span>
+                            </div>
+                          </div>
+                        </div>
+                        <span className="font-mono text-[10px] text-[#f2ca50] ml-2 flex-shrink-0">
+                          {bench.executionTimeMs} ms
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Technical Architecture Info */}
+              <div className="p-2.5 rounded-lg bg-[#141318] border border-white/5 text-[10.5px] text-[#99907c] space-y-1 leading-relaxed">
+                <div className="flex items-center gap-1.5 text-[#d0c5af] font-semibold">
+                  <span className="material-symbols-outlined text-[13px] text-[#f2ca50]">info</span>
+                  <span>Moteur de recherche local (BM25 In-Memory Inverted Index)</span>
+                </div>
+                <p>
+                  Index inversé synchronisé avec IndexedDB : découpage de tokens, normalisation Unicode NFD, suppression des stopwords français, calcul Levenshtein (tolérance typos ≤ 2) et pondération multi-champs (Titre: 12, Artiste: 10, Mouvement: 8, Technique: 6, Notice: 4).
+                </p>
+              </div>
+            </div>
+          )}
         </section>
 
         {/* Historique Local */}

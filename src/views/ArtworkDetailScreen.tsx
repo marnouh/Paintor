@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useApp } from '../context/AppContext.tsx';
 import { TopAppBar } from '../components/TopAppBar.tsx';
 import { ARTISTS } from '../data/artists.ts';
 import { formatAudioTime } from '../components/AudioPlayerFloating.tsx';
+import { ArtworkImage } from '../components/ArtworkImage.tsx';
 
 export const ArtworkDetailScreen: React.FC = () => {
   const {
@@ -19,10 +20,26 @@ export const ArtworkDetailScreen: React.FC = () => {
     currentAudio,
     openArtist,
     openMovement,
+    recordReadingDuration,
   } = useApp();
 
   const [activeHotspotDetail, setActiveHotspotDetail] = useState<number | null>(null);
   const [showInlineTranscript, setShowInlineTranscript] = useState<boolean>(false);
+
+  // Real reading & contemplation duration tracking
+  useEffect(() => {
+    const startTime = Date.now();
+    const interval = setInterval(() => {
+      const elapsedMinutes = Math.max(1, Math.round((Date.now() - startTime) / 60000));
+      recordReadingDuration(activeArtwork.id, elapsedMinutes);
+    }, 30000);
+
+    return () => {
+      clearInterval(interval);
+      const elapsedMinutes = Math.max(1, Math.round((Date.now() - startTime) / 60000));
+      recordReadingDuration(activeArtwork.id, elapsedMinutes);
+    };
+  }, [activeArtwork.id]);
 
   const isAudioActiveThis = currentAudio?.artworkId === activeArtwork.id;
   const isAudioPlayingThis = isAudioActiveThis && currentAudio?.isPlaying;
@@ -44,9 +61,11 @@ export const ArtworkDetailScreen: React.FC = () => {
         <section className="relative w-full bg-[#0e0e12] border-b border-[#4d4635]/20 overflow-hidden">
           {/* Painting Display Frame */}
           <div className="relative w-full aspect-[4/3] bg-[#141318] overflow-hidden flex items-center justify-center">
-            <img
+            <ArtworkImage
               src={activeArtwork.imageUrl}
               alt={activeArtwork.title}
+              title={activeArtwork.title}
+              artist={activeArtwork.artist}
               className="w-full h-full object-contain select-none"
             />
             {/* Museum Vignette & Gradient Mask */}
@@ -76,7 +95,7 @@ export const ArtworkDetailScreen: React.FC = () => {
               className="absolute bottom-3 right-3 flex items-center gap-1.5 px-3 py-1 bg-[#2b292f]/85 backdrop-blur-md rounded-lg border border-[#4d4635]/40 text-[#d0c5af] font-label-caps text-[11px] hover:text-[#f2ca50] hover:border-[#f2ca50]/50 transition-all cursor-pointer active:scale-95 shadow-md"
             >
               <span className="material-symbols-outlined text-[16px] text-[#f2ca50]">zoom_in</span>
-              <span>Ultra-HD 8K</span>
+              <span>Loupe Macro HD</span>
             </button>
           </div>
 
@@ -621,29 +640,76 @@ export const ArtworkDetailScreen: React.FC = () => {
           )}
         </section>
 
-        {/* Section: Sources & Droits */}
-        <section className="mt-8 px-4 pt-6 border-t border-[#4d4635]/20">
-          <div className="flex items-center gap-2 mb-2">
-            <span className="material-symbols-outlined text-[#99907c] text-[18px]">verified</span>
-            <h2 className="font-label-caps text-[11px] text-[#99907c] uppercase tracking-wider font-semibold">
-              Données vérifiées &amp; Conservation
-            </h2>
+        {/* Section: Sources & Droits vérifiés œuvre par œuvre */}
+        <section className="mt-8 px-4 pt-6 border-t border-[#4d4635]/20 space-y-4">
+          <div className="flex items-center justify-between pb-1 border-b border-white/5">
+            <div className="flex items-center gap-2">
+              <span className="material-symbols-outlined text-[#f2ca50] text-[18px]">verified</span>
+              <h2 className="font-label-caps text-[11px] text-[#f2ca50] uppercase tracking-wider font-semibold">
+                Données scientifiques, Sources &amp; Droits Vérifiés
+              </h2>
+            </div>
+            <span className="text-[10px] font-mono text-[#99907c] bg-[#201f24] px-2 py-0.5 rounded border border-white/5">
+              IIIF v3.0 • Fiche certifiée
+            </span>
           </div>
-          <div className="space-y-1.5 text-[#d0c5af] font-body-sm text-[12px]">
-            <p>
-              <strong className="text-[#e5e1e8]">Source primaire :</strong> {activeArtwork.museumFull}.
-            </p>
-            <p>
-              <strong className="text-[#e5e1e8]">Numéro d’inventaire :</strong>{' '}
-              {activeArtwork.inventoryNumber}.
-            </p>
-            <p>
-              <strong className="text-[#e5e1e8]">Statut légal de l'œuvre :</strong>{' '}
-              {activeArtwork.legalStatus}.
-            </p>
-            <p className="text-[#99907c] text-[11px] pt-1 font-mono">
-              Restitution numérique calibrée selon les standards IIIF v3.0.
-            </p>
+
+          <div className="space-y-2.5 text-[#d0c5af] font-body-sm text-[12px] bg-[#1c1b20] p-3.5 rounded-xl border border-white/5">
+            <div>
+              <span className="font-label-caps text-[10px] uppercase text-[#99907c] block">
+                1. Institution de Conservation &amp; Inventaire
+              </span>
+              <p className="text-[#e5e1e8] font-medium mt-0.5">
+                {activeArtwork.museumFull} — <span className="font-mono text-[#f2ca50]">N° {activeArtwork.inventoryNumber}</span>
+              </p>
+            </div>
+
+            <div className="pt-2 border-t border-white/5">
+              <span className="font-label-caps text-[10px] uppercase text-[#99907c] block">
+                2. Statut Juridique de l'Œuvre Originale
+              </span>
+              <p className="text-[#e5e1e8] mt-0.5">
+                {activeArtwork.legalStatus}
+              </p>
+            </div>
+
+            {activeArtwork.rightsSource && (
+              <div className="pt-2 border-t border-white/5">
+                <span className="font-label-caps text-[10px] uppercase text-[#99907c] block">
+                  3. Source Institutionnelle de Numérisation
+                </span>
+                <p className="text-[#f2ca50] font-medium mt-0.5 flex items-center gap-1.5">
+                  <span className="material-symbols-outlined text-[14px]">account_balance</span>
+                  <span>{activeArtwork.rightsSource}</span>
+                </p>
+              </div>
+            )}
+
+            {activeArtwork.photographicLicense && (
+              <div className="pt-2 border-t border-white/5">
+                <span className="font-label-caps text-[10px] uppercase text-[#99907c] block">
+                  4. Statut de la Reproduction Photographique 2D
+                </span>
+                <p className="text-[#d0c5af] text-[11.5px] mt-0.5 leading-relaxed">
+                  {activeArtwork.photographicLicense}
+                </p>
+              </div>
+            )}
+
+            {activeArtwork.historicalSources && activeArtwork.historicalSources.length > 0 && (
+              <div className="pt-2 border-t border-white/5">
+                <span className="font-label-caps text-[10px] uppercase text-[#99907c] block mb-1">
+                  5. Sources Historiographiques &amp; Références Critiques
+                </span>
+                <ul className="space-y-1 list-disc list-inside text-[11.5px] text-[#d0c5af]">
+                  {activeArtwork.historicalSources.map((src, sIdx) => (
+                    <li key={sIdx} className="leading-tight">
+                      <span className="text-[#e5e1e8]">{src}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
         </section>
       </main>

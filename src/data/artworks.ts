@@ -34,6 +34,9 @@ export interface Artwork {
   museumFull: string;
   inventoryNumber: string;
   legalStatus: string;
+  rightsSource?: string;
+  photographicLicense?: string;
+  historicalSources?: string[];
   imageUrl: string;
   quote?: string;
   openingText?: string;
@@ -625,7 +628,19 @@ const BASE_DETAILED_ARTWORKS: Artwork[] = [
 
 // Combine the 12 deep-dive interactive artworks with the 200+ canonical masterpieces catalog
 export const ARTWORKS: Artwork[] = [
-  ...BASE_DETAILED_ARTWORKS,
+  ...BASE_DETAILED_ARTWORKS.map((b) => {
+    const fromMasterpiece = MASTERPIECES_200.find((m) => m.id === b.id);
+    return {
+      ...b,
+      rightsSource: b.rightsSource || fromMasterpiece?.rightsSource || `${b.museum} - Base des Collections Ouvertes`,
+      photographicLicense: b.photographicLicense || fromMasterpiece?.photographicLicense || "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+      historicalSources: b.historicalSources || fromMasterpiece?.historicalSources || [
+        `Catalogue raisonné et monographie de ${b.artist}`,
+        `Dossier scientifique du département de conservation, ${b.museum}`,
+        `Inventaire officiel du patrimoine muséal (N° ${b.inventoryNumber})`
+      ],
+    };
+  }),
   ...MASTERPIECES_200.filter((m) => !BASE_DETAILED_ARTWORKS.some((b) => b.id === m.id)),
 ];
 

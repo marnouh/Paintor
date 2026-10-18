@@ -198,29 +198,7 @@ class IndexedDbService {
       }
     }
 
-    // 5. Notes seed if empty
-    const notesCount = await this.count('notes');
-    if (notesCount === 0) {
-      const initialNotes: StoredNote[] = [
-        {
-          id: 'note-1',
-          artworkId: 'cezanne-sainte-victoire',
-          title: 'Étude sur Cézanne',
-          content: "La touche cézannienne préfigure le cubisme par l'orthogonalité de ses facettes.",
-          createdAt: Date.now() - 86400000 * 2,
-          updatedAt: Date.now() - 86400000 * 2,
-        },
-        {
-          id: 'note-2',
-          artworkId: 'girl-pearl-earring',
-          title: 'Observation sur Vermeer',
-          content: "Le blanc de plomb sur la perle de Vermeer n'est constitué que de deux virgules d'huile pure posées sur le fond sombre.",
-          createdAt: Date.now() - 86400000,
-          updatedAt: Date.now() - 86400000,
-        },
-      ];
-      await this.bulkPut('notes', initialNotes);
-    }
+    // 5. Notes store starts clean and empty for new users (no artificial notes)
   }
 
   // --- Generic Helpers ---

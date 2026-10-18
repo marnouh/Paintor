@@ -6,11 +6,15 @@ export const PathDetailScreen: React.FC = () => {
   const {
     activeLearningPath,
     completedSteps,
+    toggleStep,
     openArtwork,
     openGigapixel,
     openQuiz,
     toggleAudioPlayback,
   } = useApp();
+
+  const completedCount = [1, 2, 3, 4, 5, 6, 7, 8].filter((s) => completedSteps.includes(s)).length;
+  const progressPercent = Math.round((completedCount / 8) * 100);
 
   return (
     <div className="min-h-screen bg-[#141318] text-[#e5e1e8] pb-28">
@@ -103,26 +107,28 @@ export const PathDetailScreen: React.FC = () => {
                 </span>
               </div>
               <span className="font-label-caps text-[11px] text-[#f2ca50] font-bold">
-                Étape 4 sur 8 (50%)
+                {completedCount === 0
+                  ? 'Non débuté (0%)'
+                  : `${completedCount} sur 8 validée${completedCount > 1 ? 's' : ''} (${progressPercent}%)`}
               </span>
             </div>
-            {/* Jauge dorée */}
+            {/* Jauge dorée dynamique */}
             <div className="relative w-full bg-[#201f24] h-2 rounded-full overflow-hidden">
               <div
                 className="bg-gradient-to-r from-[#e9c349] via-[#f2ca50] to-[#d4af37] h-full rounded-full transition-all duration-500"
-                style={{ width: '50%' }}
+                style={{ width: `${progressPercent}%` }}
               />
             </div>
-            {/* Repères sous jauge */}
-            <div className="flex justify-between items-center text-[9.5px] text-[#99907c] font-body-sm">
-              <span className="text-[#f2ca50]">1. Monet</span>
-              <span className="text-[#f2ca50]">2. Van Gogh</span>
-              <span className="text-[#f2ca50]">3. Seurat</span>
-              <span className="text-[#f2ca50] font-bold">4. Cézanne (en cours)</span>
-              <span>5. Matisse</span>
-              <span>6. Kandinsky</span>
-              <span>7. Rothko</span>
-              <span>8. Quiz</span>
+            {/* Repères dynamiques sous jauge */}
+            <div className="flex justify-between items-center text-[9.5px] font-body-sm">
+              <span className={completedSteps.includes(1) ? 'text-[#f2ca50] font-bold' : 'text-[#99907c]'}>1. Monet</span>
+              <span className={completedSteps.includes(2) ? 'text-[#f2ca50] font-bold' : 'text-[#99907c]'}>2. Van Gogh</span>
+              <span className={completedSteps.includes(3) ? 'text-[#f2ca50] font-bold' : 'text-[#99907c]'}>3. Seurat</span>
+              <span className={completedSteps.includes(4) ? 'text-[#f2ca50] font-bold' : 'text-[#99907c]'}>4. Cézanne</span>
+              <span className={completedSteps.includes(5) ? 'text-[#f2ca50] font-bold' : 'text-[#99907c]'}>5. Matisse</span>
+              <span className={completedSteps.includes(6) ? 'text-[#f2ca50] font-bold' : 'text-[#99907c]'}>6. Kandinsky</span>
+              <span className={completedSteps.includes(7) ? 'text-[#f2ca50] font-bold' : 'text-[#99907c]'}>7. Rothko</span>
+              <span className={completedSteps.includes(8) ? 'text-[#f2ca50] font-bold' : 'text-[#99907c]'}>8. Quiz</span>
             </div>
           </div>
 
@@ -188,12 +194,23 @@ export const PathDetailScreen: React.FC = () => {
               <div className="flex-1 min-w-0 space-y-1">
                 <div className="flex items-center justify-between gap-2">
                   <span className="font-label-caps text-[10px] text-[#99907c]">ÉTAPE 1 • 1872</span>
-                  <span className="inline-flex items-center gap-1 font-label-caps text-[10px] text-[#f2ca50] bg-[#f2ca50]/10 border border-[#f2ca50]/20 px-1.5 py-0.5 rounded font-semibold">
-                    <span className="material-symbols-outlined text-[12px]" style={{ fontVariationSettings: "'FILL' 1" }}>
-                      check_circle
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      toggleStep(1);
+                    }}
+                    className={`inline-flex items-center gap-1 font-label-caps text-[10px] px-2 py-0.5 rounded font-semibold cursor-pointer transition-all ${
+                      completedSteps.includes(1)
+                        ? 'bg-[#f2ca50]/15 border border-[#f2ca50]/40 text-[#f2ca50]'
+                        : 'bg-[#201f24] border border-white/10 text-[#d0c5af] hover:border-[#f2ca50]/30'
+                    }`}
+                  >
+                    <span className="material-symbols-outlined text-[12px]" style={completedSteps.includes(1) ? { fontVariationSettings: "'FILL' 1" } : {}}>
+                      {completedSteps.includes(1) ? 'check_circle' : 'circle'}
                     </span>{' '}
-                    Validé
-                  </span>
+                    {completedSteps.includes(1) ? 'Validé (+50 pts)' : 'Valider'}
+                  </button>
                 </div>
                 <h3 className="font-title-editorial text-[15px] text-[#e5e1e8] font-semibold truncate">
                   Claude Monet — <span className="italic">Impression, soleil levant</span>
@@ -219,12 +236,23 @@ export const PathDetailScreen: React.FC = () => {
               <div className="flex-1 min-w-0 space-y-1">
                 <div className="flex items-center justify-between gap-2">
                   <span className="font-label-caps text-[10px] text-[#99907c]">ÉTAPE 2 • 1889</span>
-                  <span className="inline-flex items-center gap-1 font-label-caps text-[10px] text-[#f2ca50] bg-[#f2ca50]/10 border border-[#f2ca50]/20 px-1.5 py-0.5 rounded font-semibold">
-                    <span className="material-symbols-outlined text-[12px]" style={{ fontVariationSettings: "'FILL' 1" }}>
-                      check_circle
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      toggleStep(2);
+                    }}
+                    className={`inline-flex items-center gap-1 font-label-caps text-[10px] px-2 py-0.5 rounded font-semibold cursor-pointer transition-all ${
+                      completedSteps.includes(2)
+                        ? 'bg-[#f2ca50]/15 border border-[#f2ca50]/40 text-[#f2ca50]'
+                        : 'bg-[#201f24] border border-white/10 text-[#d0c5af] hover:border-[#f2ca50]/30'
+                    }`}
+                  >
+                    <span className="material-symbols-outlined text-[12px]" style={completedSteps.includes(2) ? { fontVariationSettings: "'FILL' 1" } : {}}>
+                      {completedSteps.includes(2) ? 'check_circle' : 'circle'}
                     </span>{' '}
-                    Validé
-                  </span>
+                    {completedSteps.includes(2) ? 'Validé (+50 pts)' : 'Valider'}
+                  </button>
                 </div>
                 <h3 className="font-title-editorial text-[15px] text-[#e5e1e8] font-semibold truncate">
                   Vincent van Gogh — <span className="italic">La Nuit étoilée</span>
@@ -236,7 +264,10 @@ export const PathDetailScreen: React.FC = () => {
             </article>
 
             {/* Étape 3 : Georges Seurat */}
-            <article className="bg-[#1c1b20] border border-white/5 rounded-lg p-3.5 flex items-start gap-3.5 hover:border-[#f2ca50]/30 transition-all cursor-pointer">
+            <article
+              onClick={() => openArtwork('starry-night')}
+              className="bg-[#1c1b20] border border-white/5 rounded-lg p-3.5 flex items-start gap-3.5 hover:border-[#f2ca50]/30 transition-all cursor-pointer"
+            >
               <div className="w-16 h-16 sm:w-20 sm:h-20 rounded shrink-0 overflow-hidden bg-[#0e0e12] border border-white/5">
                 <img
                   src="https://lh3.googleusercontent.com/aida-public/AB6AXuAlyHtl2Mp0mA47GApP4Rp0GDHRikTbqUfMGRcfxX1AoMduUMB8l0EmC0qFJqIXzIPBsc-FxZ8T_gJS0B_KFPs04SOOdZwdVBjz0QvQiCvgz2-5oHJ1zWirQbnVXh630A_9tHh1Jj4EhJqNP54jpsluCjgXCPM0DyrSB-fABeMNeryfjWitBR_H5iHSPqV9C9a9UcFPnbqfLohX_EdY2rBUTjZzj2W81dD1P57CYyKMBq4p8iH1Xg"
@@ -247,12 +278,23 @@ export const PathDetailScreen: React.FC = () => {
               <div className="flex-1 min-w-0 space-y-1">
                 <div className="flex items-center justify-between gap-2">
                   <span className="font-label-caps text-[10px] text-[#99907c]">ÉTAPE 3 • 1886</span>
-                  <span className="inline-flex items-center gap-1 font-label-caps text-[10px] text-[#f2ca50] bg-[#f2ca50]/10 border border-[#f2ca50]/20 px-1.5 py-0.5 rounded font-semibold">
-                    <span className="material-symbols-outlined text-[12px]" style={{ fontVariationSettings: "'FILL' 1" }}>
-                      check_circle
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      toggleStep(3);
+                    }}
+                    className={`inline-flex items-center gap-1 font-label-caps text-[10px] px-2 py-0.5 rounded font-semibold cursor-pointer transition-all ${
+                      completedSteps.includes(3)
+                        ? 'bg-[#f2ca50]/15 border border-[#f2ca50]/40 text-[#f2ca50]'
+                        : 'bg-[#201f24] border border-white/10 text-[#d0c5af] hover:border-[#f2ca50]/30'
+                    }`}
+                  >
+                    <span className="material-symbols-outlined text-[12px]" style={completedSteps.includes(3) ? { fontVariationSettings: "'FILL' 1" } : {}}>
+                      {completedSteps.includes(3) ? 'check_circle' : 'circle'}
                     </span>{' '}
-                    Validé
-                  </span>
+                    {completedSteps.includes(3) ? 'Validé (+50 pts)' : 'Valider'}
+                  </button>
                 </div>
                 <h3 className="font-title-editorial text-[15px] text-[#e5e1e8] font-semibold truncate">
                   Georges Seurat — <span className="italic">Un dimanche à la Grande Jatte</span>
@@ -268,15 +310,23 @@ export const PathDetailScreen: React.FC = () => {
               <div className="flex items-center justify-between border-b border-[#4d4635]/30 pb-2">
                 <div className="flex items-center gap-2">
                   <span className="material-symbols-outlined text-[#f2ca50] text-[18px]">
-                    radio_button_checked
+                    {completedSteps.includes(4) ? 'verified' : 'radio_button_checked'}
                   </span>
                   <span className="font-label-caps text-[10.5px] text-[#f2ca50] uppercase font-bold tracking-widest">
-                    Étape 4 en cours • Station active
+                    {completedSteps.includes(4) ? 'Étape 4 validée • Connaissance acquise' : 'Étape 4 en cours • Station active'}
                   </span>
                 </div>
-                <span className="font-label-caps text-[10px] text-[#f2ca50] bg-[#f2ca50]/15 border border-[#f2ca50]/30 px-2 py-0.5 rounded font-semibold">
-                  Temps estimé : 8 min
-                </span>
+                <button
+                  type="button"
+                  onClick={() => toggleStep(4)}
+                  className={`font-label-caps text-[10px] px-2.5 py-1 rounded font-semibold transition-all cursor-pointer border ${
+                    completedSteps.includes(4)
+                      ? 'bg-[#f2ca50]/15 border-[#f2ca50]/40 text-[#f2ca50]'
+                      : 'bg-[#f2ca50] hover:bg-[#ffe088] text-[#141318] border-[#f2ca50]'
+                  }`}
+                >
+                  {completedSteps.includes(4) ? 'Validé ✓ (+50 pts)' : 'Valider cette étape (+50 pts)'}
+                </button>
               </div>
 
               <div className="space-y-1">
@@ -367,32 +417,63 @@ export const PathDetailScreen: React.FC = () => {
                   <span className="material-symbols-outlined text-[18px]">headphones</span>
                   Guide audio (4:12)
                 </button>
-                <button
-                  onClick={() => openGigapixel('cezanne-sainte-victoire')}
-                  className="inline-flex items-center gap-2 bg-[#d4af37] hover:bg-[#f2ca50] text-[#3c2f00] font-label-md text-[13px] font-bold px-4 py-2 rounded active:scale-95 transition-all shadow cursor-pointer"
-                >
-                  <span>Lancer l'inspection HD</span>
-                  <span className="material-symbols-outlined text-[16px]">open_in_full</span>
-                </button>
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => toggleStep(4)}
+                    className={`inline-flex items-center gap-1.5 px-3 py-2 rounded text-[12px] font-label-caps font-bold transition-all cursor-pointer ${
+                      completedSteps.includes(4)
+                        ? 'bg-[#2b292f] border border-[#f2ca50]/40 text-[#f2ca50]'
+                        : 'bg-[#f2ca50] hover:bg-[#ffe088] text-[#141318]'
+                    }`}
+                  >
+                    <span className="material-symbols-outlined text-[16px]">
+                      {completedSteps.includes(4) ? 'check_circle' : 'add_task'}
+                    </span>
+                    <span>{completedSteps.includes(4) ? 'Validée ✓' : 'Valider'}</span>
+                  </button>
+                  <button
+                    onClick={() => openGigapixel('cezanne-sainte-victoire')}
+                    className="inline-flex items-center gap-2 bg-[#2b292f] hover:bg-[#36343a] text-[#f2ca50] border border-[#f2ca50]/30 font-label-md text-[13px] font-bold px-3 py-2 rounded active:scale-95 transition-all shadow cursor-pointer"
+                  >
+                    <span>Inspection HD</span>
+                    <span className="material-symbols-outlined text-[16px]">open_in_full</span>
+                  </button>
+                </div>
               </div>
             </article>
 
             {/* Étape 5 : Henri Matisse */}
-            <article className="bg-[#1c1b20]/60 border border-white/5 rounded-lg p-3.5 flex items-start gap-3.5 opacity-80 hover:opacity-100 transition-opacity cursor-pointer">
+            <article
+              onClick={() => openArtwork('starry-night')}
+              className="bg-[#1c1b20] border border-white/5 rounded-lg p-3.5 flex items-start gap-3.5 hover:border-[#f2ca50]/30 transition-all cursor-pointer"
+            >
               <div className="w-16 h-16 sm:w-20 sm:h-20 rounded shrink-0 overflow-hidden bg-[#0e0e12] relative border border-white/5">
                 <img
                   src="https://lh3.googleusercontent.com/aida-public/AB6AXuAVrkZcVDN86mKmyBrDAgc4hz9gxf8N_3Or2zmJnJ20QxTzrZR801OpYHgdPanA2IAkyWu1Kc5b0QoXtCl5W2RGOvbzU-qPDg2_UCRRYOh846SSZbbQ2xzfg10QYdYeuZUG-ZWKJzgFiUOEYhc9lEFPYCXOJweGeZxoWW85u_Su3ZQTekGPJ2_oW1f-IagBpYkBYrZrinr_4Ca3a6V4Stjdd59SYR1VwlUmTOfN3qf7PVf7JBOfdQ"
                   alt="Henri Matisse"
                   className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-[#0e0e12]/40 flex items-center justify-center">
-                  <span className="material-symbols-outlined text-[#99907c] text-[18px]">lock</span>
-                </div>
               </div>
               <div className="flex-1 min-w-0 space-y-1">
                 <div className="flex items-center justify-between gap-2">
                   <span className="font-label-caps text-[10px] text-[#99907c]">ÉTAPE 5 • 1910</span>
-                  <span className="font-label-caps text-[10px] text-[#99907c]">À Débloquer</span>
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      toggleStep(5);
+                    }}
+                    className={`inline-flex items-center gap-1 font-label-caps text-[10px] px-2 py-0.5 rounded font-semibold cursor-pointer transition-all ${
+                      completedSteps.includes(5)
+                        ? 'bg-[#f2ca50]/15 border border-[#f2ca50]/40 text-[#f2ca50]'
+                        : 'bg-[#201f24] border border-white/10 text-[#d0c5af] hover:border-[#f2ca50]/30'
+                    }`}
+                  >
+                    <span className="material-symbols-outlined text-[12px]" style={completedSteps.includes(5) ? { fontVariationSettings: "'FILL' 1" } : {}}>
+                      {completedSteps.includes(5) ? 'check_circle' : 'circle'}
+                    </span>{' '}
+                    {completedSteps.includes(5) ? 'Validé (+50 pts)' : 'Valider'}
+                  </button>
                 </div>
                 <h3 className="font-title-editorial text-[15px] text-[#e5e1e8] font-semibold truncate">
                   Henri Matisse — <span className="italic">La Danse</span>
@@ -401,27 +482,40 @@ export const PathDetailScreen: React.FC = () => {
                   L'aplat pur, l'intensité sauvage du fauvisme et l'autonomie rythmique.
                 </p>
               </div>
-              <span className="material-symbols-outlined text-[#99907c] self-center text-[18px]">
-                chevron_right
-              </span>
             </article>
 
             {/* Étape 6 : Vassily Kandinsky */}
-            <article className="bg-[#1c1b20]/60 border border-white/5 rounded-lg p-3.5 flex items-start gap-3.5 opacity-80 hover:opacity-100 transition-opacity cursor-pointer">
+            <article
+              onClick={() => openArtwork('starry-night')}
+              className="bg-[#1c1b20] border border-white/5 rounded-lg p-3.5 flex items-start gap-3.5 hover:border-[#f2ca50]/30 transition-all cursor-pointer"
+            >
               <div className="w-16 h-16 sm:w-20 sm:h-20 rounded shrink-0 overflow-hidden bg-[#0e0e12] relative border border-white/5">
                 <img
                   src="https://lh3.googleusercontent.com/aida-public/AB6AXuAi_WTv8AhUVjhdi4GbZWSnULtrA4hqTtL_o4K5vvA0S-_KYrOx8O7FvVJyDh6voZxJG7ULhzemkf8FOq4LV11KFYbcE7Rd0bB3kYh_lNQv1CwfW1e1cjR0O50emLKS1tHEDwgf7XLVUpA4PANDSyYhGu-qtMaFaH-DGDtHFmld9CHQXV29CHJ7s5f8bByXR8LWtQ2aHcm5KgwEjcJK8httBpMXZF3Co2Pf630eA8JNT5gvvFtEYg"
                   alt="Vassily Kandinsky"
                   className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-[#0e0e12]/40 flex items-center justify-center">
-                  <span className="material-symbols-outlined text-[#99907c] text-[18px]">lock</span>
-                </div>
               </div>
               <div className="flex-1 min-w-0 space-y-1">
                 <div className="flex items-center justify-between gap-2">
                   <span className="font-label-caps text-[10px] text-[#99907c]">ÉTAPE 6 • 1913</span>
-                  <span className="font-label-caps text-[10px] text-[#99907c]">À Débloquer</span>
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      toggleStep(6);
+                    }}
+                    className={`inline-flex items-center gap-1 font-label-caps text-[10px] px-2 py-0.5 rounded font-semibold cursor-pointer transition-all ${
+                      completedSteps.includes(6)
+                        ? 'bg-[#f2ca50]/15 border border-[#f2ca50]/40 text-[#f2ca50]'
+                        : 'bg-[#201f24] border border-white/10 text-[#d0c5af] hover:border-[#f2ca50]/30'
+                    }`}
+                  >
+                    <span className="material-symbols-outlined text-[12px]" style={completedSteps.includes(6) ? { fontVariationSettings: "'FILL' 1" } : {}}>
+                      {completedSteps.includes(6) ? 'check_circle' : 'circle'}
+                    </span>{' '}
+                    {completedSteps.includes(6) ? 'Validé (+50 pts)' : 'Valider'}
+                  </button>
                 </div>
                 <h3 className="font-title-editorial text-[15px] text-[#e5e1e8] font-semibold truncate">
                   Vassily Kandinsky — <span className="italic">Composition VII</span>
@@ -430,27 +524,40 @@ export const PathDetailScreen: React.FC = () => {
                   La synesthésie, la résonance intérieure et la spiritualité de la couleur pure.
                 </p>
               </div>
-              <span className="material-symbols-outlined text-[#99907c] self-center text-[18px]">
-                chevron_right
-              </span>
             </article>
 
             {/* Étape 7 : Mark Rothko */}
-            <article className="bg-[#1c1b20]/60 border border-white/5 rounded-lg p-3.5 flex items-start gap-3.5 opacity-80 hover:opacity-100 transition-opacity cursor-pointer">
+            <article
+              onClick={() => openArtwork('starry-night')}
+              className="bg-[#1c1b20] border border-white/5 rounded-lg p-3.5 flex items-start gap-3.5 hover:border-[#f2ca50]/30 transition-all cursor-pointer"
+            >
               <div className="w-16 h-16 sm:w-20 sm:h-20 rounded shrink-0 overflow-hidden bg-[#0e0e12] relative border border-white/5">
                 <img
                   src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0fcU8l2uu-fH6RHH9V8GP4wMgjph8Wr7A4r1SzluUTXUOBFNxnC2Uu11l38ZV8opngiJ78FmObLNxeqrIFy4qYb4Xv3JJVHNnNUzHgH9Xd7FvQCiVq_fPihMHZIwH96dIN9Mav8pwcoCy3y2VfK39iuX2PUPXxLO1KWJ8yCEcW8Mz8V_0vZFNSeG-sOJq9TqmKbre5-PIri_VZYIO1JLE9yXhLCf-aJCgkA-szyZBpB-aA-azog"
                   alt="Mark Rothko"
                   className="w-full h-full object-cover"
                 />
-                <div className="absolute inset-0 bg-[#0e0e12]/40 flex items-center justify-center">
-                  <span className="material-symbols-outlined text-[#99907c] text-[18px]">lock</span>
-                </div>
               </div>
               <div className="flex-1 min-w-0 space-y-1">
                 <div className="flex items-center justify-between gap-2">
                   <span className="font-label-caps text-[10px] text-[#99907c]">ÉTAPE 7 • 1953</span>
-                  <span className="font-label-caps text-[10px] text-[#99907c]">À Débloquer</span>
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      toggleStep(7);
+                    }}
+                    className={`inline-flex items-center gap-1 font-label-caps text-[10px] px-2 py-0.5 rounded font-semibold cursor-pointer transition-all ${
+                      completedSteps.includes(7)
+                        ? 'bg-[#f2ca50]/15 border border-[#f2ca50]/40 text-[#f2ca50]'
+                        : 'bg-[#201f24] border border-white/10 text-[#d0c5af] hover:border-[#f2ca50]/30'
+                    }`}
+                  >
+                    <span className="material-symbols-outlined text-[12px]" style={completedSteps.includes(7) ? { fontVariationSettings: "'FILL' 1" } : {}}>
+                      {completedSteps.includes(7) ? 'check_circle' : 'circle'}
+                    </span>{' '}
+                    {completedSteps.includes(7) ? 'Validé (+50 pts)' : 'Valider'}
+                  </button>
                 </div>
                 <h3 className="font-title-editorial text-[15px] text-[#e5e1e8] font-semibold truncate">
                   Mark Rothko — <span className="italic">No. 61 (Rust and Blue)</span>
@@ -459,9 +566,6 @@ export const PathDetailScreen: React.FC = () => {
                   Le champ chromatique méditatif (Color Field) et la dissolution du sujet.
                 </p>
               </div>
-              <span className="material-symbols-outlined text-[#99907c] self-center text-[18px]">
-                chevron_right
-              </span>
             </article>
 
             {/* Étape 8 : SYNTHÈSE DU CYCLE (Quiz final) -> CLICK OPENS QUIZ! */}
@@ -482,9 +586,28 @@ export const PathDetailScreen: React.FC = () => {
                   <span className="font-label-caps text-[10.5px] text-[#f2ca50] font-bold">
                     SYNTHÈSE DU CYCLE
                   </span>
-                  <span className="font-label-caps text-[10px] text-[#d0c5af] bg-[#f2ca50]/15 px-2 py-0.5 rounded border border-[#f2ca50]/30 font-semibold">
-                    Lancer l'évaluation →
-                  </span>
+                  <div className="flex items-center gap-1.5">
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        toggleStep(8);
+                      }}
+                      className={`inline-flex items-center gap-1 font-label-caps text-[10px] px-2 py-0.5 rounded font-semibold cursor-pointer transition-all ${
+                        completedSteps.includes(8)
+                          ? 'bg-[#f2ca50]/20 border border-[#f2ca50]/40 text-[#f2ca50]'
+                          : 'bg-[#201f24] border border-white/10 text-[#d0c5af]'
+                      }`}
+                    >
+                      <span className="material-symbols-outlined text-[12px]">
+                        {completedSteps.includes(8) ? 'check_circle' : 'circle'}
+                      </span>
+                      {completedSteps.includes(8) ? 'Validé' : 'Valider'}
+                    </button>
+                    <span className="font-label-caps text-[10px] text-[#d0c5af] bg-[#f2ca50]/15 px-2 py-0.5 rounded border border-[#f2ca50]/30 font-semibold">
+                      Lancer l'évaluation →
+                    </span>
+                  </div>
                 </div>
                 <h3 className="font-title-editorial text-[16px] text-[#e5e1e8] font-semibold truncate">
                   Le Regard du Coloriste

@@ -36,10 +36,10 @@ L'application fonctionne à **100% en mode autonome et local** : aucune dépenda
 
 <br/>
 
-### 🔬 Laboratoire d'Analyse Gigapixel Ultra-HD
-<img src="/src/assets/images/regard_screen_gigapixel_1791643253226.jpg" alt="Regard — Laboratoire Gigapixel et Grille du Nombre d'Or" width="850" style="border-radius: 16px; border: 1px solid rgba(242, 202, 80, 0.35); box-shadow: 0 15px 40px rgba(0,0,0,0.7);" />
+### 🔬 Visionneuse Macro HD & Analyse de Détails
+<img src="/src/assets/images/regard_screen_gigapixel_1791643253226.jpg" alt="Regard — Visionneuse Macro HD et Grille de Composition" width="850" style="border-radius: 16px; border: 1px solid rgba(242, 202, 80, 0.35); box-shadow: 0 15px 40px rgba(0,0,0,0.7);" />
 
-*Inspection macrophotographique avec grille géométrique du nombre d'or, filtres spectraux et nuancier de pigments historiques.*
+*Inspection macroscopique Canvas Deep-Zoom, grille géométrique, pipette d'échantillonnage de pixels et dossiers scientifiques sourcés.*
 
 </div>
 
@@ -56,14 +56,17 @@ L'application fonctionne à **100% en mode autonome et local** : aucune dépenda
 - **Mode Découvrir (2 min)** : Citation curatoriale, accroche synthétique, observation première et hotspots visuels.
 - **Mode Approfondir** : 4 chapitres scientifiques déployables (Composition & Rythme, Technique & Pigments, Contexte & Correspondances, Postérité & Mythe).
 - **Cartel muséal complet** : Technique, support, dimensions, lieu de conservation, numéro d'inventaire officiel et statut juridique (domaine public mondial / patrimoine).
-- **Lecteur Audio Studio Réel** : Fichiers audio natifs dans `/public/audio/`, curseur de défilement interactif (scrubber), sauts rapides -10s/+10s, réglage de la vitesse (0.75x à 2.0x), gestion des erreurs avec bouton « Réessayer » et bascule de secours vers la synthèse vocale française (Web Speech API).
+- **Lecteur Audio HTML5 Réel & Multi-Sources** : Balise native `<audio>` et `<source src="..." type="audio/wav">` intégrées directement dans le DOM (`AudioPlayerFloating` et `AudioPlayerModal`), alimentées par des fichiers acoustiques physiques locaux dans `/public/audio/` (format WAVE PCM 16-bit 22.05 kHz stéréo).
+- **Contrôles Doubles & Vérification Visuelle** : Interface muséale enrichie + bouton d'affichage direct du lecteur standard navigateur (`<audio controls>`), barre de progression réactive, sauts -10s/+10s, sélecteur de vitesse (0.75x à 2.0x), et visualiseur spectral de fréquences (`AudioSpectrumVisualizer`).
+- **Preuve Matérielle & Diapason Sonore** : Diagnostic technique intégré certifiant le fichier sonore et l'état de diffusion, complété par un bouton d'émission d'un diapason sinusoïdal (440 Hz) via Web Audio API (`AudioContext`) et une synthèse vocale française de secours (Web Speech API).
 - **Lecteur Grand Format Dédié (`AudioPlayerModal`)** : Transcription intégrale du commentaire pour lire en silence, commande de volume sonore et raccourci direct vers le laboratoire Gigapixel.
 
-### 3. 🔍 Visionneuse Ultra-HD Gigapixel
-- **Échelle macroscopique** : Paliers de zoom 1×, 2×, 2.8× et 4×.
-- **Grille de composition** : Tracé géométrique du nombre d'or et lignes de force.
-- **Analyse spectrale** : Filtres optiques simulés (révélant repentirs et sous-couches).
-- **Nuancier de pigments** : Échantillonnage précis (outremer, lapis-lazuli, ocre jaune, vert Véronèse, blanc de plomb) avec copie du code couleur en un clic.
+### 3. 🔍 Visionneuse Macro HD & Analyse de Détails
+- **Moteur Canvas Deep-Zoom interactif** : Paliers de zoom 1×, 2×, 4× et 8× avec zoom molette/tactile, panoramique fluide et minimap radar dynamique.
+- **Grille géométrique & Matrice de tuilage** : Tracé géométrique du nombre d'or, lignes de force des tiers et grille de tuiles coordonnées (`T[c,r]`).
+- **Échantillonneur chromatique réel (Pipette Canvas)** : Prélèvement direct des pixels de l'œuvre (`getImageData`), extraction des valeurs Hex, RGB, Luminance et correspondance avec les pigments historiques réels.
+- **Filtres optiques d'observation** : Simulations éducatives de réflectographie infrarouge (mise en relief des sous-couches et repentirs), lumière rasante (accentuation du relief de matière et craquelures) et monochrome d'étude.
+- **Dossiers de conservation sourcés** : Rapports authentifiés issus des laboratoires de référence (C2RMF - Musée du Louvre, Mauritshuis, MoMA Conservation, Musée d'Orsay, Rijksmuseum) décrivant les analyses réelles (IRR, MA-XRF, XRD, stratigraphies) et découvertes matérielles.
 
 ### 4. 🎓 Parcours Pédagogiques & Quiz Curatorial
 - **Cycle « Les Maîtres de la Couleur »** : 8 étapes chronologiques ordonnées (de Giotto à Matisse).

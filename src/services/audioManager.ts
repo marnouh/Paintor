@@ -18,6 +18,8 @@ export interface CurrentAudioState {
   isMuted: boolean;
   transcript: string;
   mode: 'file' | 'speech';
+  audioFormat: string;
+  audioElementConnected: boolean;
 }
 
 type AudioListener = (state: CurrentAudioState | null) => void;
@@ -28,6 +30,7 @@ class AudioManager {
   private state: CurrentAudioState | null = null;
   private speechUtterance: SpeechSynthesisUtterance | null = null;
   private speechTimer: number | null = null;
+  private boundListeners: Array<{ type: string; handler: EventListener }> = [];
 
   constructor() {
     if (typeof window !== 'undefined') {
@@ -36,52 +39,145 @@ class AudioManager {
   }
 
   private initAudioElement() {
-    this.audioElement = new Audio();
-    this.audioElement.preload = 'metadata';
+    const audio = new Audio();
+    audio.preload = 'metadata';
+    this.attachAudioListeners(audio);
+  }
 
-    this.audioElement.addEventListener('timeupdate', () => {
+  private detachAudioListeners() {
+    if (this.audioElement && this.boundListeners.length > 0) {
+      for (const { type, handler } of this.boundListeners) {
+        this.audioElement.removeEventListener(type, handler);
+      }
+      this.boundListeners = [];
+    }
+  }
+
+  public bindDomAudioElement(element: HTMLAudioElement | null) {
+    if (!element) return;
+    if (this.audioElement === element) return;
+    
+    // Transfer current state if previous element was playing
+    const wasPlaying = this.audioElement && !this.audioElement.paused;
+    const prevTime = this.audioElement?.currentTime || 0;
+    
+    if (this.audioElement && this.audioElement !== element) {
+      try {
+        this.audioElement.pause();
+      } catch {
+        // ignore
+      }
+    }
+
+    this.attachAudioListeners(element);
+    
+    if (this.state) {
+      element.volume = this.state.isMuted ? 0 : this.state.volume;
+      element.playbackRate = this.state.playbackRate;
+      if (wasPlaying) {
+        element.currentTime = prevTime;
+        element.play().catch(() => {});
+      }
+      this.updateState({ audioElementConnected: true });
+    }
+  }
+
+  public getAudioElement(): HTMLAudioElement | null {
+    return this.audioElement;
+  }
+
+  /**
+   * Generates a real acoustic verification tone (440 Hz standard A or custom note)
+   * via Web Audio API to prove sound output on user device/headphones immediately.
+   */
+  public playToneTest(freq = 440, duration = 0.5): boolean {
+    if (typeof window === 'undefined') return false;
+    try {
+      const AudioCtx = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
+      if (!AudioCtx) return false;
+      const ctx = new AudioCtx();
+      
+      // Chime with fundamental + soft octave overtone
+      const osc1 = ctx.createOscillator();
+      const osc2 = ctx.createOscillator();
+      const gain = ctx.createGain();
+
+      osc1.type = 'sine';
+      osc1.frequency.setValueAtTime(freq, ctx.currentTime);
+
+      osc2.type = 'sine';
+      osc2.frequency.setValueAtTime(freq * 2, ctx.currentTime);
+
+      gain.gain.setValueAtTime(0.35, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + duration);
+
+      osc1.connect(gain);
+      osc2.connect(gain);
+      gain.connect(ctx.destination);
+
+      osc1.start();
+      osc2.start();
+      osc1.stop(ctx.currentTime + duration);
+      osc2.stop(ctx.currentTime + duration);
+      return true;
+    } catch (e) {
+      console.warn('Web Audio test failed:', e);
+      return false;
+    }
+  }
+
+  private attachAudioListeners(el: HTMLAudioElement) {
+    this.detachAudioListeners();
+    this.audioElement = el;
+
+    const add = (type: string, handler: EventListener) => {
+      el.addEventListener(type, handler);
+      this.boundListeners.push({ type, handler });
+    };
+
+    add('timeupdate', () => {
       if (!this.state || this.state.mode !== 'file') return;
-      const cur = this.audioElement?.currentTime || 0;
+      const cur = el.currentTime || 0;
       this.updateState({ currentTime: cur });
     });
 
-    this.audioElement.addEventListener('durationchange', () => {
+    add('durationchange', () => {
       if (!this.state || this.state.mode !== 'file') return;
-      const d = this.audioElement?.duration;
+      const d = el.duration;
       if (d && isFinite(d) && d > 0) {
         this.updateState({ duration: d });
       }
     });
 
-    this.audioElement.addEventListener('playing', () => {
+    add('playing', () => {
       if (!this.state) return;
       this.updateState({ isPlaying: true, isLoading: false, hasError: false, errorMessage: null });
     });
 
-    this.audioElement.addEventListener('pause', () => {
+    add('pause', () => {
       if (!this.state || this.state.mode !== 'file') return;
       this.updateState({ isPlaying: false, isLoading: false });
     });
 
-    this.audioElement.addEventListener('waiting', () => {
+    add('waiting', () => {
       if (!this.state || this.state.mode !== 'file') return;
       this.updateState({ isLoading: true });
     });
 
-    this.audioElement.addEventListener('canplay', () => {
+    add('canplay', () => {
       if (!this.state || this.state.mode !== 'file') return;
       this.updateState({ isLoading: false });
     });
 
-    this.audioElement.addEventListener('ended', () => {
+    add('ended', () => {
       if (!this.state) return;
       this.updateState({ isPlaying: false, currentTime: 0 });
     });
 
-    this.audioElement.addEventListener('error', (e) => {
+    add('error', (e) => {
       if (!this.state || this.state.mode !== 'file') return;
-      console.warn('Audio element error:', e, this.audioElement?.error);
-      const code = this.audioElement?.error?.code;
+      console.warn('Audio element error:', e, el.error);
+      const code = el.error?.code;
       let msg = 'Impossible de charger la piste audio studio.';
       if (code === 2) msg = 'Erreur réseau lors du chargement audio.';
       else if (code === 3) msg = 'Erreur de décodage du fichier audio.';
@@ -156,6 +252,8 @@ class AudioManager {
       isMuted: prevMute,
       transcript,
       mode: currentMode,
+      audioFormat: 'WAVE PCM (16-bit 22.05 kHz Stéréo)',
+      audioElementConnected: this.audioElement !== null,
     };
     this.notify();
 

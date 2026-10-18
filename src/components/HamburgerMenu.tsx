@@ -119,8 +119,8 @@ export const HamburgerMenu: React.FC = () => {
                   zoom_in
                 </span>
                 <div className="flex-1 min-w-0">
-                  <div className="text-[13px] font-medium leading-tight">Laboratoire Gigapixel Ultra-HD</div>
-                  <div className="text-[11px] text-[#99907c] truncate">Macro-zoom, spectre, pigments</div>
+                  <div className="text-[13px] font-medium leading-tight">Visionneuse Macro HD & Détails</div>
+                  <div className="text-[11px] text-[#99907c] truncate">Deep-zoom Canvas, pipette, sources C2RMF</div>
                 </div>
               </button>
 

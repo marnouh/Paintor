@@ -15,6 +15,10 @@ export const ProfileScreen: React.FC = () => {
     setDailyNotification,
     notificationHour,
     setNotificationHour,
+    notificationPermission,
+    notificationScheduleInfo,
+    requestNotificationPermission,
+    triggerArtworkOfTheDayNotification,
     setIsInstallModalOpen,
     isAppInstalled,
     installApp,
@@ -33,7 +37,7 @@ export const ProfileScreen: React.FC = () => {
 
   const showToast = (msg: string) => {
     setToastMessage(msg);
-    setTimeout(() => setToastMessage(null), 3000);
+    setTimeout(() => setToastMessage(null), 3500);
   };
 
   const handleClearCache = () => {
@@ -41,12 +45,30 @@ export const ProfileScreen: React.FC = () => {
     showToast('Cache des images vidé avec succès. Favoris et progression préservés.');
   };
 
-  const handleImportCataloguePackage = () => {
-    showToast('Paquet de catalogue v1.1 vérifié (0 conflit, 840 toiles synchronisées)');
+  const handleToggleNotification = async () => {
+    if (!dailyNotification) {
+      if (notificationPermission !== 'granted') {
+        const granted = await requestNotificationPermission();
+        if (granted) {
+          setDailyNotification(true);
+          showToast("Autorisation accordée ! Rappels culturels activés.");
+        } else {
+          setDailyNotification(false);
+          showToast("Autorisation refusée ou ignorée.");
+        }
+      } else {
+        setDailyNotification(true);
+        showToast("Rappels quotidiens de l'œuvre du jour activés.");
+      }
+    } else {
+      setDailyNotification(false);
+      showToast("Rappels quotidiens désactivés.");
+    }
   };
 
-  const handleSimulateNotification = () => {
-    showToast("Notification : « La Jeune Fille à la perle est l'œuvre du jour ! »");
+  const handleTestNotification = async () => {
+    const res = await triggerArtworkOfTheDayNotification();
+    showToast(res.message);
   };
 
   return (
@@ -213,23 +235,50 @@ export const ProfileScreen: React.FC = () => {
 
         {/* 3. NOTIFICATIONS LOCALES (SANS SERVEUR) */}
         <section className="bg-[#1c1b20] border border-white/5 rounded-xl p-4 space-y-3.5">
-          <div className="flex items-center gap-2 pb-2 border-b border-[#4d4635]/20">
-            <span className="material-symbols-outlined text-[#f2ca50] text-[18px]">notifications</span>
-            <h2 className="font-title-editorial text-[16px] text-[#e5e1e8] font-semibold">
-              Rappels Culturels Locaux
-            </h2>
+          <div className="flex items-center justify-between pb-2 border-b border-[#4d4635]/20">
+            <div className="flex items-center gap-2">
+              <span className="material-symbols-outlined text-[#f2ca50] text-[18px]">notifications</span>
+              <h2 className="font-title-editorial text-[16px] text-[#e5e1e8] font-semibold">
+                Rappels Culturels Locaux
+              </h2>
+            </div>
+            {/* Real browser permission badge */}
+            <span
+              className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-label-caps uppercase font-bold border ${
+                notificationPermission === 'granted'
+                  ? 'bg-green-950/40 border-green-500/40 text-green-300'
+                  : notificationPermission === 'denied'
+                  ? 'bg-red-950/40 border-red-500/40 text-red-300'
+                  : 'bg-[#2b292f] border-[#f2ca50]/30 text-[#f2ca50]'
+              }`}
+            >
+              <span className="material-symbols-outlined text-[12px]">
+                {notificationPermission === 'granted'
+                  ? 'verified'
+                  : notificationPermission === 'denied'
+                  ? 'block'
+                  : 'schedule'}
+              </span>
+              <span>
+                {notificationPermission === 'granted'
+                  ? 'Système autorisée'
+                  : notificationPermission === 'denied'
+                  ? 'Bloquée navigateur'
+                  : 'À autoriser'}
+              </span>
+            </span>
           </div>
 
           <div
-            onClick={() => setDailyNotification(!dailyNotification)}
-            className="flex items-center justify-between p-3 rounded-lg bg-[#201f24] border border-white/5 cursor-pointer"
+            onClick={handleToggleNotification}
+            className="flex items-center justify-between p-3 rounded-lg bg-[#201f24] border border-white/5 cursor-pointer hover:border-[#f2ca50]/30 transition-all"
           >
             <div>
               <div className="font-body-md text-[13px] text-[#e5e1e8] font-medium">
                 Notification de l'œuvre du jour
               </div>
               <div className="font-body-sm text-[11px] text-[#99907c]">
-                Déclenchée localement par le système d'exploitation du téléphone
+                Programmation locale autonome par l'API Web Notification du système
               </div>
             </div>
             <div
@@ -246,22 +295,78 @@ export const ProfileScreen: React.FC = () => {
           </div>
 
           {dailyNotification && (
-            <div className="flex items-center justify-between p-3 rounded-lg bg-[#201f24] border border-white/5">
-              <span className="font-body-md text-[13px] text-[#d0c5af]">Heure du rappel quotidien</span>
-              <input
-                type="time"
-                value={notificationHour}
-                onChange={(e) => setNotificationHour(e.target.value)}
-                className="bg-[#141318] border border-white/10 rounded px-2.5 py-1 text-sm text-[#f2ca50] font-mono focus:outline-none"
-              />
+            <div className="space-y-2.5">
+              <div className="flex items-center justify-between p-3 rounded-lg bg-[#201f24] border border-white/5">
+                <div>
+                  <span className="font-body-md text-[13px] text-[#d0c5af] block">Heure du rappel quotidien</span>
+                  <span className="text-[10.5px] text-[#99907c]">Chaque jour à l'heure exacte choisie</span>
+                </div>
+                <input
+                  type="time"
+                  value={notificationHour}
+                  onChange={(e) => setNotificationHour(e.target.value)}
+                  className="bg-[#141318] border border-white/10 rounded px-2.5 py-1 text-sm text-[#f2ca50] font-mono focus:outline-none"
+                />
+              </div>
+
+              {/* Preuve de programmation & Statut Réel du Planificateur */}
+              <div className="p-3 rounded-lg bg-[#141318] border border-[#f2ca50]/30 space-y-1.5 text-[11.5px]">
+                <div className="flex items-center justify-between text-[#f2ca50] font-label-caps uppercase text-[10px] font-bold">
+                  <span className="flex items-center gap-1">
+                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                    Planificateur actif (localStorage + Timer)
+                  </span>
+                  <span>{notificationScheduleInfo.timeRemainingFormatted} restantes</span>
+                </div>
+
+                <div className="text-[#e5e1e8]">
+                  Prochaine alerte calculée :{' '}
+                  <strong className="text-[#f2ca50]">
+                    {notificationScheduleInfo.nextScheduledDate
+                      ? notificationScheduleInfo.nextScheduledDate.toLocaleString('fr-FR', {
+                          weekday: 'long',
+                          day: 'numeric',
+                          month: 'long',
+                          hour: '2-digit',
+                          minute: '2-digit',
+                        })
+                      : `${notificationHour}`}
+                  </strong>
+                </div>
+
+                <div className="text-[10.5px] text-[#99907c] flex items-center justify-between pt-1 border-t border-white/5">
+                  <span>Clé de persistance : <code className="font-mono text-[#d0c5af]">regard_notifications_enabled</code></span>
+                  {notificationScheduleInfo.lastTriggeredFormatted && (
+                    <span>Dernier envoi : {notificationScheduleInfo.lastTriggeredFormatted}</span>
+                  )}
+                </div>
+              </div>
             </div>
           )}
 
+          {!dailyNotification && (
+            <div className="p-2.5 rounded-lg bg-[#201f24]/50 border border-white/5 text-[11px] text-[#99907c] flex items-center gap-2">
+              <span className="material-symbols-outlined text-[16px]">notifications_off</span>
+              <span>Aucun rappel programmé. Vos données et votre batterie sont au repos complet.</span>
+            </div>
+          )}
+
+          {notificationPermission !== 'granted' && (
+            <button
+              onClick={requestNotificationPermission}
+              className="w-full py-2 bg-[#201f24] hover:bg-[#2b292f] text-[#f2ca50] border border-[#f2ca50]/30 rounded-lg font-label-md text-[12px] font-semibold flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+            >
+              <span className="material-symbols-outlined text-[16px]">notifications_active</span>
+              <span>Demander l'autorisation système au navigateur</span>
+            </button>
+          )}
+
           <button
-            onClick={handleSimulateNotification}
-            className="w-full py-2 bg-[#2b292f] hover:bg-[#36343a] text-[#f2ca50] rounded-lg font-label-md text-[12px] font-semibold border border-white/5 transition-colors cursor-pointer"
+            onClick={handleTestNotification}
+            className="w-full py-2 bg-[#2b292f] hover:bg-[#36343a] text-[#f2ca50] rounded-lg font-label-md text-[12px] font-semibold border border-[#f2ca50]/20 flex items-center justify-center gap-2 transition-colors cursor-pointer shadow-sm active:scale-95"
           >
-            Tester un rappel de notification
+            <span className="material-symbols-outlined text-[16px]">send</span>
+            <span>Tester une notification système réelle maintenant</span>
           </button>
         </section>
 

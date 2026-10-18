@@ -1,6 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useApp } from '../context/AppContext.tsx';
 import { COLORIST_QUIZ } from '../data/learningExtras.ts';
+
+export interface QuizAnswerRecord {
+  questionIndex: number;
+  questionText: string;
+  artworkTitle: string;
+  selectedOptionId: string;
+  selectedOptionText: string;
+  correctOptionId: string;
+  correctOptionText: string;
+  isCorrect: boolean;
+  explanation: string;
+}
 
 export const QuizScreen: React.FC = () => {
   const { goBack, addPoints } = useApp();
@@ -9,11 +21,29 @@ export const QuizScreen: React.FC = () => {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const [showHint, setShowHint] = useState<boolean>(false);
   const [isAnswerConfirmed, setIsAnswerConfirmed] = useState<boolean>(false);
-  const [scoreCount, setScoreCount] = useState<number>(0);
+  const [answersHistory, setAnswersHistory] = useState<QuizAnswerRecord[]>([]);
   const [isQuizCompleted, setIsQuizCompleted] = useState<boolean>(false);
   const [isLoupeZoomed, setIsLoupeZoomed] = useState<boolean>(false);
 
+  // Reinitialiser strictement l'état à chaque montage du composant
+  const resetQuizSession = () => {
+    setQuestionIndex(0);
+    setSelectedOption(null);
+    setShowHint(false);
+    setIsAnswerConfirmed(false);
+    setAnswersHistory([]);
+    setIsQuizCompleted(false);
+    setIsLoupeZoomed(false);
+  };
+
+  useEffect(() => {
+    resetQuizSession();
+  }, []);
+
   const currentQ = COLORIST_QUIZ[questionIndex] || COLORIST_QUIZ[0];
+
+  // Le score est calculé directement à partir des réponses réelles enregistrées
+  const scoreCount = answersHistory.filter((a) => a.isCorrect).length;
 
   const handleSelect = (optionId: string) => {
     if (!isAnswerConfirmed) {
@@ -23,33 +53,45 @@ export const QuizScreen: React.FC = () => {
 
   const handleConfirmAnswer = () => {
     if (isAnswerConfirmed) {
-      // Go to next question or complete
+      // Passer à la question suivante ou achever l'évaluation
       if (questionIndex < COLORIST_QUIZ.length - 1) {
-        setQuestionIndex(questionIndex + 1);
+        setQuestionIndex((prev) => prev + 1);
         setSelectedOption(null);
         setIsAnswerConfirmed(false);
         setShowHint(false);
+        setIsLoupeZoomed(false);
       } else {
         setIsQuizCompleted(true);
-        addPoints(scoreCount * 25);
+        const finalScore = answersHistory.filter((a) => a.isCorrect).length;
+        if (finalScore > 0) {
+          addPoints(finalScore * 25);
+        }
       }
     } else {
       if (!selectedOption) return;
       const selected = currentQ.options.find((o) => o.id === selectedOption);
-      if (selected?.isCorrect) {
-        setScoreCount((prev) => prev + 1);
-      }
+      const correct = currentQ.options.find((o) => o.isCorrect);
+      const isCorrect = !!selected?.isCorrect;
+
+      const record: QuizAnswerRecord = {
+        questionIndex,
+        questionText: currentQ.question,
+        artworkTitle: currentQ.artworkTitle,
+        selectedOptionId: selectedOption,
+        selectedOptionText: selected?.text || '',
+        correctOptionId: correct?.id || '',
+        correctOptionText: correct?.text || '',
+        isCorrect,
+        explanation: correct?.explanation || currentQ.curatorClue || '',
+      };
+
+      setAnswersHistory((prev) => [...prev, record]);
       setIsAnswerConfirmed(true);
     }
   };
 
   const handleRestartQuiz = () => {
-    setQuestionIndex(0);
-    setSelectedOption(null);
-    setIsAnswerConfirmed(false);
-    setShowHint(false);
-    setScoreCount(0);
-    setIsQuizCompleted(false);
+    resetQuizSession();
   };
 
   return (
@@ -163,6 +205,48 @@ export const QuizScreen: React.FC = () => {
                 <span className="text-[#f2ca50] font-bold">
                   {scoreCount >= 4 ? 'Maître du Regard (Validé)' : 'Initié au Beau'}
                 </span>
+              </div>
+            </div>
+
+            {/* Detailed answers review */}
+            <div className="w-full text-left space-y-2.5">
+              <span className="font-label-caps text-[10.5px] uppercase tracking-wider text-[#d0c5af] block font-semibold">
+                Détail de vos réponses vérifiées ({scoreCount}/{COLORIST_QUIZ.length}) :
+              </span>
+              <div className="space-y-2 max-h-60 overflow-y-auto custom-scroll pr-1">
+                {answersHistory.map((ans, idx) => (
+                  <div
+                    key={idx}
+                    className="p-3 bg-[#1c1b20] rounded-xl border border-white/5 space-y-1 text-[11.5px]"
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className="font-label-caps text-[10px] text-[#f2ca50] font-bold">
+                        Question {ans.questionIndex + 1} • {ans.artworkTitle}
+                      </span>
+                      <span
+                        className={`inline-flex items-center gap-1 font-label-caps text-[9.5px] font-bold uppercase px-1.5 py-0.5 rounded ${
+                          ans.isCorrect
+                            ? 'bg-green-950/40 text-green-300 border border-green-500/30'
+                            : 'bg-red-950/40 text-red-300 border border-red-500/30'
+                        }`}
+                      >
+                        <span className="material-symbols-outlined text-[13px]">
+                          {ans.isCorrect ? 'check_circle' : 'cancel'}
+                        </span>
+                        {ans.isCorrect ? 'Exact (+25 pts)' : 'Incorrect (0 pt)'}
+                      </span>
+                    </div>
+                    <p className="text-[#e5e1e8] font-medium leading-snug">
+                      {ans.questionText}
+                    </p>
+                    <div className="text-[11px] text-[#99907c] pt-1 border-t border-white/5">
+                      <div>Votre sélection : <span className={ans.isCorrect ? 'text-green-300 font-semibold' : 'text-red-300 font-semibold'}>{ans.selectedOptionText}</span></div>
+                      {!ans.isCorrect && (
+                        <div className="text-green-300">Réponse attendue : <span className="font-semibold">{ans.correctOptionText}</span></div>
+                      )}
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
 

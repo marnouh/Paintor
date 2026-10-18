@@ -13,8 +13,13 @@ import {
   searchEngine,
   SearchResultItem,
   SearchEngineStats,
+  SearchBenchmarkResult,
 } from '../services/searchEngine.ts';
 import { catalogUpdateService } from '../services/catalogUpdateService.ts';
+import {
+  notificationService,
+  NotificationScheduleInfo,
+} from '../services/notificationService.ts';
 
 export type ScreenType =
   | 'accueil'
@@ -104,6 +109,8 @@ interface AppContextType {
   userLevel: string;
   completedSteps: number[];
   completeStep: (stepNumber: number) => void;
+  toggleStep: (stepNumber: number) => void;
+  recordReadingDuration: (artworkId: string, durationMinutes: number) => Promise<void>;
 
   // Guide Audio Réel & Lecteur Interactif
   currentAudio: CurrentAudioState | null;
@@ -122,6 +129,8 @@ interface AppContextType {
   isAudioModalOpen: boolean;
   setIsAudioModalOpen: (open: boolean) => void;
   openAudioModal: (artworkId?: string) => void;
+  playAudioToneTest: (freq?: number, duration?: number) => boolean;
+  registerAudioDomElement: (el: HTMLAudioElement | null) => void;
 
   // User Preferences & Accessibility
   fontSize: 'standard' | 'confort' | 'grand';
@@ -134,6 +143,10 @@ interface AppContextType {
   setDailyNotification: (v: boolean) => void;
   notificationHour: string;
   setNotificationHour: (h: string) => void;
+  notificationPermission: NotificationPermission;
+  notificationScheduleInfo: NotificationScheduleInfo;
+  requestNotificationPermission: () => Promise<boolean>;
+  triggerArtworkOfTheDayNotification: () => Promise<{ success: boolean; message: string }>;
   activeQuickAngle: string;
   setActiveQuickAngle: (angle: string) => void;
   applyQuickFilter: (angle: string) => void;
@@ -210,6 +223,7 @@ interface AppContextType {
   deleteNote: (id: string) => Promise<void>;
   searchFTS: (query: string) => SearchResultItem[];
   ftsStats: SearchEngineStats;
+  runSearchBenchmark: () => SearchBenchmarkResult[];
 
   // Sauvegarde Chiffrée & Restauration
   isBackupModalOpen: boolean;
@@ -236,11 +250,59 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [artists, setArtists] = useState<Artist[]>(() => ARTISTS);
   const [isCatalogModalOpen, setIsCatalogModalOpen] = useState<boolean>(false);
 
-  // Real IndexedDB Stores (starts clean without dummy values)
-  const [bookmarkedIds, setBookmarkedIds] = useState<string[]>([]);
-  const [history, setHistory] = useState<HistoryItem[]>([]);
-  const [userPoints, setUserPoints] = useState<number>(0);
-  const [completedSteps, setCompletedSteps] = useState<number[]>([]);
+  // Real Local Storage & IndexedDB Stores (starts strictly clean without dummy values)
+  const [bookmarkedIds, setBookmarkedIds] = useState<string[]>(() => {
+    try {
+      const saved = localStorage.getItem('regard_bookmarks');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed)) return parsed;
+      }
+    } catch (e) {
+      console.warn(e);
+    }
+    return [];
+  });
+
+  const [history, setHistory] = useState<HistoryItem[]>(() => {
+    try {
+      const saved = localStorage.getItem('regard_history');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed)) return parsed;
+      }
+    } catch (e) {
+      console.warn(e);
+    }
+    return [];
+  });
+
+  const [userPoints, setUserPoints] = useState<number>(() => {
+    try {
+      const saved = localStorage.getItem('regard_points');
+      if (saved !== null) {
+        const pts = Number(saved);
+        if (!isNaN(pts)) return pts;
+      }
+    } catch (e) {
+      console.warn(e);
+    }
+    return 0; // Starts strictly at 0 for a new user
+  });
+
+  const [completedSteps, setCompletedSteps] = useState<number[]>(() => {
+    try {
+      const saved = localStorage.getItem('regard_completed_steps');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed)) return parsed;
+      }
+    } catch (e) {
+      console.warn(e);
+    }
+    return []; // Starts strictly empty for a new user
+  });
+
   const [userNotes, setUserNotes] = useState<StoredNote[]>([]);
   const [storageDiagnostics, setStorageDiagnostics] = useState<StorageDiagnostics | null>(null);
   const [isDbReady, setIsDbReady] = useState<boolean>(false);
@@ -411,6 +473,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   };
 
   const ftsStats = searchEngine.getStats();
+  const runSearchBenchmark = () => searchEngine.runBenchmarkSuite();
 
   // Accessibility & System Preferences
   const [fontSize, setFontSize] = useState<'standard' | 'confort' | 'grand'>(() => {
@@ -438,8 +501,108 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }
   });
 
-  const [dailyNotification, setDailyNotification] = useState<boolean>(true);
-  const [notificationHour, setNotificationHour] = useState<string>('09:00');
+  const [dailyNotification, setDailyNotification] = useState<boolean>(() => {
+    try {
+      return localStorage.getItem('regard_notifications_enabled') === 'true';
+    } catch {
+      return false;
+    }
+  });
+  const [notificationHour, setNotificationHour] = useState<string>(() => {
+    try {
+      return localStorage.getItem('regard_notifications_time') || '09:00';
+    } catch {
+      return '09:00';
+    }
+  });
+  const [notificationPermission, setNotificationPermission] = useState<NotificationPermission>(() => {
+    if (typeof window !== 'undefined' && 'Notification' in window) {
+      return Notification.permission;
+    }
+    return 'default';
+  });
+
+  // Sync notification preferences to localStorage
+  useEffect(() => {
+    try {
+      localStorage.setItem('regard_notifications_enabled', String(dailyNotification));
+    } catch (e) {
+      console.warn(e);
+    }
+  }, [dailyNotification]);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('regard_notifications_time', notificationHour);
+    } catch (e) {
+      console.warn(e);
+    }
+  }, [notificationHour]);
+
+  const [notificationScheduleInfo, setNotificationScheduleInfo] = useState<NotificationScheduleInfo>(() =>
+    notificationService.getScheduleInfo()
+  );
+
+  const refreshNotificationSchedule = () => {
+    setNotificationScheduleInfo(notificationService.getScheduleInfo());
+  };
+
+  const requestNotificationPermission = async (): Promise<boolean> => {
+    const perm = await notificationService.requestPermission();
+    setNotificationPermission(perm);
+    refreshNotificationSchedule();
+    return perm === 'granted';
+  };
+
+  const triggerArtworkOfTheDayNotification = async (): Promise<{ success: boolean; message: string }> => {
+    const res = await notificationService.triggerArtworkNotification(artworks);
+    refreshNotificationSchedule();
+    return { success: res.success, message: res.message };
+  };
+
+  // Sync settings and start background timer for daily notifications
+  useEffect(() => {
+    notificationService.saveSettings(dailyNotification, notificationHour);
+    if (dailyNotification) {
+      notificationService.startScheduler(artworks, () => {
+        refreshNotificationSchedule();
+      });
+    } else {
+      notificationService.stopScheduler();
+    }
+    refreshNotificationSchedule();
+
+    return () => {
+      notificationService.stopScheduler();
+    };
+  }, [dailyNotification, notificationHour, artworks]);
+
+  // Listen for Service Worker notification clicks
+  useEffect(() => {
+    if ('serviceWorker' in navigator) {
+      const handleMessage = (event: MessageEvent) => {
+        if (event.data?.type === 'OPEN_ARTWORK_FROM_NOTIFICATION' && event.data.artworkId) {
+          openArtwork(event.data.artworkId);
+        }
+      };
+      navigator.serviceWorker.addEventListener('message', handleMessage);
+      return () => {
+        navigator.serviceWorker.removeEventListener('message', handleMessage);
+      };
+    }
+  }, [artworks]);
+
+  // Handle URL deep link from notification on launch
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const artId = params.get('artworkId');
+      if (artId && artworks.some((a) => a.id === artId)) {
+        openArtwork(artId);
+      }
+    }
+  }, [artworks]);
+
   const [activeQuickAngle, setActiveQuickAngle] = useState<string>('all');
 
   useEffect(() => {
@@ -793,6 +956,22 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     }
   }, [userPoints]);
 
+  useEffect(() => {
+    try {
+      localStorage.setItem('regard_completed_steps', JSON.stringify(completedSteps));
+    } catch (e) {
+      console.warn(e);
+    }
+  }, [completedSteps]);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('regard_history', JSON.stringify(history));
+    } catch (e) {
+      console.warn(e);
+    }
+  }, [history]);
+
   const navigateTo = (screen: ScreenType) => {
     if (screen !== currentScreen) {
       setScreenHistory((prev) => [...prev, screen]);
@@ -818,14 +997,18 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setArtworkReadingMode(mode);
     indexedDbService.recordVisit(id, 2).then(async () => {
       const hist = await indexedDbService.getHistory();
-      setHistory(
-        hist.map((h) => ({
-          artworkId: h.artworkId,
-          timeAgo: formatTimeAgo(h.lastVisitedAt),
-          readMinutes: h.readMinutes,
-          lastVisitedAt: h.lastVisitedAt,
-        }))
-      );
+      const mapped = hist.map((h) => ({
+        artworkId: h.artworkId,
+        timeAgo: formatTimeAgo(h.lastVisitedAt),
+        readMinutes: h.readMinutes,
+        lastVisitedAt: h.lastVisitedAt,
+      }));
+      setHistory(mapped);
+      try {
+        localStorage.setItem('regard_history', JSON.stringify(mapped));
+      } catch (e) {
+        console.warn(e);
+      }
       await refreshStorageDiagnostics();
     });
     navigateTo('artwork-detail');
@@ -851,6 +1034,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     await indexedDbService.toggleBookmark(id);
     const updated = await indexedDbService.getBookmarkIds();
     setBookmarkedIds(updated);
+    try {
+      localStorage.setItem('regard_bookmarks', JSON.stringify(updated));
+    } catch (e) {
+      console.warn(e);
+    }
     await refreshStorageDiagnostics();
   };
 
@@ -859,24 +1047,78 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const clearHistory = async () => {
     await indexedDbService.clearHistory();
     setHistory([]);
+    try {
+      localStorage.removeItem('regard_history');
+    } catch (e) {
+      console.warn(e);
+    }
     await refreshStorageDiagnostics();
   };
 
   const addPoints = (pts: number) => {
     setUserPoints((prev) => {
       const next = Math.min(1000, prev + pts);
+      try {
+        localStorage.setItem('regard_points', String(next));
+      } catch (e) {
+        console.warn(e);
+      }
       indexedDbService.saveUserProgress(next, completedSteps);
       return next;
     });
   };
 
   const completeStep = (stepNumber: number) => {
-    setCompletedSteps((prev) => {
-      const next = prev.includes(stepNumber) ? prev : [...prev, stepNumber];
-      indexedDbService.saveUserProgress(userPoints + 50, next);
-      return next;
-    });
-    addPoints(50);
+    if (completedSteps.includes(stepNumber)) return;
+    const nextSteps = [...completedSteps, stepNumber];
+    const newPoints = Math.min(1000, userPoints + 50);
+    setCompletedSteps(nextSteps);
+    setUserPoints(newPoints);
+    try {
+      localStorage.setItem('regard_completed_steps', JSON.stringify(nextSteps));
+      localStorage.setItem('regard_points', String(newPoints));
+    } catch (e) {
+      console.warn(e);
+    }
+    indexedDbService.saveUserProgress(newPoints, nextSteps);
+  };
+
+  const toggleStep = (stepNumber: number) => {
+    const isCompleted = completedSteps.includes(stepNumber);
+    const nextSteps = isCompleted
+      ? completedSteps.filter((s) => s !== stepNumber)
+      : [...completedSteps, stepNumber];
+    const newPoints = isCompleted
+      ? Math.max(0, userPoints - 50)
+      : Math.min(1000, userPoints + 50);
+
+    setCompletedSteps(nextSteps);
+    setUserPoints(newPoints);
+    try {
+      localStorage.setItem('regard_completed_steps', JSON.stringify(nextSteps));
+      localStorage.setItem('regard_points', String(newPoints));
+    } catch (e) {
+      console.warn(e);
+    }
+    indexedDbService.saveUserProgress(newPoints, nextSteps);
+  };
+
+  const recordReadingDuration = async (artworkId: string, durationMinutes: number) => {
+    await indexedDbService.recordVisit(artworkId, durationMinutes);
+    const hist = await indexedDbService.getHistory();
+    const mapped = hist.map((h) => ({
+      artworkId: h.artworkId,
+      timeAgo: formatTimeAgo(h.lastVisitedAt),
+      readMinutes: h.readMinutes,
+      lastVisitedAt: h.lastVisitedAt,
+    }));
+    setHistory(mapped);
+    try {
+      localStorage.setItem('regard_history', JSON.stringify(mapped));
+    } catch (e) {
+      console.warn(e);
+    }
+    await refreshStorageDiagnostics();
   };
 
   const addNote = async (content: string, title?: string, artworkId?: string): Promise<StoredNote> => {
@@ -986,6 +1228,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const switchAudioMode = async (mode: 'file' | 'speech') => audioManager.switchMode(mode);
   const retryAudio = async () => audioManager.retry();
   const stopAudio = () => audioManager.stop();
+  const playAudioToneTest = (freq?: number, duration?: number) => audioManager.playToneTest(freq, duration);
+  const registerAudioDomElement = (el: HTMLAudioElement | null) => audioManager.bindDomAudioElement(el);
 
   const openAudioModal = (artworkId?: string) => {
     if (artworkId && artworkId !== currentAudio?.artworkId) {
@@ -1061,6 +1305,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         userLevel,
         completedSteps,
         completeStep,
+        toggleStep,
+        recordReadingDuration,
 
         currentAudio,
         playAudio,
@@ -1078,6 +1324,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         isAudioModalOpen,
         setIsAudioModalOpen,
         openAudioModal,
+        playAudioToneTest,
+        registerAudioDomElement,
 
         fontSize,
         setFontSize,
@@ -1089,6 +1337,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         setDailyNotification,
         notificationHour,
         setNotificationHour,
+        notificationPermission,
+        notificationScheduleInfo,
+        requestNotificationPermission,
+        triggerArtworkOfTheDayNotification,
         activeQuickAngle,
         setActiveQuickAngle,
         applyQuickFilter,
@@ -1158,6 +1410,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         deleteNote,
         searchFTS,
         ftsStats,
+        runSearchBenchmark,
 
         // Sauvegarde Chiffrée & Restauration
         isBackupModalOpen,

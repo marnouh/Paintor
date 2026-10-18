@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { useApp } from '../context/AppContext.tsx';
+import { ArtworkImage } from '../components/ArtworkImage.tsx';
 
 export const CollectionScreen: React.FC = () => {
   const {
     goBack,
+    navigateTo,
     openArtwork,
     openLearningPath,
     openGigapixel,
@@ -339,40 +341,62 @@ export const CollectionScreen: React.FC = () => {
               </button>
             </div>
 
-            {/* Grille muséale 2 colonnes */}
-            <div className="grid grid-cols-2 gap-3.5">
-              {filteredBookmarks.map((art) => (
-                <article
-                  key={art.id}
-                  onClick={() => openArtwork(art.id)}
-                  className="border border-white/5 bg-[#1c1b20] rounded-xl overflow-hidden flex flex-col group transition-all duration-300 hover:border-[#99907c] cursor-pointer"
+            {/* Grille muséale 2 colonnes ou état vierge */}
+            {filteredBookmarks.length === 0 ? (
+              <div className="p-8 text-center bg-[#201f24] rounded-xl border border-white/5 space-y-2.5 my-2">
+                <span className="material-symbols-outlined text-[#99907c] text-[36px]">
+                  bookmark_border
+                </span>
+                <h3 className="font-title-editorial text-[15px] text-[#e5e1e8] font-semibold">
+                  Votre salon d'exposition personnel est vide
+                </h3>
+                <p className="font-body-sm text-[12px] text-[#99907c] max-w-xs mx-auto leading-relaxed">
+                  Aucune toile n'est encore enregistrée. Explorez le catalogue et touchez le signet pour composer votre collection.
+                </p>
+                <button
+                  onClick={() => navigateTo('explorer')}
+                  className="mt-1 inline-flex items-center gap-1.5 px-3.5 py-2 bg-[#f2ca50] hover:bg-[#ffe088] text-[#141318] rounded-lg font-label-caps text-[11px] font-bold uppercase tracking-wider transition-all active:scale-95 cursor-pointer shadow-sm"
                 >
-                  <div className="relative w-full aspect-[4/5] bg-[#0e0e12] overflow-hidden">
-                    <img
-                      src={art.imageUrl}
-                      alt={art.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#1c1b20] via-transparent to-black/30 pointer-events-none" />
+                  <span className="material-symbols-outlined text-[15px]">explore</span>
+                  <span>Explorer le catalogue</span>
+                </button>
+              </div>
+            ) : (
+              <div className="grid grid-cols-2 gap-3.5">
+                {filteredBookmarks.map((art) => (
+                  <article
+                    key={art.id}
+                    onClick={() => openArtwork(art.id)}
+                    className="border border-white/5 bg-[#1c1b20] rounded-xl overflow-hidden flex flex-col group transition-all duration-300 hover:border-[#99907c] cursor-pointer"
+                  >
+                    <div className="relative w-full aspect-[4/5] bg-[#0e0e12] overflow-hidden">
+                      <ArtworkImage
+                        src={art.imageUrl}
+                        alt={art.title}
+                        title={art.title}
+                        artist={art.artist}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#1c1b20] via-transparent to-black/30 pointer-events-none" />
 
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        toggleBookmark(art.id);
-                      }}
-                      aria-label="Retirer des favoris"
-                      className="absolute top-2.5 right-2.5 w-7 h-7 rounded-full bg-[#141318]/80 backdrop-blur-md flex items-center justify-center text-[#f2ca50] border border-[#f2ca50]/30 active:scale-90 transition-transform cursor-pointer"
-                      title="Retirer des favoris"
-                    >
-                      <span className="material-symbols-outlined text-[16px]" style={{ fontVariationSettings: "'FILL' 1" }}>
-                        bookmark
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          toggleBookmark(art.id);
+                        }}
+                        aria-label="Retirer des favoris"
+                        className="absolute top-2.5 right-2.5 w-7 h-7 rounded-full bg-[#141318]/80 backdrop-blur-md flex items-center justify-center text-[#f2ca50] border border-[#f2ca50]/30 active:scale-90 transition-transform cursor-pointer"
+                        title="Retirer des favoris"
+                      >
+                        <span className="material-symbols-outlined text-[16px]" style={{ fontVariationSettings: "'FILL' 1" }}>
+                          bookmark
+                        </span>
+                      </button>
+
+                      <span className="absolute bottom-2.5 left-2.5 font-label-caps text-[9.5px] text-[#f2ca50] px-2 py-0.5 rounded bg-[#141318]/90 backdrop-blur-sm border border-[#f2ca50]/30 uppercase tracking-widest font-semibold">
+                        Approfondie
                       </span>
-                    </button>
-
-                    <span className="absolute bottom-2.5 left-2.5 font-label-caps text-[9.5px] text-[#f2ca50] px-2 py-0.5 rounded bg-[#141318]/90 backdrop-blur-sm border border-[#f2ca50]/30 uppercase tracking-widest font-semibold">
-                      Approfondie
-                    </span>
-                  </div>
+                    </div>
 
                   <div className="p-3 flex-1 flex flex-col justify-between">
                     <div>
@@ -394,68 +418,81 @@ export const CollectionScreen: React.FC = () => {
                 </article>
               ))}
             </div>
+            )}
           </section>
         )}
 
         {/* SECTION 3: PARCOURS ACTIF CARD */}
-        <section className="border border-[#f2ca50]/35 bg-[#1c1b20] rounded-xl p-4 gilded-glow relative overflow-hidden">
-          <div className="flex items-start justify-between">
-            <div>
-              <span className="font-label-caps text-[10px] text-[#f2ca50] uppercase tracking-wider block font-semibold">
-                Parcours thématique actif
-              </span>
-              <h2 className="font-headline-sm text-[18px] text-[#e5e1e8] mt-1 font-semibold">
-                Les Maîtres de la Couleur
-              </h2>
-              <p className="font-body-sm text-[12px] text-[#d0c5af] mt-0.5">
-                Étape 4 sur 8 • Prochaine toile : Paul Cézanne,{' '}
-                <span className="italic text-[#e5e1e8]">La Montagne Sainte-Victoire</span>
-              </p>
-            </div>
+        {(() => {
+          const pathStepCount = 8;
+          const pathStepsDone = [1, 2, 3, 4, 5, 6, 7, 8].filter((s) => completedSteps.includes(s)).length;
+          const pathPct = Math.round((pathStepsDone / pathStepCount) * 100);
+          const strokeOffset = Math.max(0, 119.38 - (119.38 * pathPct) / 100);
 
-            {/* Circular Progress (50%) */}
-            <div className="shrink-0 relative w-12 h-12 flex items-center justify-center">
-              <svg className="w-12 h-12 transform -rotate-90">
-                <circle
-                  className="text-[#36343a]"
-                  cx="24"
-                  cy="24"
-                  fill="transparent"
-                  r="19"
-                  stroke="currentColor"
-                  strokeWidth="3"
-                />
-                <circle
-                  className="text-[#f2ca50]"
-                  cx="24"
-                  cy="24"
-                  fill="transparent"
-                  r="19"
-                  stroke="currentColor"
-                  strokeWidth="3"
-                  strokeDasharray="119.38"
-                  strokeDashoffset="59.69"
-                  strokeLinecap="round"
-                />
-              </svg>
-              <span className="absolute font-label-caps text-[11px] text-[#f2ca50] font-bold">50%</span>
-            </div>
-          </div>
+          return (
+            <section className="border border-[#f2ca50]/35 bg-[#1c1b20] rounded-xl p-4 gilded-glow relative overflow-hidden">
+              <div className="flex items-start justify-between">
+                <div>
+                  <span className="font-label-caps text-[10px] text-[#f2ca50] uppercase tracking-wider block font-semibold">
+                    Parcours thématique actif
+                  </span>
+                  <h2 className="font-headline-sm text-[18px] text-[#e5e1e8] mt-1 font-semibold">
+                    Les Maîtres de la Couleur
+                  </h2>
+                  <p className="font-body-sm text-[12px] text-[#d0c5af] mt-0.5">
+                    {pathStepsDone === 0
+                      ? 'Parcours non débuté • 8 étapes à explorer'
+                      : pathStepsDone >= 8
+                      ? 'Cycle complété avec succès • 8 étapes validées'
+                      : `Étape ${pathStepsDone + 1} sur 8 • Prochaine toile : Paul Cézanne`}
+                  </p>
+                </div>
 
-          <div className="mt-4 pt-3 border-t border-[#4d4635]/20 flex items-center justify-between">
-            <span className="font-body-sm text-[11.5px] text-[#d0c5af] flex items-center gap-1">
-              <span className="material-symbols-outlined text-[14px] text-[#f2ca50]">schedule</span>
-              ~ 12 min restantes
-            </span>
-            <button
-              onClick={() => openGigapixel('cezanne-sainte-victoire')}
-              className="bg-[#f2ca50] hover:bg-[#ffe088] text-[#3c2f00] font-label-md text-[12.5px] font-bold px-4 py-2 rounded-lg flex items-center gap-2 active:scale-95 transition-all shadow-md cursor-pointer"
-            >
-              <span>Poursuivre le parcours</span>
-              <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
-            </button>
-          </div>
-        </section>
+                {/* Circular Progress Dynamique */}
+                <div className="shrink-0 relative w-12 h-12 flex items-center justify-center">
+                  <svg className="w-12 h-12 transform -rotate-90">
+                    <circle
+                      className="text-[#36343a]"
+                      cx="24"
+                      cy="24"
+                      fill="transparent"
+                      r="19"
+                      stroke="currentColor"
+                      strokeWidth="3"
+                    />
+                    <circle
+                      className="text-[#f2ca50] transition-all duration-700"
+                      cx="24"
+                      cy="24"
+                      fill="transparent"
+                      r="19"
+                      stroke="currentColor"
+                      strokeWidth="3"
+                      strokeDasharray="119.38"
+                      strokeDashoffset={strokeOffset}
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                  <span className="absolute font-label-caps text-[11px] text-[#f2ca50] font-bold">{pathPct}%</span>
+                </div>
+              </div>
+
+              <div className="mt-4 pt-3 border-t border-[#4d4635]/20 flex items-center justify-between">
+                <span className="font-body-sm text-[11.5px] text-[#d0c5af] flex items-center gap-1">
+                  <span className="material-symbols-outlined text-[14px] text-[#f2ca50]">schedule</span>
+                  {pathStepsDone >= 8 ? 'Cycle achevé' : `~ ${Math.max(5, (8 - pathStepsDone) * 5)} min restantes`}
+                </span>
+                <button
+                  onClick={() => openLearningPath('maitres-couleur')}
+                  className="bg-[#f2ca50] hover:bg-[#ffe088] text-[#3c2f00] font-label-md text-[12.5px] font-bold px-4 py-2 rounded-lg flex items-center gap-2 active:scale-95 transition-all shadow-md cursor-pointer"
+                >
+                  <span>{pathStepsDone === 0 ? 'Démarrer le cycle' : 'Poursuivre le parcours'}</span>
+                  <span className="material-symbols-outlined text-[16px]">arrow_forward</span>
+                </button>
+              </div>
+            </section>
+          );
+        })()}
 
         {/* SECTION 4: RÉCEMMENT CONTEMPLÉES (HISTORIQUE) */}
         <section className="space-y-3">
@@ -499,9 +536,11 @@ export const CollectionScreen: React.FC = () => {
                   >
                     <div className="flex items-center gap-3">
                       <div className="w-12 h-12 rounded-lg bg-[#0e0e12] overflow-hidden border border-white/5 shrink-0">
-                        <img
+                        <ArtworkImage
                           src={art.imageUrl}
                           alt={art.title}
+                          title={art.title}
+                          artist={art.artist}
                           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                         />
                       </div>

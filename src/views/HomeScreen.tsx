@@ -2,6 +2,7 @@ import React from 'react';
 import { useApp } from '../context/AppContext.tsx';
 import { TopAppBar } from '../components/TopAppBar.tsx';
 import { ContextualTipBanner } from '../components/ContextualTipBanner.tsx';
+import { ArtworkImage } from '../components/ArtworkImage.tsx';
 
 export const HomeScreen: React.FC = () => {
   const {
@@ -18,7 +19,13 @@ export const HomeScreen: React.FC = () => {
     totalArtworksCount,
     totalArtistsCount,
     openCatalogModal,
+    completedSteps,
+    artworks,
   } = useApp();
+
+  const heroArtwork = artworks.find((a) => a.id === 'girl-pearl-earring') || artworks[0];
+  const colorPathCompleted = [1, 2, 3, 4, 5, 6, 7, 8].filter((s) => completedSteps.includes(s)).length;
+  const colorPathPct = Math.round((colorPathCompleted / 8) * 100);
 
   return (
     <div className="min-h-screen bg-[#141318] text-[#e5e1e8] pb-28">
@@ -65,9 +72,11 @@ export const HomeScreen: React.FC = () => {
           <div className="relative bg-[#1c1b20] rounded-xl overflow-hidden border border-white/[0.08] group transition-all duration-300 hover:border-[#4d4635]">
             {/* Artwork Canvas Image */}
             <div className="relative aspect-[4/5] w-full overflow-hidden bg-[#0e0e12]">
-              <img
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAfUFs2zk7zUeQDIEQffqpLA9dUx_tWV1SBEYNqMgK_dG9m5j8Ii4NLhotd0o4PVbkAvPaRiSWfl4113sOrA34gbA9EEGqucatxBZVaYYCXqPzIBFRs9sEaK5BpFRh0oZL4EHUOg4jklfYEqy9px957jN_dm3kGz82CnxcqFkOwRzu2Qe-AxwcDmvHDVZJ0HCZaaEH0OY9exiBd25dk3CeRg4c5hkGZEh8OmBl90ZUZt84fU6H7IA"
-                alt="La Jeune Fille à la perle par Johannes Vermeer"
+              <ArtworkImage
+                src={heroArtwork.imageUrl}
+                alt={heroArtwork.title}
+                title={heroArtwork.title}
+                artist={heroArtwork.artist}
                 className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
               />
               {/* Ambient Vignette */}
@@ -270,7 +279,11 @@ export const HomeScreen: React.FC = () => {
                   <div>
                     <div className="flex items-center justify-between mb-1">
                       <span className="font-label-caps text-[10px] text-[#f2ca50] uppercase tracking-wider font-semibold">
-                        Étape 4 / 8 en cours
+                        {colorPathCompleted === 0
+                          ? 'Non débuté • 8 étapes'
+                          : colorPathCompleted === 8
+                          ? 'Cycle validé (100%)'
+                          : `Étape ${colorPathCompleted + 1} / 8 (${colorPathPct}%)`}
                       </span>
                       <span className="font-body-sm text-[12px] text-[#99907c] flex items-center gap-1">
                         <span className="material-symbols-outlined text-[13px]">timer</span>
@@ -287,7 +300,7 @@ export const HomeScreen: React.FC = () => {
                   {/* Progress Gauge */}
                   <div className="mt-2">
                     <div className="w-full h-1 bg-[#36343a] rounded-full overflow-hidden">
-                      <div className="h-full bg-[#f2ca50] rounded-full" style={{ width: '50%' }} />
+                      <div className="h-full bg-[#f2ca50] rounded-full transition-all duration-500" style={{ width: `${colorPathPct}%` }} />
                     </div>
                   </div>
                 </div>

@@ -42,7 +42,7 @@ export const LearnScreen: React.FC = () => {
           <div className="mt-3.5 inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[#201f24] border border-[#4d4635]/20">
             <span className="material-symbols-outlined text-[#f2ca50] text-[16px]">offline_pin</span>
             <span className="font-body-sm text-[12px] text-[#d0c5af]">
-              Index pédagogique local FTS5 • Base conservatoire active
+              Index pédagogique local (BM25 inversé) • Base conservatoire active
             </span>
           </div>
         </section>

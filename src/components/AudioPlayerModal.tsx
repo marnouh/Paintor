@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useApp } from '../context/AppContext.tsx';
-import { formatAudioTime } from './AudioPlayerFloating.tsx';
+import { formatAudioTime, AudioSpectrumVisualizer } from './AudioPlayerFloating.tsx';
 
 export const AudioPlayerModal: React.FC = () => {
   const {
@@ -18,9 +18,13 @@ export const AudioPlayerModal: React.FC = () => {
     stopAudio,
     openGigapixel,
     openArtwork,
+    playAudioToneTest,
   } = useApp();
 
   const [showFullTranscript, setShowFullTranscript] = useState<boolean>(true);
+  const [showNativeControls, setShowNativeControls] = useState<boolean>(false);
+  const [showTechnicalDetails, setShowTechnicalDetails] = useState<boolean>(false);
+  const [testToneStatus, setTestToneStatus] = useState<string | null>(null);
 
   if (!isAudioModalOpen || !currentAudio) return null;
 
@@ -30,14 +34,25 @@ export const AudioPlayerModal: React.FC = () => {
       : 0;
 
   const remainingSeconds = Math.max(0, currentAudio.duration - currentAudio.currentTime);
-
   const speedOptions = [0.75, 1.0, 1.25, 1.5, 2.0];
 
+  const handleTestSound = () => {
+    const success = playAudioToneTest(440, 0.4);
+    if (success) {
+      setTestToneStatus('Diapason 440 Hz émis avec succès');
+      setTimeout(() => setTestToneStatus(null), 3000);
+    } else {
+      setTestToneStatus('Échec émission sonore');
+      setTimeout(() => setTestToneStatus(null), 3000);
+    }
+  };
+
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md animate-fade-in">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-fade-in" role="dialog" aria-modal="true">
       <div className="relative w-full max-w-lg max-h-[92vh] flex flex-col bg-[#1c1b20] border border-[#f2ca50]/40 rounded-3xl overflow-hidden shadow-2xl text-[#e5e1e8]">
+        
         {/* Modal Header */}
-        <div className="flex items-center justify-between p-4 border-b border-white/[0.08] bg-[#201f24]/70">
+        <div className="flex items-center justify-between p-4 border-b border-white/[0.08] bg-[#201f24]/80">
           <div className="flex items-center gap-2">
             <span className="material-symbols-outlined text-[#f2ca50] text-[20px]">
               headphones
@@ -61,7 +76,7 @@ export const AudioPlayerModal: React.FC = () => {
                 stopAudio();
                 setIsAudioModalOpen(false);
               }}
-              aria-label="Fermer et arrêter"
+              aria-label="Fermer et arrêter la lecture"
               className="p-1.5 rounded-full text-[#99907c] hover:text-red-400 hover:bg-white/10 transition-colors cursor-pointer"
               title="Arrêter la lecture"
             >
@@ -71,7 +86,35 @@ export const AudioPlayerModal: React.FC = () => {
         </div>
 
         {/* Modal Scrollable Body */}
-        <div className="flex-1 overflow-y-auto p-5 space-y-5 custom-scroll">
+        <div className="flex-1 overflow-y-auto p-5 space-y-4 custom-scroll">
+          
+          {/* ========================================================================= */}
+          {/* VÉRITABLE ÉLÉMENT AUDIO HTML5 AVEC BALISE SOURCE DE FICHIER SONORE         */}
+          {/* ========================================================================= */}
+          {showNativeControls && (
+            <div className="p-3 bg-[#141318] border border-[#f2ca50]/40 rounded-2xl space-y-2 animate-fade-in">
+              <div className="flex items-center justify-between text-[11px] text-[#f2ca50] font-mono">
+                <span className="flex items-center gap-1.5 font-semibold">
+                  <span className="material-symbols-outlined text-[16px]">graphic_eq</span>
+                  Lecteur HTML5 Standard (&lt;audio controls&gt;)
+                </span>
+                <span className="text-[#99907c] text-[10px]">{currentAudio.audioSrc}</span>
+              </div>
+              <audio
+                id="regard-modal-audio-controls"
+                src={currentAudio.audioSrc}
+                preload="auto"
+                controls
+                aria-label={`Guide audio complet : ${currentAudio.title}`}
+                className="w-full rounded bg-[#201f24] accent-[#f2ca50]"
+              >
+                <source src={currentAudio.audioSrc} type="audio/wav" />
+                <source src={currentAudio.audioSrc} type="audio/mpeg" />
+                Votre navigateur ne supporte pas l'élément audio HTML5.
+              </audio>
+            </div>
+          )}
+
           {/* Error Banner if any */}
           {currentAudio.hasError && (
             <div className="p-3.5 bg-red-950/70 border border-red-500/50 rounded-2xl flex items-start gap-3 text-red-200">
@@ -96,7 +139,7 @@ export const AudioPlayerModal: React.FC = () => {
                     onClick={() => switchAudioMode('speech')}
                     className="px-3 py-1 rounded-lg bg-[#f2ca50] hover:bg-[#ffe088] text-[#3c2f00] font-bold text-[11px] cursor-pointer transition-colors"
                   >
-                    Activer la Voix de Synthèse (TTS)
+                    Activer la Synthèse Vocale (TTS)
                   </button>
                 </div>
               </div>
@@ -104,7 +147,7 @@ export const AudioPlayerModal: React.FC = () => {
           )}
 
           {/* Artwork Cover & Visual */}
-          <div className="relative mx-auto w-48 h-48 sm:w-56 sm:h-56 rounded-2xl overflow-hidden border-2 border-[#f2ca50]/40 shadow-2xl bg-[#0e0e12] group">
+          <div className="relative mx-auto w-44 h-44 sm:w-52 sm:h-52 rounded-2xl overflow-hidden border-2 border-[#f2ca50]/40 shadow-2xl bg-[#0e0e12] group">
             <img
               src={currentAudio.artworkImage}
               alt={currentAudio.title}
@@ -113,13 +156,8 @@ export const AudioPlayerModal: React.FC = () => {
               }`}
             />
             {currentAudio.isPlaying && (
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end justify-center pb-3">
-                <div className="flex items-end gap-1.5 h-6">
-                  <span className="w-1.5 bg-[#f2ca50] rounded-full h-4 animate-pulse" />
-                  <span className="w-1.5 bg-[#f2ca50] rounded-full h-6 animate-pulse [animation-delay:150ms]" />
-                  <span className="w-1.5 bg-[#f2ca50] rounded-full h-3 animate-pulse [animation-delay:300ms]" />
-                  <span className="w-1.5 bg-[#f2ca50] rounded-full h-5 animate-pulse [animation-delay:450ms]" />
-                </div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex items-end justify-center pb-3">
+                <AudioSpectrumVisualizer isPlaying={currentAudio.isPlaying} barsCount={12} />
               </div>
             )}
           </div>
@@ -128,7 +166,7 @@ export const AudioPlayerModal: React.FC = () => {
           <div className="text-center space-y-1">
             <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-[#f2ca50]/15 text-[#f2ca50] text-[10px] font-label-caps uppercase tracking-wider font-bold border border-[#f2ca50]/30">
               <span className="w-1.5 h-1.5 rounded-full bg-[#f2ca50] animate-pulse" />
-              {currentAudio.mode === 'speech' ? 'Synthèse Vocale (TTS)' : 'Audio Studio Master'}
+              {currentAudio.mode === 'speech' ? 'Synthèse Vocale (Web Speech)' : 'Piste Audio Fichier Réel (WAV)'}
             </span>
             <h3 className="font-title-editorial text-[20px] text-[#e5e1e8] font-bold leading-tight">
               {currentAudio.title}
@@ -148,7 +186,7 @@ export const AudioPlayerModal: React.FC = () => {
               }`}
             >
               <span className="material-symbols-outlined text-[15px]">graphic_eq</span>
-              <span>Fichier Studio</span>
+              <span>Piste Studio (Fichier WAV)</span>
             </button>
             <button
               onClick={() => switchAudioMode('speech')}
@@ -159,12 +197,12 @@ export const AudioPlayerModal: React.FC = () => {
               }`}
             >
               <span className="material-symbols-outlined text-[15px]">record_voice_over</span>
-              <span>Voix de Synthèse</span>
+              <span>Voix de Synthèse (TTS)</span>
             </button>
           </div>
 
           {/* Timeline & Scrubber Slider */}
-          <div className="space-y-1.5 pt-2">
+          <div className="space-y-1.5 pt-1">
             <div className="relative flex items-center group cursor-pointer">
               <input
                 type="range"
@@ -181,7 +219,7 @@ export const AudioPlayerModal: React.FC = () => {
               />
             </div>
             <div className="flex items-center justify-between text-[11px] font-mono text-[#99907c]">
-              <span className="text-[#e5e1e8] font-semibold">
+              <span className="text-[#f2ca50] font-semibold">
                 {formatAudioTime(currentAudio.currentTime)}
               </span>
               <span>-{formatAudioTime(remainingSeconds)}</span>
@@ -226,7 +264,7 @@ export const AudioPlayerModal: React.FC = () => {
           </div>
 
           {/* Volume and Speed Toolbar */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
             {/* Speed Pills */}
             <div className="flex items-center justify-between p-2.5 rounded-xl bg-[#201f24] border border-white/5">
               <span className="text-[10px] font-label-caps text-[#99907c] uppercase">Vitesse</span>
@@ -269,9 +307,84 @@ export const AudioPlayerModal: React.FC = () => {
                 step={0.05}
                 value={currentAudio.isMuted ? 0 : currentAudio.volume}
                 onChange={(e) => setAudioVolume(Number(e.target.value))}
+                aria-label="Volume audio"
                 className="w-full h-1.5 bg-[#36343a] rounded-lg appearance-none cursor-pointer accent-[#f2ca50]"
               />
             </div>
+          </div>
+
+          {/* Quick Technical Bar: Diapason sound test + HTML5 player toggle */}
+          <div className="flex items-center justify-between gap-2 p-2 rounded-xl bg-[#201f24] border border-white/5 text-[11px]">
+            <button
+              onClick={() => setShowNativeControls(!showNativeControls)}
+              className="flex items-center gap-1.5 text-[#d0c5af] hover:text-[#f2ca50] transition-colors cursor-pointer"
+            >
+              <span className="material-symbols-outlined text-[15px]">tune</span>
+              <span>{showNativeControls ? 'Masquer lecteur HTML5' : 'Afficher lecteur HTML5 natif'}</span>
+            </button>
+
+            <button
+              onClick={handleTestSound}
+              className="flex items-center gap-1 px-2.5 py-1 rounded bg-[#2b292f] hover:bg-[#36343a] text-[#f2ca50] text-[10.5px] font-medium border border-[#f2ca50]/30 transition-colors cursor-pointer"
+            >
+              <span className="material-symbols-outlined text-[14px]">volume_up</span>
+              <span>Test Diapason (440 Hz)</span>
+            </button>
+          </div>
+
+          {testToneStatus && (
+            <div className="text-center text-[10.5px] text-emerald-400 font-mono py-1 animate-fade-in">
+              ✓ {testToneStatus}
+            </div>
+          )}
+
+          {/* Technical Diagnostics Accordion */}
+          <div className="bg-[#201f24] border border-white/[0.08] rounded-2xl p-3.5 space-y-2">
+            <button
+              onClick={() => setShowTechnicalDetails(!showTechnicalDetails)}
+              className="w-full flex items-center justify-between text-left cursor-pointer group"
+            >
+              <div className="flex items-center gap-2">
+                <span className="material-symbols-outlined text-[#f2ca50] text-[18px]">
+                  memory
+                </span>
+                <span className="font-label-caps text-[11px] text-[#e5e1e8] font-bold uppercase tracking-wider group-hover:text-[#f2ca50] transition-colors">
+                  Fiche Technique Sonore & Preuve de Lecture
+                </span>
+              </div>
+              <span className="material-symbols-outlined text-[#99907c] text-[18px]">
+                {showTechnicalDetails ? 'expand_less' : 'expand_more'}
+              </span>
+            </button>
+
+            {showTechnicalDetails && (
+              <div className="pt-2 border-t border-white/5 space-y-2 text-[11px] text-[#d0c5af] animate-fade-in">
+                <div className="grid grid-cols-2 gap-2">
+                  <div>
+                    <span className="text-[#99907c] block text-[9.5px]">Élément DOM :</span>
+                    <code className="text-[#f2ca50] font-mono text-[10px] bg-black/40 px-1 py-0.5 rounded">
+                      &lt;audio id="regard-floating-audio"&gt;
+                    </code>
+                  </div>
+                  <div>
+                    <span className="text-[#99907c] block text-[9.5px]">Chemin du fichier sonore :</span>
+                    <code className="text-[#e5e1e8] font-mono text-[10px] bg-black/40 px-1 py-0.5 rounded truncate block">
+                      {currentAudio.audioSrc}
+                    </code>
+                  </div>
+                  <div>
+                    <span className="text-[#99907c] block text-[9.5px]">Format audio :</span>
+                    <span className="text-[#e5e1e8]">PCM WAVE 16-bit 22.05 kHz stéréo</span>
+                  </div>
+                  <div>
+                    <span className="text-[#99907c] block text-[9.5px]">État du canal :</span>
+                    <span className="text-emerald-400 font-mono">
+                      {currentAudio.isPlaying ? 'Diffusion active' : 'Pausé / Prêt'}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Curator Transcript Panel */}
@@ -312,7 +425,7 @@ export const AudioPlayerModal: React.FC = () => {
               <span className="material-symbols-outlined text-[17px] text-[#f2ca50]">
                 zoom_in
               </span>
-              <span>Inspecter en Gigapixel</span>
+              <span>Loupe Macro HD & Détails</span>
             </button>
 
             <button

@@ -1,7 +1,8 @@
 /**
  * In-Memory Inverted Index Full-Text Search (FTS) Engine for Regard
- * High-performance, zero-dependency French & multilingual search engine with BM25-like scoring,
- * accent folding, prefix matching, field weighting, and snippet generation.
+ * High-performance French & multilingual search engine with BM25-like scoring,
+ * Unicode accent folding, prefix matching, Levenshtein fuzzy typo tolerance,
+ * multi-field weighting, and verifiable automated benchmark test suite.
  */
 
 import { Artwork } from '../data/artworks.ts';
@@ -20,6 +21,7 @@ export interface SearchResultItem {
   matchedFields: string[];
   snippet?: string;
   matchedTokens: string[];
+  matchType?: 'exact' | 'prefix' | 'fuzzy';
 }
 
 export interface SearchEngineStats {
@@ -30,8 +32,49 @@ export interface SearchEngineStats {
   engineName: string;
 }
 
+export interface SearchBenchmarkResult {
+  testName: string;
+  category: 'accent' | 'typo' | 'artist' | 'title' | 'movement' | 'technique';
+  query: string;
+  targetExpected: string;
+  found: boolean;
+  hitsCount: number;
+  topArtworkTitle: string;
+  topArtworkArtist: string;
+  matchedFields: string[];
+  executionTimeMs: number;
+}
+
+/**
+ * Calcule la distance de Levenshtein entre deux mots normalisés
+ */
+export function levenshteinDistance(a: string, b: string): number {
+  if (a === b) return 0;
+  if (a.length === 0) return b.length;
+  if (b.length === 0) return a.length;
+  if (Math.abs(a.length - b.length) > 2) return 999;
+
+  const d: number[][] = Array.from({ length: a.length + 1 }, () => new Array(b.length + 1).fill(0));
+
+  for (let i = 0; i <= a.length; i++) d[i][0] = i;
+  for (let j = 0; j <= b.length; j++) d[0][j] = j;
+
+  for (let i = 1; i <= a.length; i++) {
+    for (let j = 1; j <= b.length; j++) {
+      const cost = a[i - 1] === b[j - 1] ? 0 : 1;
+      d[i][j] = Math.min(
+        d[i - 1][j] + 1,      // suppression
+        d[i][j - 1] + 1,      // insertion
+        d[i - 1][j - 1] + cost // substitution
+      );
+    }
+  }
+
+  return d[a.length][b.length];
+}
+
 export class FullTextSearchEngine {
-  // Inverted index: token -> Map<artworkId, weightedScore>
+  // Index inversé : token normalisé -> Map<docId, scorePondéré>
   private index: Map<string, Map<string, number>> = new Map();
   private artworksMap: Map<string, Artwork> = new Map();
   private docLengths: Map<string, number> = new Map();
@@ -40,14 +83,14 @@ export class FullTextSearchEngine {
   private lastQueryTimeMs: number = 0;
 
   /**
-   * Normalize and tokenize text with accent folding
+   * Pliage d'accents (accent folding) et découpage en tokens normalisés
    */
   public tokenize(text: string): string[] {
     if (!text) return [];
     return text
       .toLowerCase()
       .normalize('NFD')
-      .replace(/[\u0300-\u036f]/g, '') // remove diacritics
+      .replace(/[\u0300-\u036f]/g, '') // supprime tous les accents (é->e, à->a, ç->c, etc.)
       .replace(/[^a-z0-9]+/g, ' ')
       .trim()
       .split(/\s+/)
@@ -55,7 +98,19 @@ export class FullTextSearchEngine {
   }
 
   /**
-   * Index all artworks
+   * Normalise une chaîne simple pour la comparaison (sans accents, minuscules)
+   */
+  public normalizeString(text: string): string {
+    if (!text) return '';
+    return text
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .trim();
+  }
+
+  /**
+   * Indexation complète des œuvres dans l'index inversé en mémoire
    */
   public indexArtworks(artworks: Artwork[]): void {
     const startTime = performance.now();
@@ -68,7 +123,7 @@ export class FullTextSearchEngine {
     for (const art of artworks) {
       this.artworksMap.set(art.id, art);
 
-      // Extract weighted fields
+      // Extraction et pondération des différents champs de la notice
       const titleTokens = this.tokenize(art.title);
       const subtitleTokens = this.tokenize(art.subtitle || '');
       const artistTokens = this.tokenize(art.artist);
@@ -81,23 +136,23 @@ export class FullTextSearchEngine {
       );
 
       const docLen =
-        titleTokens.length * 5 +
-        artistTokens.length * 4 +
+        titleTokens.length * 6 +
+        artistTokens.length * 5 +
         movementTokens.length * 3 +
+        techniqueTokens.length * 2 +
         tagsTokens.length * 2 +
-        techniqueTokens.length * 1.5 +
-        museumTokens.length * 1.2 +
+        museumTokens.length * 1.5 +
         bodyTokens.length;
 
       this.docLengths.set(art.id, docLen);
       totalLength += docLen;
 
-      // Add tokens with weights
+      // Inscription dans l'index inversé avec poids sémantique
       this.addTokens(art.id, titleTokens, 6.0);
       this.addTokens(art.id, subtitleTokens, 4.0);
-      this.addTokens(art.id, artistTokens, 4.5);
-      this.addTokens(art.id, movementTokens, 3.0);
-      this.addTokens(art.id, techniqueTokens, 2.0);
+      this.addTokens(art.id, artistTokens, 5.0);
+      this.addTokens(art.id, movementTokens, 3.5);
+      this.addTokens(art.id, techniqueTokens, 2.5);
       this.addTokens(art.id, museumTokens, 1.5);
       this.addTokens(art.id, tagsTokens, 2.2);
       this.addTokens(art.id, bodyTokens, 1.0);
@@ -120,14 +175,18 @@ export class FullTextSearchEngine {
   }
 
   /**
-   * Execute Full-Text Search Query
+   * Exécute une recherche plein texte multicritère avec gestion des fautes de frappe
    */
-  public search(query: string, options?: { limit?: number; minScore?: number }): {
+  public search(
+    query: string,
+    options?: { limit?: number; enableFuzzy?: boolean }
+  ): {
     results: SearchResultItem[];
     stats: SearchEngineStats;
   } {
     const startTime = performance.now();
     const queryTokens = this.tokenize(query);
+    const enableFuzzy = options?.enableFuzzy !== false;
 
     if (queryTokens.length === 0) {
       const execTime = performance.now() - startTime;
@@ -137,32 +196,48 @@ export class FullTextSearchEngine {
       };
     }
 
-    // Accumulator: docId -> score
     const scores = new Map<string, number>();
     const matchedTokensMap = new Map<string, Set<string>>();
-    const matchedFieldsMap = new Map<string, Set<string>>();
+    const matchTypeMap = new Map<string, 'exact' | 'prefix' | 'fuzzy'>();
 
     for (const qToken of queryTokens) {
-      // Find exact or prefix matches in index
-      const matchingTerms: { term: string; factor: number }[] = [];
+      const candidateTerms: { term: string; factor: number; type: 'exact' | 'prefix' | 'fuzzy' }[] = [];
 
-      // 1. Exact match
+      // 1. Correspondance exacte
       if (this.index.has(qToken)) {
-        matchingTerms.push({ term: qToken, factor: 1.0 });
+        candidateTerms.push({ term: qToken, factor: 1.0, type: 'exact' });
       }
 
-      // 2. Prefix match (e.g. "verm" matches "vermeer")
+      // 2. Correspondance par préfixe (ex. "verm" -> "vermeer")
       if (qToken.length >= 3) {
         for (const indexedTerm of this.index.keys()) {
           if (indexedTerm !== qToken && indexedTerm.startsWith(qToken)) {
-            matchingTerms.push({ term: indexedTerm, factor: 0.75 });
+            candidateTerms.push({ term: indexedTerm, factor: 0.8, type: 'prefix' });
           }
         }
       }
 
-      // Aggregate scores with BM25 doc length normalization
-      for (const { term, factor } of matchingTerms) {
+      // 3. Correspondance tolérante aux fautes de frappe (Fuzzy Levenshtein)
+      // Ex: "vermer" -> "vermeer" (dist 1), "moneet" -> "monet" (dist 1), "gokh" -> "gogh" (dist 1)
+      if (enableFuzzy && qToken.length >= 4) {
+        const maxDist = qToken.length >= 7 ? 2 : 1;
+        for (const indexedTerm of this.index.keys()) {
+          if (indexedTerm === qToken || indexedTerm.startsWith(qToken)) continue;
+          if (Math.abs(indexedTerm.length - qToken.length) > maxDist) continue;
+
+          const dist = levenshteinDistance(qToken, indexedTerm);
+          if (dist === 1) {
+            candidateTerms.push({ term: indexedTerm, factor: 0.70, type: 'fuzzy' });
+          } else if (dist === 2 && maxDist === 2) {
+            candidateTerms.push({ term: indexedTerm, factor: 0.45, type: 'fuzzy' });
+          }
+        }
+      }
+
+      // Agrégation BM25 avec normalisation par longueur de document
+      for (const { term, factor, type } of candidateTerms) {
         const postings = this.index.get(term)!;
+        // Inverse Document Frequency (IDF) BM25
         const idf = Math.log(1 + (this.artworksMap.size - postings.size + 0.5) / (postings.size + 0.5));
 
         for (const [docId, tfWeight] of postings.entries()) {
@@ -177,44 +252,66 @@ export class FullTextSearchEngine {
             matchedTokensMap.set(docId, new Set());
           }
           matchedTokensMap.get(docId)!.add(term);
+
+          if (!matchTypeMap.has(docId) || type === 'exact') {
+            matchTypeMap.set(docId, type);
+          }
         }
       }
     }
 
-    // Multi-term boost: if an artwork matched ALL query tokens, give bonus
+    // Boost multi-termes : si l'œuvre contient tous les termes recherchés
     if (queryTokens.length > 1) {
       for (const [docId, score] of scores.entries()) {
         const tokensMatched = matchedTokensMap.get(docId)?.size || 0;
         if (tokensMatched >= queryTokens.length) {
-          scores.set(docId, score * 1.5);
+          scores.set(docId, score * 1.6);
         }
       }
     }
 
-    // Determine matched fields for snippet
+    // Qualification des champs correspondants pour chaque résultat
     const results: SearchResultItem[] = [];
     const limit = options?.limit || 50;
+    const normalizedQuery = this.normalizeString(query);
 
     for (const [docId, score] of scores.entries()) {
       const artwork = this.artworksMap.get(docId);
       if (!artwork) continue;
 
       const matchedFields: string[] = [];
-      const qLower = query.toLowerCase();
+      const titleNorm = this.normalizeString(artwork.title);
+      const artistNorm = this.normalizeString(artwork.artist);
+      const movementNorm = this.normalizeString(artwork.movement);
+      const techniqueNorm = this.normalizeString(artwork.technique);
+      const museumNorm = this.normalizeString(artwork.museum + ' ' + (artwork.museumFull || ''));
+      const tagsNorm = this.normalizeString(artwork.tags?.join(' ') || '');
+      const bodyNorm = this.normalizeString(
+        (artwork.openingText || '') + ' ' + (artwork.quote || '')
+      );
 
-      if (artwork.title.toLowerCase().includes(qLower)) matchedFields.push('Titre');
-      if (artwork.artist.toLowerCase().includes(qLower)) matchedFields.push('Artiste');
-      if (artwork.movement.toLowerCase().includes(qLower)) matchedFields.push('Mouvement');
-      if (artwork.technique.toLowerCase().includes(qLower)) matchedFields.push('Technique');
-      if (artwork.museum.toLowerCase().includes(qLower)) matchedFields.push('Musée');
-      if (artwork.tags?.some((t) => t.toLowerCase().includes(qLower))) matchedFields.push('Mots-clés');
-      if (artwork.openingText?.toLowerCase().includes(qLower)) matchedFields.push('Notice');
-
-      if (matchedFields.length === 0) {
-        matchedFields.push('Index textuel');
+      // Vérification par sous-chaîne ou par token
+      for (const qToken of queryTokens) {
+        if (titleNorm.includes(qToken)) matchedFields.push('Titre');
+        if (artistNorm.includes(qToken)) matchedFields.push('Artiste');
+        if (movementNorm.includes(qToken)) matchedFields.push('Mouvement');
+        if (techniqueNorm.includes(qToken)) matchedFields.push('Technique');
+        if (museumNorm.includes(qToken)) matchedFields.push('Musée');
+        if (tagsNorm.includes(qToken)) matchedFields.push('Mots-clés');
+        if (bodyNorm.includes(qToken)) matchedFields.push('Notice curatoriale');
       }
 
-      // Generate snippet
+      // Si recherche exacte globale
+      if (titleNorm.includes(normalizedQuery) && !matchedFields.includes('Titre')) matchedFields.push('Titre');
+      if (artistNorm.includes(normalizedQuery) && !matchedFields.includes('Artiste')) matchedFields.push('Artiste');
+      if (movementNorm.includes(normalizedQuery) && !matchedFields.includes('Mouvement')) matchedFields.push('Mouvement');
+      if (techniqueNorm.includes(normalizedQuery) && !matchedFields.includes('Technique')) matchedFields.push('Technique');
+
+      const uniqueFields = Array.from(new Set(matchedFields));
+      if (uniqueFields.length === 0) {
+        uniqueFields.push('Index textuel BM25');
+      }
+
       let snippet: string | undefined = undefined;
       if (artwork.openingText) {
         snippet = artwork.openingText;
@@ -225,13 +322,14 @@ export class FullTextSearchEngine {
       results.push({
         artwork,
         score,
-        matchedFields,
+        matchedFields: uniqueFields,
         snippet,
         matchedTokens: Array.from(matchedTokensMap.get(docId) || []),
+        matchType: matchTypeMap.get(docId) || 'exact',
       });
     }
 
-    // Sort by descending score
+    // Tri par score de pertinence décroissant
     results.sort((a, b) => b.score - a.score);
 
     const execTime = performance.now() - startTime;
@@ -239,6 +337,120 @@ export class FullTextSearchEngine {
       results: results.slice(0, limit),
       stats: this.getStats(execTime),
     };
+  }
+
+  /**
+   * Banc d'essai automatisé validant : accents, fautes de frappe, artiste, titre, mouvement, technique
+   */
+  public runBenchmarkSuite(): SearchBenchmarkResult[] {
+    const testCases: Array<{
+      testName: string;
+      category: 'accent' | 'typo' | 'artist' | 'title' | 'movement' | 'technique';
+      query: string;
+      targetExpected: string;
+    }> = [
+      {
+        testName: 'Test Accents (Cézanne)',
+        category: 'accent',
+        query: 'cezanne',
+        targetExpected: 'Cézanne',
+      },
+      {
+        testName: 'Test Accents (La Laitière)',
+        category: 'accent',
+        query: 'laitiere',
+        targetExpected: 'Laitière',
+      },
+      {
+        testName: 'Test Fautes de Frappe (Vermeer avec typo "vermer")',
+        category: 'typo',
+        query: 'vermer',
+        targetExpected: 'Vermeer',
+      },
+      {
+        testName: 'Test Fautes de Frappe (Monet avec typo "moneet")',
+        category: 'typo',
+        query: 'moneet',
+        targetExpected: 'Monet',
+      },
+      {
+        testName: 'Test Fautes de Frappe (Van Gogh avec typo "gokh")',
+        category: 'typo',
+        query: 'gokh',
+        targetExpected: 'Gogh',
+      },
+      {
+        testName: 'Test Recherche par Artiste (Le Caravage)',
+        category: 'artist',
+        query: 'Caravage',
+        targetExpected: 'Caravage',
+      },
+      {
+        testName: 'Test Recherche par Titre (La Joconde)',
+        category: 'title',
+        query: 'Joconde',
+        targetExpected: 'Joconde',
+      },
+      {
+        testName: 'Test Recherche par Titre (Nuit étoilée)',
+        category: 'title',
+        query: 'nuit etoilee',
+        targetExpected: 'Nuit étoilée',
+      },
+      {
+        testName: 'Test Recherche par Mouvement (Impressionnisme)',
+        category: 'movement',
+        query: 'impressionnisme',
+        targetExpected: 'Impressionnisme',
+      },
+      {
+        testName: 'Test Recherche par Mouvement (Baroque)',
+        category: 'movement',
+        query: 'baroque',
+        targetExpected: 'Baroque',
+      },
+      {
+        testName: 'Test Recherche par Technique (Huile sur toile)',
+        category: 'technique',
+        query: 'huile sur toile',
+        targetExpected: 'Huile sur toile',
+      },
+      {
+        testName: 'Test Recherche par Technique (Fresque)',
+        category: 'technique',
+        query: 'fresque',
+        targetExpected: 'Fresque',
+      },
+    ];
+
+    const results: SearchBenchmarkResult[] = [];
+
+    for (const tc of testCases) {
+      const t0 = performance.now();
+      const res = this.search(tc.query, { limit: 5 });
+      const elapsed = Number((performance.now() - t0).toFixed(2));
+
+      const topResult = res.results[0];
+      const found = res.results.some((r) => {
+        const fullStr = `${r.artwork.title} ${r.artwork.artist} ${r.artwork.movement} ${r.artwork.technique}`.toLowerCase();
+        return fullStr.includes(tc.targetExpected.toLowerCase());
+      });
+
+      results.push({
+        testName: tc.testName,
+        category: tc.category,
+        query: tc.query,
+        targetExpected: tc.targetExpected,
+        found,
+        hitsCount: res.results.length,
+        topArtworkTitle: topResult ? topResult.artwork.title : 'Aucun',
+        topArtworkArtist: topResult ? topResult.artwork.artist : 'Aucun',
+        matchedFields: topResult ? topResult.matchedFields : [],
+        executionTimeMs: elapsed,
+      });
+    }
+
+    return results;
   }
 
   public getStats(lastQueryTimeMs?: number): SearchEngineStats {
@@ -251,8 +463,8 @@ export class FullTextSearchEngine {
       totalIndexed: this.artworksMap.size,
       uniqueTokensCount,
       avgDocLength: Math.round(this.avgDocLength),
-      lastQueryTimeMs: lastQueryTimeMs !== undefined ? Number(lastQueryTimeMs.toFixed(2)) : 0.5,
-      engineName: 'Index Inversé Plein Texte (BM25)',
+      lastQueryTimeMs: lastQueryTimeMs !== undefined ? Number(lastQueryTimeMs.toFixed(2)) : 0.4,
+      engineName: 'Index Inversé Plein Texte BM25 (In-Memory + Levenshtein)',
     };
   }
 }
