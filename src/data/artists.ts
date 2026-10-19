@@ -14,6 +14,14 @@ export interface Artist {
   artworkIds: string[];
   quotes?: string[];
   historicalContext: string;
+  // Optional convenience aliases for search & rendering compatibility
+  bio?: string;
+  shortBio?: string;
+  longBio?: string;
+  movement?: string;
+  nationality?: string;
+  dates?: string;
+  imageUrl?: string;
 }
 
 export const ARTISTS: Artist[] = [

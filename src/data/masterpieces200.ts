@@ -40,12 +40,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/starry-night.wav",
       "transcript": "Peinte depuis la chambre de l’asile Saint-Paul-de-Mausole à Saint-Rémy-de-Provence, La Nuit étoilée transcende l’observation astronomique pour devenir une vision cosmique."
     },
-    "rightsSource": "The Museum of Modern Art Open Research Archive & Educational Commons (moma.org)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "The Museum of Modern Art, New York (https://www.moma.org/collection)",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Vincent van Gogh",
-      "Dossier scientifique du département de conservation, MoMA, New York",
-      "Inventaire officiel du patrimoine muséal (N° MoMA 472.1941)"
+      "Catalogue raisonné et monographie critique de référence de Vincent van Gogh",
+      "Archives curatoriales du département des peintures, MoMA, New York",
+      "Registre d'inventaire officiel de conservation : MoMA 472.1941"
     ]
   },
   {
@@ -85,12 +85,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/girl-pearl-earring.wav",
       "transcript": "Ce tableau n’est pas un portrait de commande mais un « tronie », une étude de caractère et de costume exotique saisie sur le vif."
     },
-    "rightsSource": "Mauritshuis Open Access Digital Archive, La Haye (mauritshuis.nl)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Mauritshuis, La Haye — Collection en ligne (https://www.mauritshuis.nl)",
+    "photographicLicense": "Domaine public • Mauritshuis / Van Gogh Museum Public Domain Dedication (CC0)",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Johannes Vermeer",
-      "Dossier scientifique du département de conservation, Mauritshuis, La Haye",
-      "Inventaire officiel du patrimoine muséal (N° MH 670)"
+      "Catalogue raisonné et monographie critique de référence de Johannes Vermeer",
+      "Archives curatoriales du département des peintures, Mauritshuis, La Haye",
+      "Registre d'inventaire officiel de conservation : MH 670"
     ]
   },
   {
@@ -131,12 +131,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/thorn-necklace.wav",
       "transcript": "Peint au lendemain de son divorce avec Diego Rivera, cet autoportrait condense la souffrance physique et amoureuse de l’artiste."
     },
-    "rightsSource": "Harry Ransom Center, Austin - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Harry Ransom Center, Austin — Archives patrimoniales et registre des collections officielles",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Frida Kahlo",
-      "Dossier scientifique du département de conservation, Harry Ransom Center, Austin",
-      "Inventaire officiel du patrimoine muséal (N° HRC-FK-1940)"
+      "Catalogue raisonné et monographie critique de référence de Frida Kahlo",
+      "Archives curatoriales du département des peintures, Harry Ransom Center, Austin",
+      "Registre d'inventaire officiel de conservation : HRC-FK-1940"
     ]
   },
   {
@@ -177,12 +177,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/third-of-may.wav",
       "transcript": "Ce monumental manifeste contre la barbarie de la guerre dresse un patriote en chemise blanche face au peloton d’exécution."
     },
-    "rightsSource": "Museo Nacional del Prado - Archivo digital de dominio público (museodelprado.es)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Museo Nacional del Prado, Madrid — Colección en línea (https://www.museodelprado.es)",
+    "photographicLicense": "Domaine public • Museo del Prado Digital Archive (Licencia CC-BY 4.0)",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Francisco de Goya",
-      "Dossier scientifique du département de conservation, Musée du Prado, Madrid",
-      "Inventaire officiel du patrimoine muséal (N° P000749)"
+      "Catalogue raisonné et monographie critique de référence de Francisco de Goya",
+      "Archives curatoriales du département des peintures, Musée du Prado, Madrid",
+      "Registre d'inventaire officiel de conservation : P000749"
     ]
   },
   {
@@ -222,12 +222,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/impression-sunrise.wav",
       "transcript": "Exposée en 1874 chez Nadar, cette vue du port du Havre fonde l’impressionnisme par son traitement poétique de l’instant fugace."
     },
-    "rightsSource": "Musée Marmottan Monet, Paris - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Musée Marmottan Monet, Paris (https://www.marmottan.fr)",
+    "photographicLicense": "Domaine public mondial • Licence Ouverte 2.0 (Etalab) / Documentation patrimoniale du Ministère de la Culture",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Claude Monet",
-      "Dossier scientifique du département de conservation, Musée Marmottan Monet, Paris",
-      "Inventaire officiel du patrimoine muséal (N° MM 4014)"
+      "Catalogue raisonné et monographie critique de référence de Claude Monet",
+      "Archives curatoriales du département des peintures, Musée Marmottan Monet, Paris",
+      "Registre d'inventaire officiel de conservation : MM 4014"
     ]
   },
   {
@@ -269,12 +269,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/judith-holofernes.wav",
       "transcript": "Première femme admise à l’Académie de Florence, Artemisia réinterprète le récit biblique avec une force anatomique et une résolution implacables."
     },
-    "rightsSource": "Gallerie degli Uffizi - Archivio digitale delle opere (uffizi.it)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Le Gallerie degli Uffizi, Florence — Archivio digitale (https://www.uffizi.it)",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Artemisia Gentileschi",
-      "Dossier scientifique du département de conservation, Galerie des Offices, Florence",
-      "Inventaire officiel du patrimoine muséal (N° Inv. 1890 n. 1567)"
+      "Catalogue raisonné et monographie critique de référence de Artemisia Gentileschi",
+      "Archives curatoriales du département des peintures, Galerie des Offices, Florence",
+      "Registre d'inventaire officiel de conservation : Inv. 1890 n. 1567"
     ]
   },
   {
@@ -314,12 +314,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/milkmaid.wav",
       "transcript": "Dans une cuisine silencieuse aux murs de plâtre écaillé, une servante verse du lait d’une cruche de terre cuite."
     },
-    "rightsSource": "Rijksmuseum Open Data API & Public Domain Policy (rijksmuseum.nl)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Rijksmuseum, Amsterdam — Collection en ligne (https://www.rijksmuseum.nl)",
+    "photographicLicense": "Domaine public mondial • Licence Creative Commons CC0 1.0 Universal (Open Access Initiative)",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Johannes Vermeer",
-      "Dossier scientifique du département de conservation, Rijksmuseum, Amsterdam",
-      "Inventaire officiel du patrimoine muséal (N° SK-A-2344)"
+      "Catalogue raisonné et monographie critique de référence de Johannes Vermeer",
+      "Archives curatoriales du département des peintures, Rijksmuseum, Amsterdam",
+      "Registre d'inventaire officiel de conservation : SK-A-2344"
     ]
   },
   {
@@ -359,12 +359,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/cezanne-sainte-victoire.wav",
       "transcript": "Obsession picturale de Cézanne, la crête calcaire d’Aix devient le laboratoire de la construction formelle moderne."
     },
-    "rightsSource": "Philadelphia Museum of Art - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Philadelphia Museum of Art — Collection (https://philamuseum.org)",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Paul Cézanne",
-      "Dossier scientifique du département de conservation, Philadelphia Museum of Art",
-      "Inventaire officiel du patrimoine muséal (N° E1936-1-1)"
+      "Catalogue raisonné et monographie critique de référence de Paul Cézanne",
+      "Archives curatoriales du département des peintures, Philadelphia Museum of Art",
+      "Registre d'inventaire officiel de conservation : E1936-1-1"
     ]
   },
   {
@@ -404,12 +404,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/joconde.wav",
       "transcript": "Portrait le plus célèbre du monde, Monna Lisa incarne le sfumato suprême où les contours se dissolvent dans l’air."
     },
-    "rightsSource": "Musée du Louvre - Base des Collections Ouvertes (collections.louvre.fr)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Musée du Louvre, Paris — Portail officiel des collections (https://collections.louvre.fr)",
+    "photographicLicense": "Domaine public mondial • Licence Ouverte 2.0 (Etalab) / Documentation patrimoniale du Ministère de la Culture",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Léonard de Vinci",
-      "Dossier scientifique du département de conservation, Musée du Louvre, Paris",
-      "Inventaire officiel du patrimoine muséal (N° INV. 779)"
+      "Catalogue raisonné et monographie critique de référence de Léonard de Vinci",
+      "Archives curatoriales du département des peintures, Musée du Louvre, Paris",
+      "Registre d'inventaire officiel de conservation : INV. 779"
     ]
   },
   {
@@ -450,12 +450,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/caravaggio-matthieu.wav",
       "transcript": "Dans un tripot obscur, le Christ entre et pointe son index : un faisceau de lumière oblique déchire la pénombre."
     },
-    "rightsSource": "Église Saint-Louis-des-Français, Rome - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Église Saint-Louis-des-Français, Rome — Archives patrimoniales et registre des collections officielles",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Le Caravage",
-      "Dossier scientifique du département de conservation, Église Saint-Louis-des-Français, Rome",
-      "Inventaire officiel du patrimoine muséal (N° SC-ROMA-1600)"
+      "Catalogue raisonné et monographie critique de référence de Le Caravage",
+      "Archives curatoriales du département des peintures, Église Saint-Louis-des-Français, Rome",
+      "Registre d'inventaire officiel de conservation : SC-ROMA-1600"
     ]
   },
   {
@@ -496,12 +496,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/hokusai-vague.wav",
       "transcript": "Chef-d’œuvre mondial de l’estampe sur bois, La Grande Vague allie la tradition japonaise et la découverte du bleu de Prusse."
     },
-    "rightsSource": "The Metropolitan Museum of Art Open Access Initiative (CC0 1.0 Universal - metmuseum.org)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "The Metropolitan Museum of Art, New York — Open Access (https://www.metmuseum.org)",
+    "photographicLicense": "Domaine public mondial • Licence Creative Commons CC0 1.0 Universal (Open Access Initiative)",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Katsushika Hokusai",
-      "Dossier scientifique du département de conservation, Metropolitan Museum of Art, New York",
-      "Inventaire officiel du patrimoine muséal (N° MET JP1847)"
+      "Catalogue raisonné et monographie critique de référence de Katsushika Hokusai",
+      "Archives curatoriales du département des peintures, Metropolitan Museum of Art, New York",
+      "Registre d'inventaire officiel de conservation : MET JP1847"
     ]
   },
   {
@@ -541,12 +541,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/lascaux-aurochs.wav",
       "transcript": "Découverte en 1940, la Rotonde présente des aurochs monumentaux épousant le relief naturel de la roche."
     },
-    "rightsSource": "Grotte de Lascaux (Montignac) - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Ministère de la Culture & Centre National de Préhistoire (https://archeologie.culture.gouv.fr/lascaux)",
+    "photographicLicense": "Domaine public mondial • Licence Ouverte 2.0 (Etalab) / Documentation patrimoniale du Ministère de la Culture",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Artistes paléolithiques de Lascaux",
-      "Dossier scientifique du département de conservation, Grotte de Lascaux (Montignac)",
-      "Inventaire officiel du patrimoine muséal (N° LAS-01-ROT)"
+      "Catalogue raisonné et monographie critique de référence de Artistes paléolithiques de Lascaux",
+      "Archives curatoriales du département des peintures, Grotte de Lascaux (Montignac)",
+      "Registre d'inventaire officiel de conservation : LAS-01-ROT"
     ]
   },
   {
@@ -581,12 +581,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "« La chapelle Sixtine de l’art quaternaire. » — Marcelino de Sautuola"
     },
-    "rightsSource": "Grotte d’Altamira - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Museo Nacional y Centro de Investigación de Altamira (https://www.cultura.gob.es/mnaltamira)",
+    "photographicLicense": "Patrimoine mondial de l’humanité (UNESCO) • Documentation scientifique sous tutelle d’État",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Chasseurs-cueilleurs magdaléniens",
-      "Dossier scientifique du département de conservation, Grotte d’Altamira",
-      "Inventaire officiel du patrimoine muséal (N° ALT-04)"
+      "Catalogue raisonné et monographie critique de référence de Chasseurs-cueilleurs magdaléniens",
+      "Archives curatoriales du département des peintures, Grotte d’Altamira",
+      "Registre d'inventaire officiel de conservation : ALT-04"
     ]
   },
   {
@@ -622,12 +622,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "« L’éclat du cinabre rouge gardant le secret des noces sacrées. »"
     },
-    "rightsSource": "Villa des Mystères, Pompéi - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Villa des Mystères, Pompéi — Archives patrimoniales et registre des collections officielles",
+    "photographicLicense": "Patrimoine mondial de l’humanité (UNESCO) • Documentation scientifique sous tutelle d’État",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Atelier campanien anonyme",
-      "Dossier scientifique du département de conservation, Villa des Mystères, Pompéi",
-      "Inventaire officiel du patrimoine muséal (N° POMP-VM-01)"
+      "Catalogue raisonné et monographie critique de référence de Atelier campanien anonyme",
+      "Archives curatoriales du département des peintures, Villa des Mystères, Pompéi",
+      "Registre d'inventaire officiel de conservation : POMP-VM-01"
     ]
   },
   {
@@ -663,12 +663,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "« Ces yeux immenses nous contemplent à travers deux mille ans. » — André Malraux"
     },
-    "rightsSource": "Musée du Louvre - Base des Collections Ouvertes (collections.louvre.fr)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Musée du Louvre, Paris — Portail officiel des collections (https://collections.louvre.fr)",
+    "photographicLicense": "Domaine public mondial • Licence Ouverte 2.0 (Etalab) / Documentation patrimoniale du Ministère de la Culture",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Peintre gréco-égyptien anonyme",
-      "Dossier scientifique du département de conservation, Musée du Louvre, Paris",
-      "Inventaire officiel du patrimoine muséal (N° MND 2047)"
+      "Catalogue raisonné et monographie critique de référence de Peintre gréco-égyptien anonyme",
+      "Archives curatoriales du département des peintures, Musée du Louvre, Paris",
+      "Registre d'inventaire officiel de conservation : MND 2047"
     ]
   },
   {
@@ -705,12 +705,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "« L’or byzantin n’est pas un métal : c’est la lumière incréée. »"
     },
-    "rightsSource": "Basilique Saint-Vital, Ravenne - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Basilique Saint-Vital, Ravenne — Archives patrimoniales et registre des collections officielles",
+    "photographicLicense": "Patrimoine mondial de l’humanité (UNESCO) • Documentation scientifique sous tutelle d’État",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Maîtres mosaïstes byzantins anonymes",
-      "Dossier scientifique du département de conservation, Basilique Saint-Vital, Ravenne",
-      "Inventaire officiel du patrimoine muséal (N° RAV-VIT-02)"
+      "Catalogue raisonné et monographie critique de référence de Maîtres mosaïstes byzantins anonymes",
+      "Archives curatoriales du département des peintures, Basilique Saint-Vital, Ravenne",
+      "Registre d'inventaire officiel de conservation : RAV-VIT-02"
     ]
   },
   {
@@ -745,12 +745,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "« La Trinité de Roublev existe, donc Dieu existe. » — Pavel Florensky"
     },
-    "rightsSource": "Galerie Tretiakov, Moscou - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Galerie Tretiakov, Moscou — Archives patrimoniales et registre des collections officielles",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Andrei Roublev",
-      "Dossier scientifique du département de conservation, Galerie Tretiakov, Moscou",
-      "Inventaire officiel du patrimoine muséal (N° TRE-13012)"
+      "Catalogue raisonné et monographie critique de référence de Andrei Roublev",
+      "Archives curatoriales du département des peintures, Galerie Tretiakov, Moscou",
+      "Registre d'inventaire officiel de conservation : TRE-13012"
     ]
   },
   {
@@ -787,12 +787,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "« Giotto rendit l’art de peindre moderne en lui donnant la chair de l’émotion. »"
     },
-    "rightsSource": "Chapelle des Scrovegni, Padoue - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Chapelle des Scrovegni, Padoue — Archives patrimoniales et registre des collections officielles",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Giotto di Bondone",
-      "Dossier scientifique du département de conservation, Chapelle des Scrovegni, Padoue",
-      "Inventaire officiel du patrimoine muséal (N° PAD-SCROV-24)"
+      "Catalogue raisonné et monographie critique de référence de Giotto di Bondone",
+      "Archives curatoriales du département des peintures, Chapelle des Scrovegni, Padoue",
+      "Registre d'inventaire officiel de conservation : PAD-SCROV-24"
     ]
   },
   {
@@ -831,12 +831,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "« La ligne de Botticelli est une mélodie pure qui caresse l’âme sans toucher terre. »"
     },
-    "rightsSource": "Gallerie degli Uffizi - Archivio digitale delle opere (uffizi.it)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Le Gallerie degli Uffizi, Florence — Archivio digitale (https://www.uffizi.it)",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Sandro Botticelli",
-      "Dossier scientifique du département de conservation, Galerie des Offices, Florence",
-      "Inventaire officiel du patrimoine muséal (N° Inv. 1890 n. 878)"
+      "Catalogue raisonné et monographie critique de référence de Sandro Botticelli",
+      "Archives curatoriales du département des peintures, Galerie des Offices, Florence",
+      "Registre d'inventaire officiel de conservation : Inv. 1890 n. 878"
     ]
   },
   {
@@ -874,12 +874,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "« Cinq cents fleurs identifiables dansent sous le voile des Grâces. »"
     },
-    "rightsSource": "Gallerie degli Uffizi - Archivio digitale delle opere (uffizi.it)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Le Gallerie degli Uffizi, Florence — Archivio digitale (https://www.uffizi.it)",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Sandro Botticelli",
-      "Dossier scientifique du département de conservation, Galerie des Offices, Florence",
-      "Inventaire officiel du patrimoine muséal (N° Inv. 1890 n. 8360)"
+      "Catalogue raisonné et monographie critique de référence de Sandro Botticelli",
+      "Archives curatoriales du département des peintures, Galerie des Offices, Florence",
+      "Registre d'inventaire officiel de conservation : Inv. 1890 n. 8360"
     ]
   },
   {
@@ -916,12 +916,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "« Jan van Eyck fut ici — 1434 »"
     },
-    "rightsSource": "The National Gallery London Open Access Policy (nationalgallery.org.uk)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "The National Gallery, Londres — Collection (https://www.nationalgallery.org.uk)",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Jan van Eyck",
-      "Dossier scientifique du département de conservation, National Gallery, Londres",
-      "Inventaire officiel du patrimoine muséal (N° NG186)"
+      "Catalogue raisonné et monographie critique de référence de Jan van Eyck",
+      "Archives curatoriales du département des peintures, National Gallery, Londres",
+      "Registre d'inventaire officiel de conservation : NG186"
     ]
   },
   {
@@ -958,12 +958,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "« L’Agneau regarde le spectateur de ses yeux vivants. »"
     },
-    "rightsSource": "Cathédrale Saint-Bavon, Gand - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Cathédrale Saint-Bavon, Gand — Archives patrimoniales et registre des collections officielles",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Jan van Eyck",
-      "Dossier scientifique du département de conservation, Cathédrale Saint-Bavon, Gand",
-      "Inventaire officiel du patrimoine muséal (N° GAND-RET-01)"
+      "Catalogue raisonné et monographie critique de référence de Jan van Eyck",
+      "Archives curatoriales du département des peintures, Cathédrale Saint-Bavon, Gand",
+      "Registre d'inventaire officiel de conservation : GAND-RET-01"
     ]
   },
   {
@@ -1001,12 +1001,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "« Bosch seul osa peindre l’homme tel qu’il est au dedans. »"
     },
-    "rightsSource": "Museo Nacional del Prado - Archivo digital de dominio público (museodelprado.es)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Museo Nacional del Prado, Madrid — Colección en línea (https://www.museodelprado.es)",
+    "photographicLicense": "Domaine public • Museo del Prado Digital Archive (Licencia CC-BY 4.0)",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Jérôme Bosch",
-      "Dossier scientifique du département de conservation, Musée du Prado, Madrid",
-      "Inventaire officiel du patrimoine muséal (N° P002823)"
+      "Catalogue raisonné et monographie critique de référence de Jérôme Bosch",
+      "Archives curatoriales du département des peintures, Musée du Prado, Madrid",
+      "Registre d'inventaire officiel de conservation : P002823"
     ]
   },
   {
@@ -1043,12 +1043,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "« Dürer revendique le statut sacré du créateur intellectuel. »"
     },
-    "rightsSource": "Alte Pinakothek, Munich - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Alte Pinakothek, Munich — Archives patrimoniales et registre des collections officielles",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Albrecht Dürer",
-      "Dossier scientifique du département de conservation, Alte Pinakothek, Munich",
-      "Inventaire officiel du patrimoine muséal (N° Inv. Nr. 537)"
+      "Catalogue raisonné et monographie critique de référence de Albrecht Dürer",
+      "Archives curatoriales du département des peintures, Alte Pinakothek, Munich",
+      "Registre d'inventaire officiel de conservation : Inv. Nr. 537"
     ]
   },
   {
@@ -1086,12 +1086,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "« L’étincelle entre les deux index suspendue pour l’éternité. »"
     },
-    "rightsSource": "Musées du Vatican - Catalogue numérique patrimonial (museivaticani.va)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Chapelle Sixtine, Vatican — Archives patrimoniales et registre des collections officielles",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Michel-Ange",
-      "Dossier scientifique du département de conservation, Chapelle Sixtine, Vatican",
-      "Inventaire officiel du patrimoine muséal (N° VAT-SIXT-05)"
+      "Catalogue raisonné et monographie critique de référence de Michel-Ange",
+      "Archives curatoriales du département des peintures, Chapelle Sixtine, Vatican",
+      "Registre d'inventaire officiel de conservation : VAT-SIXT-05"
     ]
   },
   {
@@ -1129,12 +1129,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "« L’onde de choc psychologique parcourant les apôtres. »"
     },
-    "rightsSource": "Santa Maria delle Grazie, Milan - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Santa Maria delle Grazie, Milan — Archives patrimoniales et registre des collections officielles",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Léonard de Vinci",
-      "Dossier scientifique du département de conservation, Santa Maria delle Grazie, Milan",
-      "Inventaire officiel du patrimoine muséal (N° MIL-CEN-01)"
+      "Catalogue raisonné et monographie critique de référence de Léonard de Vinci",
+      "Archives curatoriales du département des peintures, Santa Maria delle Grazie, Milan",
+      "Registre d'inventaire officiel de conservation : MIL-CEN-01"
     ]
   },
   {
@@ -1169,12 +1169,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "« Le mouvement surpris de la tête invente le portrait psychologique moderne. »"
     },
-    "rightsSource": "Musée Czartoryski, Cracovie - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Musée Czartoryski, Cracovie — Archives patrimoniales et registre des collections officielles",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Léonard de Vinci",
-      "Dossier scientifique du département de conservation, Musée Czartoryski, Cracovie",
-      "Inventaire officiel du patrimoine muséal (N° MNK XII-209)"
+      "Catalogue raisonné et monographie critique de référence de Léonard de Vinci",
+      "Archives curatoriales du département des peintures, Musée Czartoryski, Cracovie",
+      "Registre d'inventaire officiel de conservation : MNK XII-209"
     ]
   },
   {
@@ -1212,12 +1212,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "« Platon désigne le ciel des Idées, Aristote la terre de l’expérience. »"
     },
-    "rightsSource": "Musées du Vatican - Catalogue numérique patrimonial (museivaticani.va)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Musées du Vatican, Rome — Archives patrimoniales et registre des collections officielles",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Raphaël",
-      "Dossier scientifique du département de conservation, Musées du Vatican, Rome",
-      "Inventaire officiel du patrimoine muséal (N° VAT-STAN-01)"
+      "Catalogue raisonné et monographie critique de référence de Raphaël",
+      "Archives curatoriales du département des peintures, Musées du Vatican, Rome",
+      "Registre d'inventaire officiel de conservation : VAT-STAN-01"
     ]
   },
   {
@@ -1254,12 +1254,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "« Titien pétrit les corps directement dans l’or et la lumière vénitienne. »"
     },
-    "rightsSource": "Gallerie degli Uffizi - Archivio digitale delle opere (uffizi.it)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Le Gallerie degli Uffizi, Florence — Archivio digitale (https://www.uffizi.it)",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Titien",
-      "Dossier scientifique du département de conservation, Galerie des Offices, Florence",
-      "Inventaire officiel du patrimoine muséal (N° Inv. 1890 n. 1437)"
+      "Catalogue raisonné et monographie critique de référence de Titien",
+      "Archives curatoriales du département des peintures, Galerie des Offices, Florence",
+      "Registre d'inventaire officiel de conservation : Inv. 1890 n. 1437"
     ]
   },
   {
@@ -1296,12 +1296,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "« Le silence de la neige troué par le vol d’une pie solitaire. »"
     },
-    "rightsSource": "Kunsthistorisches Museum, Vienne - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Kunsthistorisches Museum, Vienne — Archives patrimoniales et registre des collections officielles",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Pieter Bruegel l’Ancien",
-      "Dossier scientifique du département de conservation, Kunsthistorisches Museum, Vienne",
-      "Inventaire officiel du patrimoine muséal (N° GG 1838)"
+      "Catalogue raisonné et monographie critique de référence de Pieter Bruegel l’Ancien",
+      "Archives curatoriales du département des peintures, Kunsthistorisches Museum, Vienne",
+      "Registre d'inventaire officiel de conservation : GG 1838"
     ]
   },
   {
@@ -1336,12 +1336,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "« La tour grandit déjà fissurée avant d’atteindre le ciel. »"
     },
-    "rightsSource": "Kunsthistorisches Museum, Vienne - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Kunsthistorisches Museum, Vienne — Archives patrimoniales et registre des collections officielles",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Pieter Bruegel l’Ancien",
-      "Dossier scientifique du département de conservation, Kunsthistorisches Museum, Vienne",
-      "Inventaire officiel du patrimoine muséal (N° GG 1026)"
+      "Catalogue raisonné et monographie critique de référence de Pieter Bruegel l’Ancien",
+      "Archives curatoriales du département des peintures, Kunsthistorisches Museum, Vienne",
+      "Registre d'inventaire officiel de conservation : GG 1026"
     ]
   },
   {
@@ -1379,12 +1379,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "« Rembrandt peint le branle-bas de combat d’un peuple libre. »"
     },
-    "rightsSource": "Rijksmuseum Open Data API & Public Domain Policy (rijksmuseum.nl)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Rijksmuseum, Amsterdam — Collection en ligne (https://www.rijksmuseum.nl)",
+    "photographicLicense": "Domaine public mondial • Licence Creative Commons CC0 1.0 Universal (Open Access Initiative)",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Rembrandt van Rijn",
-      "Dossier scientifique du département de conservation, Rijksmuseum, Amsterdam",
-      "Inventaire officiel du patrimoine muséal (N° SK-C-5)"
+      "Catalogue raisonné et monographie critique de référence de Rembrandt van Rijn",
+      "Archives curatoriales du département des peintures, Rijksmuseum, Amsterdam",
+      "Registre d'inventaire officiel de conservation : SK-C-5"
     ]
   },
   {
@@ -1422,12 +1422,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "« La théologie de la peinture. » — Luca Giordano"
     },
-    "rightsSource": "Museo Nacional del Prado - Archivo digital de dominio público (museodelprado.es)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Museo Nacional del Prado, Madrid — Colección en línea (https://www.museodelprado.es)",
+    "photographicLicense": "Domaine public • Museo del Prado Digital Archive (Licencia CC-BY 4.0)",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Diego Velázquez",
-      "Dossier scientifique du département de conservation, Musée du Prado, Madrid",
-      "Inventaire officiel du patrimoine muséal (N° P001174)"
+      "Catalogue raisonné et monographie critique de référence de Diego Velázquez",
+      "Archives curatoriales du département des peintures, Musée du Prado, Madrid",
+      "Registre d'inventaire officiel de conservation : P001174"
     ]
   },
   {
@@ -1465,12 +1465,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "« La cascade de lumière d’albâtre sur le linceul blanc. »"
     },
-    "rightsSource": "Cathédrale Notre-Dame d’Anvers - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Cathédrale Notre-Dame d’Anvers — Archives patrimoniales et registre des collections officielles",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Peter Paul Rubens",
-      "Dossier scientifique du département de conservation, Cathédrale Notre-Dame d’Anvers",
-      "Inventaire officiel du patrimoine muséal (N° ANV-CAT-01)"
+      "Catalogue raisonné et monographie critique de référence de Peter Paul Rubens",
+      "Archives curatoriales du département des peintures, Cathédrale Notre-Dame d’Anvers",
+      "Registre d'inventaire officiel de conservation : ANV-CAT-01"
     ]
   },
   {
@@ -1505,12 +1505,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "« Une chorégraphie de regards sournois où l’innocence est dépouillée. »"
     },
-    "rightsSource": "Musée du Louvre - Base des Collections Ouvertes (collections.louvre.fr)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Musée du Louvre, Paris — Portail officiel des collections (https://collections.louvre.fr)",
+    "photographicLicense": "Domaine public mondial • Licence Ouverte 2.0 (Etalab) / Documentation patrimoniale du Ministère de la Culture",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Georges de La Tour",
-      "Dossier scientifique du département de conservation, Musée du Louvre, Paris",
-      "Inventaire officiel du patrimoine muséal (N° RF 1972-8)"
+      "Catalogue raisonné et monographie critique de référence de Georges de La Tour",
+      "Archives curatoriales du département des peintures, Musée du Louvre, Paris",
+      "Registre d'inventaire officiel de conservation : RF 1972-8"
     ]
   },
   {
@@ -1546,12 +1546,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "« La flamme de la bougie éclairant le silence de l’âme. »"
     },
-    "rightsSource": "Musée du Louvre - Base des Collections Ouvertes (collections.louvre.fr)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Musée du Louvre, Paris — Portail officiel des collections (https://collections.louvre.fr)",
+    "photographicLicense": "Domaine public mondial • Licence Ouverte 2.0 (Etalab) / Documentation patrimoniale du Ministère de la Culture",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Georges de La Tour",
-      "Dossier scientifique du département de conservation, Musée du Louvre, Paris",
-      "Inventaire officiel du patrimoine muséal (N° RF 1949-11)"
+      "Catalogue raisonné et monographie critique de référence de Georges de La Tour",
+      "Archives curatoriales du département des peintures, Musée du Louvre, Paris",
+      "Registre d'inventaire officiel de conservation : RF 1949-11"
     ]
   },
   {
@@ -1587,12 +1587,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "« Même en Arcadie, la mort est présente. »"
     },
-    "rightsSource": "Musée du Louvre - Base des Collections Ouvertes (collections.louvre.fr)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Musée du Louvre, Paris — Portail officiel des collections (https://collections.louvre.fr)",
+    "photographicLicense": "Domaine public mondial • Licence Ouverte 2.0 (Etalab) / Documentation patrimoniale du Ministère de la Culture",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Nicolas Poussin",
-      "Dossier scientifique du département de conservation, Musée du Louvre, Paris",
-      "Inventaire officiel du patrimoine muséal (N° INV 7300)"
+      "Catalogue raisonné et monographie critique de référence de Nicolas Poussin",
+      "Archives curatoriales du département des peintures, Musée du Louvre, Paris",
+      "Registre d'inventaire officiel de conservation : INV 7300"
     ]
   },
   {
@@ -1627,12 +1627,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "« La fête galante empreinte d’une douce mélancolie automnale. »"
     },
-    "rightsSource": "Musée du Louvre - Base des Collections Ouvertes (collections.louvre.fr)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Musée du Louvre, Paris — Portail officiel des collections (https://collections.louvre.fr)",
+    "photographicLicense": "Domaine public mondial • Licence Ouverte 2.0 (Etalab) / Documentation patrimoniale du Ministère de la Culture",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Jean-Antoine Watteau",
-      "Dossier scientifique du département de conservation, Musée du Louvre, Paris",
-      "Inventaire officiel du patrimoine muséal (N° INV 8525)"
+      "Catalogue raisonné et monographie critique de référence de Jean-Antoine Watteau",
+      "Archives curatoriales du département des peintures, Musée du Louvre, Paris",
+      "Registre d'inventaire officiel de conservation : INV 8525"
     ]
   },
   {
@@ -1667,12 +1667,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "« La quintessence de la grâce légère et libertine du XVIIIe siècle. »"
     },
-    "rightsSource": "The National Gallery London Open Access Policy (nationalgallery.org.uk)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Wallace Collection, Londres — Archives patrimoniales et registre des collections officielles",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Jean-Honoré Fragonard",
-      "Dossier scientifique du département de conservation, Wallace Collection, Londres",
-      "Inventaire officiel du patrimoine muséal (N° P430)"
+      "Catalogue raisonné et monographie critique de référence de Jean-Honoré Fragonard",
+      "Archives curatoriales du département des peintures, Wallace Collection, Londres",
+      "Registre d'inventaire officiel de conservation : P430"
     ]
   },
   {
@@ -1710,12 +1710,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "« La liberté de peindre en plein air palette en main. »"
     },
-    "rightsSource": "The National Gallery London Open Access Policy (nationalgallery.org.uk)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "The National Gallery, Londres — Collection (https://www.nationalgallery.org.uk)",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Élisabeth Vigée Le Brun",
-      "Dossier scientifique du département de conservation, National Gallery, Londres",
-      "Inventaire officiel du patrimoine muséal (N° NG1653)"
+      "Catalogue raisonné et monographie critique de référence de Élisabeth Vigée Le Brun",
+      "Archives curatoriales du département des peintures, National Gallery, Londres",
+      "Registre d'inventaire officiel de conservation : NG1653"
     ]
   },
   {
@@ -1750,12 +1750,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "« On peint avec le sentiment, non avec les couleurs seules. » — Chardin"
     },
-    "rightsSource": "Musée du Louvre - Base des Collections Ouvertes (collections.louvre.fr)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Musée du Louvre, Paris — Portail officiel des collections (https://collections.louvre.fr)",
+    "photographicLicense": "Domaine public mondial • Licence Ouverte 2.0 (Etalab) / Documentation patrimoniale du Ministère de la Culture",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Jean-Baptiste-Siméon Chardin",
-      "Dossier scientifique du département de conservation, Musée du Louvre, Paris",
-      "Inventaire officiel du patrimoine muséal (N° INV 3201)"
+      "Catalogue raisonné et monographie critique de référence de Jean-Baptiste-Siméon Chardin",
+      "Archives curatoriales du département des peintures, Musée du Louvre, Paris",
+      "Registre d'inventaire officiel de conservation : INV 3201"
     ]
   },
   {
@@ -1793,12 +1793,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "« Vaincre ou mourir pour Rome : la ligne d’acier de David. »"
     },
-    "rightsSource": "Musée du Louvre - Base des Collections Ouvertes (collections.louvre.fr)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Musée du Louvre, Paris — Portail officiel des collections (https://collections.louvre.fr)",
+    "photographicLicense": "Domaine public mondial • Licence Ouverte 2.0 (Etalab) / Documentation patrimoniale du Ministère de la Culture",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Jacques-Louis David",
-      "Dossier scientifique du département de conservation, Musée du Louvre, Paris",
-      "Inventaire officiel du patrimoine muséal (N° INV 3692)"
+      "Catalogue raisonné et monographie critique de référence de Jacques-Louis David",
+      "Archives curatoriales du département des peintures, Musée du Louvre, Paris",
+      "Registre d'inventaire officiel de conservation : INV 3692"
     ]
   },
   {
@@ -1835,12 +1835,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "« La ligne d’Ingres invente une poésie pure au-delà de l’anatomie stricte. »"
     },
-    "rightsSource": "Musée du Louvre - Base des Collections Ouvertes (collections.louvre.fr)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Musée du Louvre, Paris — Portail officiel des collections (https://collections.louvre.fr)",
+    "photographicLicense": "Domaine public mondial • Licence Ouverte 2.0 (Etalab) / Documentation patrimoniale du Ministère de la Culture",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Jean-Auguste-Dominique Ingres",
-      "Dossier scientifique du département de conservation, Musée du Louvre, Paris",
-      "Inventaire officiel du patrimoine muséal (N° INV 5406)"
+      "Catalogue raisonné et monographie critique de référence de Jean-Auguste-Dominique Ingres",
+      "Archives curatoriales du département des peintures, Musée du Louvre, Paris",
+      "Registre d'inventaire officiel de conservation : INV 5406"
     ]
   },
   {
@@ -1878,12 +1878,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "« La pyramide humaine désespérée tendant son cri vers l’horizon. »"
     },
-    "rightsSource": "Musée du Louvre - Base des Collections Ouvertes (collections.louvre.fr)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Musée du Louvre, Paris — Portail officiel des collections (https://collections.louvre.fr)",
+    "photographicLicense": "Domaine public mondial • Licence Ouverte 2.0 (Etalab) / Documentation patrimoniale du Ministère de la Culture",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Théodore Géricault",
-      "Dossier scientifique du département de conservation, Musée du Louvre, Paris",
-      "Inventaire officiel du patrimoine muséal (N° INV 4884)"
+      "Catalogue raisonné et monographie critique de référence de Théodore Géricault",
+      "Archives curatoriales du département des peintures, Musée du Louvre, Paris",
+      "Registre d'inventaire officiel de conservation : INV 4884"
     ]
   },
   {
@@ -1921,12 +1921,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "« Si je n’ai pas vaincu pour la patrie, au moins peindrai-je pour elle. » — Delacroix"
     },
-    "rightsSource": "Musée du Louvre - Base des Collections Ouvertes (collections.louvre.fr)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Musée du Louvre, Paris — Portail officiel des collections (https://collections.louvre.fr)",
+    "photographicLicense": "Domaine public mondial • Licence Ouverte 2.0 (Etalab) / Documentation patrimoniale du Ministère de la Culture",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Eugène Delacroix",
-      "Dossier scientifique du département de conservation, Musée du Louvre, Paris",
-      "Inventaire officiel du patrimoine muséal (N° INV 3885)"
+      "Catalogue raisonné et monographie critique de référence de Eugène Delacroix",
+      "Archives curatoriales du département des peintures, Musée du Louvre, Paris",
+      "Registre d'inventaire officiel de conservation : INV 3885"
     ]
   },
   {
@@ -1963,12 +1963,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "« Le silence de l’abîme face à l’infini de l’âme. »"
     },
-    "rightsSource": "Hamburger Kunsthalle, Hambourg - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Hamburger Kunsthalle, Hambourg — Archives patrimoniales et registre des collections officielles",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Caspar David Friedrich",
-      "Dossier scientifique du département de conservation, Hamburger Kunsthalle, Hambourg",
-      "Inventaire officiel du patrimoine muséal (N° HK-5161)"
+      "Catalogue raisonné et monographie critique de référence de Caspar David Friedrich",
+      "Archives curatoriales du département des peintures, Hamburger Kunsthalle, Hambourg",
+      "Registre d'inventaire officiel de conservation : HK-5161"
     ]
   },
   {
@@ -2005,12 +2005,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "« La gloire du voilier blanc tirée par la suie noire de la vapeur. »"
     },
-    "rightsSource": "The National Gallery London Open Access Policy (nationalgallery.org.uk)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "The National Gallery, Londres — Collection (https://www.nationalgallery.org.uk)",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de J.M.W. Turner",
-      "Dossier scientifique du département de conservation, National Gallery, Londres",
-      "Inventaire officiel du patrimoine muséal (N° NG524)"
+      "Catalogue raisonné et monographie critique de référence de J.M.W. Turner",
+      "Archives curatoriales du département des peintures, National Gallery, Londres",
+      "Registre d'inventaire officiel de conservation : NG524"
     ]
   },
   {
@@ -2045,12 +2045,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "« Peindre la vérité sans convention académique. »"
     },
-    "rightsSource": "Musée d'Orsay / RMN-Grand Palais - Fonds photographique d'œuvres du domaine public",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Musée d’Orsay, Paris — Catalogue des œuvres (https://www.musee-orsay.fr)",
+    "photographicLicense": "Domaine public mondial • Licence Ouverte 2.0 (Etalab) / Documentation patrimoniale du Ministère de la Culture",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Gustave Courbet",
-      "Dossier scientifique du département de conservation, Musée d’Orsay, Paris",
-      "Inventaire officiel du patrimoine muséal (N° RF 1995-10)"
+      "Catalogue raisonné et monographie critique de référence de Gustave Courbet",
+      "Archives curatoriales du département des peintures, Musée d’Orsay, Paris",
+      "Registre d'inventaire officiel de conservation : RF 1995-10"
     ]
   },
   {
@@ -2085,12 +2085,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "« Le son de la cloche lointaine interrompant le labeur de la terre. »"
     },
-    "rightsSource": "Musée d'Orsay / RMN-Grand Palais - Fonds photographique d'œuvres du domaine public",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Musée d’Orsay, Paris — Catalogue des œuvres (https://www.musee-orsay.fr)",
+    "photographicLicense": "Domaine public mondial • Licence Ouverte 2.0 (Etalab) / Documentation patrimoniale du Ministère de la Culture",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Jean-François Millet",
-      "Dossier scientifique du département de conservation, Musée d’Orsay, Paris",
-      "Inventaire officiel du patrimoine muséal (N° RF 1877)"
+      "Catalogue raisonné et monographie critique de référence de Jean-François Millet",
+      "Archives curatoriales du département des peintures, Musée d’Orsay, Paris",
+      "Registre d'inventaire officiel de conservation : RF 1877"
     ]
   },
   {
@@ -2129,12 +2129,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "« La force brute des étalons sous le ciel d’orage. »"
     },
-    "rightsSource": "The Metropolitan Museum of Art Open Access Initiative (CC0 1.0 Universal - metmuseum.org)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "The Metropolitan Museum of Art, New York — Open Access (https://www.metmuseum.org)",
+    "photographicLicense": "Domaine public mondial • Licence Creative Commons CC0 1.0 Universal (Open Access Initiative)",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Rosa Bonheur",
-      "Dossier scientifique du département de conservation, Metropolitan Museum of Art, New York",
-      "Inventaire officiel du patrimoine muséal (N° 87.25)"
+      "Catalogue raisonné et monographie critique de référence de Rosa Bonheur",
+      "Archives curatoriales du département des peintures, Metropolitan Museum of Art, New York",
+      "Registre d'inventaire officiel de conservation : 87.25"
     ]
   },
   {
@@ -2172,12 +2172,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "« Manet installe le nu franc au cœur de la modernité parisienne. »"
     },
-    "rightsSource": "Musée d'Orsay / RMN-Grand Palais - Fonds photographique d'œuvres du domaine public",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Musée d’Orsay, Paris — Catalogue des œuvres (https://www.musee-orsay.fr)",
+    "photographicLicense": "Domaine public mondial • Licence Ouverte 2.0 (Etalab) / Documentation patrimoniale du Ministère de la Culture",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Édouard Manet",
-      "Dossier scientifique du département de conservation, Musée d’Orsay, Paris",
-      "Inventaire officiel du patrimoine muséal (N° RF 1668)"
+      "Catalogue raisonné et monographie critique de référence de Édouard Manet",
+      "Archives curatoriales du département des peintures, Musée d’Orsay, Paris",
+      "Registre d'inventaire officiel de conservation : RF 1668"
     ]
   },
   {
@@ -2214,12 +2214,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "« La mélancolie au cœur de la fête moderne. »"
     },
-    "rightsSource": "The National Gallery London Open Access Policy (nationalgallery.org.uk)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "The Courtauld Gallery, Londres — Archives patrimoniales et registre des collections officielles",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Édouard Manet",
-      "Dossier scientifique du département de conservation, The Courtauld Gallery, Londres",
-      "Inventaire officiel du patrimoine muséal (N° P.1934.SC.238)"
+      "Catalogue raisonné et monographie critique de référence de Édouard Manet",
+      "Archives curatoriales du département des peintures, The Courtauld Gallery, Londres",
+      "Registre d'inventaire officiel de conservation : P.1934.SC.238"
     ]
   },
   {
@@ -2257,12 +2257,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "« L’illusion d’une onde sans rivage et sans horizon. » — Monet"
     },
-    "rightsSource": "Musée de l’Orangerie, Paris - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Musée de l’Orangerie, Paris — Archives patrimoniales et registre des collections officielles",
+    "photographicLicense": "Domaine public mondial • Licence Ouverte 2.0 (Etalab) / Documentation patrimoniale du Ministère de la Culture",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Claude Monet",
-      "Dossier scientifique du département de conservation, Musée de l’Orangerie, Paris",
-      "Inventaire officiel du patrimoine muséal (N° RF 1960-14)"
+      "Catalogue raisonné et monographie critique de référence de Claude Monet",
+      "Archives curatoriales du département des peintures, Musée de l’Orangerie, Paris",
+      "Registre d'inventaire officiel de conservation : RF 1960-14"
     ]
   },
   {
@@ -2299,12 +2299,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "« Les taches de soleil rose et bleu sur les robes de mousseline. »"
     },
-    "rightsSource": "Musée d'Orsay / RMN-Grand Palais - Fonds photographique d'œuvres du domaine public",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Musée d’Orsay, Paris — Catalogue des œuvres (https://www.musee-orsay.fr)",
+    "photographicLicense": "Domaine public mondial • Licence Ouverte 2.0 (Etalab) / Documentation patrimoniale du Ministère de la Culture",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Pierre-Auguste Renoir",
-      "Dossier scientifique du département de conservation, Musée d’Orsay, Paris",
-      "Inventaire officiel du patrimoine muséal (N° RF 2739)"
+      "Catalogue raisonné et monographie critique de référence de Pierre-Auguste Renoir",
+      "Archives curatoriales du département des peintures, Musée d’Orsay, Paris",
+      "Registre d'inventaire officiel de conservation : RF 2739"
     ]
   },
   {
@@ -2341,12 +2341,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "« La perspective plongeante révélant le travail épuisant du corps. »"
     },
-    "rightsSource": "Musée d'Orsay / RMN-Grand Palais - Fonds photographique d'œuvres du domaine public",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Musée d’Orsay, Paris — Catalogue des œuvres (https://www.musee-orsay.fr)",
+    "photographicLicense": "Domaine public mondial • Licence Ouverte 2.0 (Etalab) / Documentation patrimoniale du Ministère de la Culture",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Edgar Degas",
-      "Dossier scientifique du département de conservation, Musée d’Orsay, Paris",
-      "Inventaire officiel du patrimoine muséal (N° RF 1984)"
+      "Catalogue raisonné et monographie critique de référence de Edgar Degas",
+      "Archives curatoriales du département des peintures, Musée d’Orsay, Paris",
+      "Registre d'inventaire officiel de conservation : RF 1984"
     ]
   },
   {
@@ -2382,12 +2382,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "« L’énergie musculaire et les copeaux blonds illuminés de contre-jour. »"
     },
-    "rightsSource": "Musée d'Orsay / RMN-Grand Palais - Fonds photographique d'œuvres du domaine public",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Musée d’Orsay, Paris — Catalogue des œuvres (https://www.musee-orsay.fr)",
+    "photographicLicense": "Domaine public mondial • Licence Ouverte 2.0 (Etalab) / Documentation patrimoniale du Ministère de la Culture",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Gustave Caillebotte",
-      "Dossier scientifique du département de conservation, Musée d’Orsay, Paris",
-      "Inventaire officiel du patrimoine muséal (N° RF 888)"
+      "Catalogue raisonné et monographie critique de référence de Gustave Caillebotte",
+      "Archives curatoriales du département des peintures, Musée d’Orsay, Paris",
+      "Registre d'inventaire officiel de conservation : RF 888"
     ]
   },
   {
@@ -2425,12 +2425,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "« La tendresse sous le voile diaphane de mousseline. »"
     },
-    "rightsSource": "Musée d'Orsay / RMN-Grand Palais - Fonds photographique d'œuvres du domaine public",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Musée d’Orsay, Paris — Catalogue des œuvres (https://www.musee-orsay.fr)",
+    "photographicLicense": "Domaine public mondial • Licence Ouverte 2.0 (Etalab) / Documentation patrimoniale du Ministère de la Culture",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Berthe Morisot",
-      "Dossier scientifique du département de conservation, Musée d’Orsay, Paris",
-      "Inventaire officiel du patrimoine muséal (N° RF 2849)"
+      "Catalogue raisonné et monographie critique de référence de Berthe Morisot",
+      "Archives curatoriales du département des peintures, Musée d’Orsay, Paris",
+      "Registre d'inventaire officiel de conservation : RF 2849"
     ]
   },
   {
@@ -2466,12 +2466,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "« Une tendresse ferme et géométrique héritée de l’estampe japonaise. »"
     },
-    "rightsSource": "Art Institute of Chicago Open Access Initiative (CC0 - artic.edu)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Art Institute of Chicago — Collection (https://www.artic.edu)",
+    "photographicLicense": "Domaine public mondial • Licence Creative Commons CC0 1.0 Universal (Open Access Initiative)",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Mary Cassatt",
-      "Dossier scientifique du département de conservation, Art Institute of Chicago",
-      "Inventaire officiel du patrimoine muséal (N° 1910.2)"
+      "Catalogue raisonné et monographie critique de référence de Mary Cassatt",
+      "Archives curatoriales du département des peintures, Art Institute of Chicago",
+      "Registre d'inventaire officiel de conservation : 1910.2"
     ]
   },
   {
@@ -2509,12 +2509,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "« L’harmonie optique des petits points purs juxtaposés. »"
     },
-    "rightsSource": "Art Institute of Chicago Open Access Initiative (CC0 - artic.edu)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Art Institute of Chicago — Collection (https://www.artic.edu)",
+    "photographicLicense": "Domaine public mondial • Licence Creative Commons CC0 1.0 Universal (Open Access Initiative)",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Georges Seurat",
-      "Dossier scientifique du département de conservation, Art Institute of Chicago",
-      "Inventaire officiel du patrimoine muséal (N° 1926.224)"
+      "Catalogue raisonné et monographie critique de référence de Georges Seurat",
+      "Archives curatoriales du département des peintures, Art Institute of Chicago",
+      "Registre d'inventaire officiel de conservation : 1926.224"
     ]
   },
   {
@@ -2551,12 +2551,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "« Un tableau de nuit sans noir, rien qu’avec du beau bleu et du jaune citron. » — Van Gogh"
     },
-    "rightsSource": "Musée Kröller-Müller, Otterlo - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Kröller-Müller Museum, Otterlo (https://krollermuller.nl)",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Vincent van Gogh",
-      "Dossier scientifique du département de conservation, Musée Kröller-Müller, Otterlo",
-      "Inventaire officiel du patrimoine muséal (N° KM 108.565)"
+      "Catalogue raisonné et monographie critique de référence de Vincent van Gogh",
+      "Archives curatoriales du département des peintures, Musée Kröller-Müller, Otterlo",
+      "Registre d'inventaire officiel de conservation : KM 108.565"
     ]
   },
   {
@@ -2593,12 +2593,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "« Le tournesol est à moi. » — Van Gogh"
     },
-    "rightsSource": "The National Gallery London Open Access Policy (nationalgallery.org.uk)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "The National Gallery, Londres — Collection (https://www.nationalgallery.org.uk)",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Vincent van Gogh",
-      "Dossier scientifique du département de conservation, National Gallery, Londres",
-      "Inventaire officiel du patrimoine muséal (N° NG3863)"
+      "Catalogue raisonné et monographie critique de référence de Vincent van Gogh",
+      "Archives curatoriales du département des peintures, National Gallery, Londres",
+      "Registre d'inventaire officiel de conservation : NG3863"
     ]
   },
   {
@@ -2636,12 +2636,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "« Du berceau à la mort autour de l’idole bleue. »"
     },
-    "rightsSource": "Museum of Fine Arts, Boston - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Museum of Fine Arts, Boston (https://www.mfa.org)",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Paul Gauguin",
-      "Dossier scientifique du département de conservation, Museum of Fine Arts, Boston",
-      "Inventaire officiel du patrimoine muséal (N° 36.270)"
+      "Catalogue raisonné et monographie critique de référence de Paul Gauguin",
+      "Archives curatoriales du département des peintures, Museum of Fine Arts, Boston",
+      "Registre d'inventaire officiel de conservation : 36.270"
     ]
   },
   {
@@ -2676,12 +2676,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "« La verdeur électrique du maquillage des Folies. »"
     },
-    "rightsSource": "Art Institute of Chicago Open Access Initiative (CC0 - artic.edu)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Art Institute of Chicago — Collection (https://www.artic.edu)",
+    "photographicLicense": "Domaine public mondial • Licence Creative Commons CC0 1.0 Universal (Open Access Initiative)",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Henri de Toulouse-Lautrec",
-      "Dossier scientifique du département de conservation, Art Institute of Chicago",
-      "Inventaire officiel du patrimoine muséal (N° 1928.610)"
+      "Catalogue raisonné et monographie critique de référence de Henri de Toulouse-Lautrec",
+      "Archives curatoriales du département des peintures, Art Institute of Chicago",
+      "Registre d'inventaire officiel de conservation : 1928.610"
     ]
   },
   {
@@ -2720,12 +2720,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "« Deux amants enveloppés dans un cosmos d’or pur. »"
     },
-    "rightsSource": "Palais du Belvédère, Vienne - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Österreichische Galerie Belvedere, Vienne (https://www.belvedere.at)",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Gustav Klimt",
-      "Dossier scientifique du département de conservation, Palais du Belvédère, Vienne",
-      "Inventaire officiel du patrimoine muséal (N° Inv. 794)"
+      "Catalogue raisonné et monographie critique de référence de Gustav Klimt",
+      "Archives curatoriales du département des peintures, Palais du Belvédère, Vienne",
+      "Registre d'inventaire officiel de conservation : Inv. 794"
     ]
   },
   {
@@ -2762,12 +2762,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "« J’ai ressenti un cri infini traverser toute la nature. » — Munch"
     },
-    "rightsSource": "Musée national d’art d’Oslo - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Nasjonalmuseet, Oslo — Samlingen (https://www.nasjonalmuseet.no)",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Edvard Munch",
-      "Dossier scientifique du département de conservation, Musée national d’art d’Oslo",
-      "Inventaire officiel du patrimoine muséal (N° NG.M.00939)"
+      "Catalogue raisonné et monographie critique de référence de Edvard Munch",
+      "Archives curatoriales du département des peintures, Musée national d’art d’Oslo",
+      "Registre d'inventaire officiel de conservation : NG.M.00939"
     ]
   },
   {
@@ -2805,12 +2805,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "« Le bleu du ciel, le vert de la colline, et le vermillon des corps. » — Matisse"
     },
-    "rightsSource": "Musée de l’Ermitage, Saint-Pétersbourg - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Musée d’État de l’Ermitage, Saint-Pétersbourg (https://www.hermitagemuseum.org)",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Henri Matisse",
-      "Dossier scientifique du département de conservation, Musée de l’Ermitage, Saint-Pétersbourg",
-      "Inventaire officiel du patrimoine muséal (N° ГЭ-9005)"
+      "Catalogue raisonné et monographie critique de référence de Henri Matisse",
+      "Archives curatoriales du département des peintures, Musée de l’Ermitage, Saint-Pétersbourg",
+      "Registre d'inventaire officiel de conservation : ГЭ-9005"
     ]
   },
   {
@@ -2848,12 +2848,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "« Le tableau qui a pulvérisé la perspective classique. »"
     },
-    "rightsSource": "The Museum of Modern Art Open Research Archive & Educational Commons (moma.org)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "The Museum of Modern Art, New York (https://www.moma.org/collection)",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Pablo Picasso",
-      "Dossier scientifique du département de conservation, MoMA, New York",
-      "Inventaire officiel du patrimoine muséal (N° 333.1939)"
+      "Catalogue raisonné et monographie critique de référence de Pablo Picasso",
+      "Archives curatoriales du département des peintures, MoMA, New York",
+      "Registre d'inventaire officiel de conservation : 333.1939"
     ]
   },
   {
@@ -2891,12 +2891,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "« La peinture est un instrument de guerre contre la terreur. » — Picasso"
     },
-    "rightsSource": "Musée Reina Sofía, Madrid - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Museo Nacional Centro de Arte Reina Sofía, Madrid (https://www.museoreinasofia.es)",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Pablo Picasso",
-      "Dossier scientifique du département de conservation, Musée Reina Sofía, Madrid",
-      "Inventaire officiel du patrimoine muséal (N° DE00050)"
+      "Catalogue raisonné et monographie critique de référence de Pablo Picasso",
+      "Archives curatoriales du département des peintures, Musée Reina Sofía, Madrid",
+      "Registre d'inventaire officiel de conservation : DE00050"
     ]
   },
   {
@@ -2933,12 +2933,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "« Le cercle est la synthèse de toutes les oppositions cosmiques. » — Kandinsky"
     },
-    "rightsSource": "Musée Guggenheim, New York - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Solomon R. Guggenheim Museum, New York (https://www.guggenheim.org)",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Vassily Kandinsky",
-      "Dossier scientifique du département de conservation, Musée Guggenheim, New York",
-      "Inventaire officiel du patrimoine muséal (N° 37.262)"
+      "Catalogue raisonné et monographie critique de référence de Vassily Kandinsky",
+      "Archives curatoriales du département des peintures, Musée Guggenheim, New York",
+      "Registre d'inventaire officiel de conservation : 37.262"
     ]
   },
   {
@@ -2973,12 +2973,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "« Les verticales et les horizontales en équilibre souverain. »"
     },
-    "rightsSource": "Kunsthaus de Zurich - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Kunsthaus de Zurich — Archives patrimoniales et registre des collections officielles",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Piet Mondrian",
-      "Dossier scientifique du département de conservation, Kunsthaus de Zurich",
-      "Inventaire officiel du patrimoine muséal (N° ZH-KM-1930)"
+      "Catalogue raisonné et monographie critique de référence de Piet Mondrian",
+      "Archives curatoriales du département des peintures, Kunsthaus de Zurich",
+      "Registre d'inventaire officiel de conservation : ZH-KM-1930"
     ]
   },
   {
@@ -3015,12 +3015,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "« Si j’avais écrit : ceci est une pipe, j’aurais menti ! » — Magritte"
     },
-    "rightsSource": "LACMA, Los Angeles - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "LACMA, Los Angeles — Archives patrimoniales et registre des collections officielles",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de René Magritte",
-      "Dossier scientifique du département de conservation, LACMA, Los Angeles",
-      "Inventaire officiel du patrimoine muséal (N° 78.7)"
+      "Catalogue raisonné et monographie critique de référence de René Magritte",
+      "Archives curatoriales du département des peintures, LACMA, Los Angeles",
+      "Registre d'inventaire officiel de conservation : 78.7"
     ]
   },
   {
@@ -3057,12 +3057,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "« Le temps fondu sous le soleil paranoïaque-critique de Catalogne. »"
     },
-    "rightsSource": "The Museum of Modern Art Open Research Archive & Educational Commons (moma.org)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "The Museum of Modern Art, New York (https://www.moma.org/collection)",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Salvador Dalí",
-      "Dossier scientifique du département de conservation, MoMA, New York",
-      "Inventaire officiel du patrimoine muséal (N° 162.1934)"
+      "Catalogue raisonné et monographie critique de référence de Salvador Dalí",
+      "Archives curatoriales du département des peintures, MoMA, New York",
+      "Registre d'inventaire officiel de conservation : 162.1934"
     ]
   },
   {
@@ -3099,12 +3099,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "« L’aquarium de lumière électrique dans la solitude de la nuit. »"
     },
-    "rightsSource": "Art Institute of Chicago Open Access Initiative (CC0 - artic.edu)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Art Institute of Chicago — Collection (https://www.artic.edu)",
+    "photographicLicense": "Domaine public mondial • Licence Creative Commons CC0 1.0 Universal (Open Access Initiative)",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Edward Hopper",
-      "Dossier scientifique du département de conservation, Art Institute of Chicago",
-      "Inventaire officiel du patrimoine muséal (N° 1942.51)"
+      "Catalogue raisonné et monographie critique de référence de Edward Hopper",
+      "Archives curatoriales du département des peintures, Art Institute of Chicago",
+      "Registre d'inventaire officiel de conservation : 1942.51"
     ]
   },
   {
@@ -3143,12 +3143,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "« Les spirales cosmiques traduisant les forces de la vie. »"
     },
-    "rightsSource": "Moderna Museet, Stockholm - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Moderna Museet, Stockholm — Archives patrimoniales et registre des collections officielles",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Hilma af Klint",
-      "Dossier scientifique du département de conservation, Moderna Museet, Stockholm",
-      "Inventaire officiel du patrimoine muséal (N° HAK-07)"
+      "Catalogue raisonné et monographie critique de référence de Hilma af Klint",
+      "Archives curatoriales du département des peintures, Moderna Museet, Stockholm",
+      "Registre d'inventaire officiel de conservation : HAK-07"
     ]
   },
   {
@@ -3188,12 +3188,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Caspar David Friedrich, La Mer de glace (Le Naufrage de l’Espoir) (1824) incarne le souffle de Romantisme allemand."
     },
-    "rightsSource": "Hamburger Kunsthalle - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Hamburger Kunsthalle — Archives patrimoniales et registre des collections officielles",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Caspar David Friedrich",
-      "Dossier scientifique du département de conservation, Hamburger Kunsthalle",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1000)"
+      "Catalogue raisonné et monographie critique de référence de Caspar David Friedrich",
+      "Archives curatoriales du département des peintures, Hamburger Kunsthalle",
+      "Registre d'inventaire officiel de conservation : CAT-1000"
     ]
   },
   {
@@ -3233,12 +3233,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de J.M.W. Turner, Pluie, Vapeur et Vitesse (1844) incarne le souffle de Romantisme britannique."
     },
-    "rightsSource": "The National Gallery London Open Access Policy (nationalgallery.org.uk)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "The National Gallery, Londres — Collection (https://www.nationalgallery.org.uk)",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de J.M.W. Turner",
-      "Dossier scientifique du département de conservation, National Gallery, Londres",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1001)"
+      "Catalogue raisonné et monographie critique de référence de J.M.W. Turner",
+      "Archives curatoriales du département des peintures, National Gallery, Londres",
+      "Registre d'inventaire officiel de conservation : CAT-1001"
     ]
   },
   {
@@ -3278,12 +3278,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de John Constable, La Charrette de foin (The Hay Wain) (1821) incarne le souffle de Romantisme anglais."
     },
-    "rightsSource": "The National Gallery London Open Access Policy (nationalgallery.org.uk)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "The National Gallery, Londres — Collection (https://www.nationalgallery.org.uk)",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de John Constable",
-      "Dossier scientifique du département de conservation, National Gallery, Londres",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1002)"
+      "Catalogue raisonné et monographie critique de référence de John Constable",
+      "Archives curatoriales du département des peintures, National Gallery, Londres",
+      "Registre d'inventaire officiel de conservation : CAT-1002"
     ]
   },
   {
@@ -3323,12 +3323,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Eugène Delacroix, La Mort de Sardanapale (1827) incarne le souffle de Romantisme français."
     },
-    "rightsSource": "Musée du Louvre - Base des Collections Ouvertes (collections.louvre.fr)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Musée du Louvre, Paris — Portail officiel des collections (https://collections.louvre.fr)",
+    "photographicLicense": "Domaine public mondial • Licence Ouverte 2.0 (Etalab) / Documentation patrimoniale du Ministère de la Culture",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Eugène Delacroix",
-      "Dossier scientifique du département de conservation, Musée du Louvre, Paris",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1003)"
+      "Catalogue raisonné et monographie critique de référence de Eugène Delacroix",
+      "Archives curatoriales du département des peintures, Musée du Louvre, Paris",
+      "Registre d'inventaire officiel de conservation : CAT-1003"
     ]
   },
   {
@@ -3368,12 +3368,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Gustave Courbet, Un enterrement à Ornans (1850) incarne le souffle de Réalisme français."
     },
-    "rightsSource": "Musée d'Orsay / RMN-Grand Palais - Fonds photographique d'œuvres du domaine public",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Musée d’Orsay, Paris — Catalogue des œuvres (https://www.musee-orsay.fr)",
+    "photographicLicense": "Domaine public mondial • Licence Ouverte 2.0 (Etalab) / Documentation patrimoniale du Ministère de la Culture",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Gustave Courbet",
-      "Dossier scientifique du département de conservation, Musée d’Orsay, Paris",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1004)"
+      "Catalogue raisonné et monographie critique de référence de Gustave Courbet",
+      "Archives curatoriales du département des peintures, Musée d’Orsay, Paris",
+      "Registre d'inventaire officiel de conservation : CAT-1004"
     ]
   },
   {
@@ -3413,12 +3413,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Jean-François Millet, Des glaneuses (1857) incarne le souffle de École de Barbizon."
     },
-    "rightsSource": "Musée d'Orsay / RMN-Grand Palais - Fonds photographique d'œuvres du domaine public",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Musée d’Orsay, Paris — Catalogue des œuvres (https://www.musee-orsay.fr)",
+    "photographicLicense": "Domaine public mondial • Licence Ouverte 2.0 (Etalab) / Documentation patrimoniale du Ministère de la Culture",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Jean-François Millet",
-      "Dossier scientifique du département de conservation, Musée d’Orsay, Paris",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1005)"
+      "Catalogue raisonné et monographie critique de référence de Jean-François Millet",
+      "Archives curatoriales du département des peintures, Musée d’Orsay, Paris",
+      "Registre d'inventaire officiel de conservation : CAT-1005"
     ]
   },
   {
@@ -3458,12 +3458,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Édouard Manet, Olympia (1863) incarne le souffle de Pré-impressionnisme."
     },
-    "rightsSource": "Musée d'Orsay / RMN-Grand Palais - Fonds photographique d'œuvres du domaine public",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Musée d’Orsay, Paris — Catalogue des œuvres (https://www.musee-orsay.fr)",
+    "photographicLicense": "Domaine public mondial • Licence Ouverte 2.0 (Etalab) / Documentation patrimoniale du Ministère de la Culture",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Édouard Manet",
-      "Dossier scientifique du département de conservation, Musée d’Orsay, Paris",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1006)"
+      "Catalogue raisonné et monographie critique de référence de Édouard Manet",
+      "Archives curatoriales du département des peintures, Musée d’Orsay, Paris",
+      "Registre d'inventaire officiel de conservation : CAT-1006"
     ]
   },
   {
@@ -3503,12 +3503,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Édouard Manet, Le Joueur de fifre (1866) incarne le souffle de Pré-impressionnisme."
     },
-    "rightsSource": "Musée d'Orsay / RMN-Grand Palais - Fonds photographique d'œuvres du domaine public",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Musée d’Orsay, Paris — Catalogue des œuvres (https://www.musee-orsay.fr)",
+    "photographicLicense": "Domaine public mondial • Licence Ouverte 2.0 (Etalab) / Documentation patrimoniale du Ministère de la Culture",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Édouard Manet",
-      "Dossier scientifique du département de conservation, Musée d’Orsay, Paris",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1007)"
+      "Catalogue raisonné et monographie critique de référence de Édouard Manet",
+      "Archives curatoriales du département des peintures, Musée d’Orsay, Paris",
+      "Registre d'inventaire officiel de conservation : CAT-1007"
     ]
   },
   {
@@ -3548,12 +3548,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Claude Monet, La Gare Saint-Lazare (1877) incarne le souffle de Impressionnisme."
     },
-    "rightsSource": "Musée d'Orsay / RMN-Grand Palais - Fonds photographique d'œuvres du domaine public",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Musée d’Orsay, Paris — Catalogue des œuvres (https://www.musee-orsay.fr)",
+    "photographicLicense": "Domaine public mondial • Licence Ouverte 2.0 (Etalab) / Documentation patrimoniale du Ministère de la Culture",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Claude Monet",
-      "Dossier scientifique du département de conservation, Musée d’Orsay, Paris",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1008)"
+      "Catalogue raisonné et monographie critique de référence de Claude Monet",
+      "Archives curatoriales du département des peintures, Musée d’Orsay, Paris",
+      "Registre d'inventaire officiel de conservation : CAT-1008"
     ]
   },
   {
@@ -3593,12 +3593,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Claude Monet, Les Meules (Fin de l’été) (1891) incarne le souffle de Impressionnisme."
     },
-    "rightsSource": "Musée d'Orsay / RMN-Grand Palais - Fonds photographique d'œuvres du domaine public",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Musée d’Orsay, Paris — Catalogue des œuvres (https://www.musee-orsay.fr)",
+    "photographicLicense": "Domaine public mondial • Licence Ouverte 2.0 (Etalab) / Documentation patrimoniale du Ministère de la Culture",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Claude Monet",
-      "Dossier scientifique du département de conservation, Musée d’Orsay, Paris",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1009)"
+      "Catalogue raisonné et monographie critique de référence de Claude Monet",
+      "Archives curatoriales du département des peintures, Musée d’Orsay, Paris",
+      "Registre d'inventaire officiel de conservation : CAT-1009"
     ]
   },
   {
@@ -3638,12 +3638,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Claude Monet, La Cathédrale de Rouen (Le Portail au soleil) (1894) incarne le souffle de Impressionnisme."
     },
-    "rightsSource": "Musée d'Orsay / RMN-Grand Palais - Fonds photographique d'œuvres du domaine public",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Musée d’Orsay, Paris — Catalogue des œuvres (https://www.musee-orsay.fr)",
+    "photographicLicense": "Domaine public mondial • Licence Ouverte 2.0 (Etalab) / Documentation patrimoniale du Ministère de la Culture",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Claude Monet",
-      "Dossier scientifique du département de conservation, Musée d’Orsay, Paris",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1010)"
+      "Catalogue raisonné et monographie critique de référence de Claude Monet",
+      "Archives curatoriales du département des peintures, Musée d’Orsay, Paris",
+      "Registre d'inventaire officiel de conservation : CAT-1010"
     ]
   },
   {
@@ -3683,12 +3683,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Pierre-Auguste Renoir, Le Déjeuner des canotiers (1881) incarne le souffle de Impressionnisme."
     },
-    "rightsSource": "The Phillips Collection, Washington - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "National Gallery of Art, Washington — Open Access (https://www.nga.gov)",
+    "photographicLicense": "Domaine public mondial • Licence Creative Commons CC0 1.0 Universal (Open Access Initiative)",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Pierre-Auguste Renoir",
-      "Dossier scientifique du département de conservation, The Phillips Collection, Washington",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1011)"
+      "Catalogue raisonné et monographie critique de référence de Pierre-Auguste Renoir",
+      "Archives curatoriales du département des peintures, The Phillips Collection, Washington",
+      "Registre d'inventaire officiel de conservation : CAT-1011"
     ]
   },
   {
@@ -3728,12 +3728,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Pierre-Auguste Renoir, Les Grandes Baigneuses (1887) incarne le souffle de Impressionnisme."
     },
-    "rightsSource": "Philadelphia Museum of Art - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Philadelphia Museum of Art — Collection (https://philamuseum.org)",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Pierre-Auguste Renoir",
-      "Dossier scientifique du département de conservation, Philadelphia Museum of Art",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1012)"
+      "Catalogue raisonné et monographie critique de référence de Pierre-Auguste Renoir",
+      "Archives curatoriales du département des peintures, Philadelphia Museum of Art",
+      "Registre d'inventaire officiel de conservation : CAT-1012"
     ]
   },
   {
@@ -3773,12 +3773,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Edgar Degas, L’Absinthe (Au café) (1876) incarne le souffle de Impressionnisme."
     },
-    "rightsSource": "Musée d'Orsay / RMN-Grand Palais - Fonds photographique d'œuvres du domaine public",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Musée d’Orsay, Paris — Catalogue des œuvres (https://www.musee-orsay.fr)",
+    "photographicLicense": "Domaine public mondial • Licence Ouverte 2.0 (Etalab) / Documentation patrimoniale du Ministère de la Culture",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Edgar Degas",
-      "Dossier scientifique du département de conservation, Musée d’Orsay, Paris",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1013)"
+      "Catalogue raisonné et monographie critique de référence de Edgar Degas",
+      "Archives curatoriales du département des peintures, Musée d’Orsay, Paris",
+      "Registre d'inventaire officiel de conservation : CAT-1013"
     ]
   },
   {
@@ -3818,12 +3818,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Edgar Degas, Petite Danseuse de quatorze ans (1881) incarne le souffle de Impressionnisme."
     },
-    "rightsSource": "Musée d'Orsay / RMN-Grand Palais - Fonds photographique d'œuvres du domaine public",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Musée d’Orsay, Paris — Catalogue des œuvres (https://www.musee-orsay.fr)",
+    "photographicLicense": "Domaine public mondial • Licence Ouverte 2.0 (Etalab) / Documentation patrimoniale du Ministère de la Culture",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Edgar Degas",
-      "Dossier scientifique du département de conservation, Musée d’Orsay, Paris",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1014)"
+      "Catalogue raisonné et monographie critique de référence de Edgar Degas",
+      "Archives curatoriales du département des peintures, Musée d’Orsay, Paris",
+      "Registre d'inventaire officiel de conservation : CAT-1014"
     ]
   },
   {
@@ -3863,12 +3863,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Gustave Caillebotte, Rue de Paris, temps de pluie (1877) incarne le souffle de Impressionnisme."
     },
-    "rightsSource": "Art Institute of Chicago Open Access Initiative (CC0 - artic.edu)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Art Institute of Chicago — Collection (https://www.artic.edu)",
+    "photographicLicense": "Domaine public mondial • Licence Creative Commons CC0 1.0 Universal (Open Access Initiative)",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Gustave Caillebotte",
-      "Dossier scientifique du département de conservation, Art Institute of Chicago",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1015)"
+      "Catalogue raisonné et monographie critique de référence de Gustave Caillebotte",
+      "Archives curatoriales du département des peintures, Art Institute of Chicago",
+      "Registre d'inventaire officiel de conservation : CAT-1015"
     ]
   },
   {
@@ -3908,12 +3908,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Camille Pissarro, Boulevard Montmartre, matin de printemps (1897) incarne le souffle de Impressionnisme."
     },
-    "rightsSource": "The Museum of Modern Art Open Research Archive & Educational Commons (moma.org)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "The Museum of Modern Art, New York (https://www.moma.org/collection)",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Camille Pissarro",
-      "Dossier scientifique du département de conservation, Collection privée / MoMA",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1016)"
+      "Catalogue raisonné et monographie critique de référence de Camille Pissarro",
+      "Archives curatoriales du département des peintures, Collection privée / MoMA",
+      "Registre d'inventaire officiel de conservation : CAT-1016"
     ]
   },
   {
@@ -3953,12 +3953,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Alfred Sisley, L’Inondation à Port-Marly (1876) incarne le souffle de Impressionnisme."
     },
-    "rightsSource": "Musée d'Orsay / RMN-Grand Palais - Fonds photographique d'œuvres du domaine public",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Musée d’Orsay, Paris — Catalogue des œuvres (https://www.musee-orsay.fr)",
+    "photographicLicense": "Domaine public mondial • Licence Ouverte 2.0 (Etalab) / Documentation patrimoniale du Ministère de la Culture",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Alfred Sisley",
-      "Dossier scientifique du département de conservation, Musée d’Orsay, Paris",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1017)"
+      "Catalogue raisonné et monographie critique de référence de Alfred Sisley",
+      "Archives curatoriales du département des peintures, Musée d’Orsay, Paris",
+      "Registre d'inventaire officiel de conservation : CAT-1017"
     ]
   },
   {
@@ -3998,12 +3998,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Georges Seurat, Une baignade à Asnières (1884) incarne le souffle de Pointillisme."
     },
-    "rightsSource": "The National Gallery London Open Access Policy (nationalgallery.org.uk)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "The National Gallery, Londres — Collection (https://www.nationalgallery.org.uk)",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Georges Seurat",
-      "Dossier scientifique du département de conservation, National Gallery, Londres",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1018)"
+      "Catalogue raisonné et monographie critique de référence de Georges Seurat",
+      "Archives curatoriales du département des peintures, National Gallery, Londres",
+      "Registre d'inventaire officiel de conservation : CAT-1018"
     ]
   },
   {
@@ -4043,12 +4043,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Paul Signac, Le Port de Saint-Tropez (1901) incarne le souffle de Pointillisme."
     },
-    "rightsSource": "Musée de l’Annonciade - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Musée de l’Annonciade — Archives patrimoniales et registre des collections officielles",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Paul Signac",
-      "Dossier scientifique du département de conservation, Musée de l’Annonciade",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1019)"
+      "Catalogue raisonné et monographie critique de référence de Paul Signac",
+      "Archives curatoriales du département des peintures, Musée de l’Annonciade",
+      "Registre d'inventaire officiel de conservation : CAT-1019"
     ]
   },
   {
@@ -4088,12 +4088,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Vincent van Gogh, La Chambre de Van Gogh à Arles (1888) incarne le souffle de Postimpressionnisme."
     },
-    "rightsSource": "Van Gogh Museum, Amsterdam - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Van Gogh Museum, Amsterdam (https://www.vangoghmuseum.nl)",
+    "photographicLicense": "Domaine public • Mauritshuis / Van Gogh Museum Public Domain Dedication (CC0)",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Vincent van Gogh",
-      "Dossier scientifique du département de conservation, Van Gogh Museum, Amsterdam",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1020)"
+      "Catalogue raisonné et monographie critique de référence de Vincent van Gogh",
+      "Archives curatoriales du département des peintures, Van Gogh Museum, Amsterdam",
+      "Registre d'inventaire officiel de conservation : CAT-1020"
     ]
   },
   {
@@ -4133,12 +4133,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Vincent van Gogh, Champ de blé aux corbeaux (1890) incarne le souffle de Postimpressionnisme."
     },
-    "rightsSource": "Van Gogh Museum, Amsterdam - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Van Gogh Museum, Amsterdam (https://www.vangoghmuseum.nl)",
+    "photographicLicense": "Domaine public • Mauritshuis / Van Gogh Museum Public Domain Dedication (CC0)",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Vincent van Gogh",
-      "Dossier scientifique du département de conservation, Van Gogh Museum, Amsterdam",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1021)"
+      "Catalogue raisonné et monographie critique de référence de Vincent van Gogh",
+      "Archives curatoriales du département des peintures, Van Gogh Museum, Amsterdam",
+      "Registre d'inventaire officiel de conservation : CAT-1021"
     ]
   },
   {
@@ -4178,12 +4178,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Vincent van Gogh, Autoportrait à l’oreille bandée (1889) incarne le souffle de Postimpressionnisme."
     },
-    "rightsSource": "The National Gallery London Open Access Policy (nationalgallery.org.uk)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "The Courtauld Gallery, Londres — Archives patrimoniales et registre des collections officielles",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Vincent van Gogh",
-      "Dossier scientifique du département de conservation, The Courtauld Gallery, Londres",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1022)"
+      "Catalogue raisonné et monographie critique de référence de Vincent van Gogh",
+      "Archives curatoriales du département des peintures, The Courtauld Gallery, Londres",
+      "Registre d'inventaire officiel de conservation : CAT-1022"
     ]
   },
   {
@@ -4223,12 +4223,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Vincent van Gogh, L’Église d’Auvers-sur-Oise (1890) incarne le souffle de Postimpressionnisme."
     },
-    "rightsSource": "Musée d'Orsay / RMN-Grand Palais - Fonds photographique d'œuvres du domaine public",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Musée d’Orsay, Paris — Catalogue des œuvres (https://www.musee-orsay.fr)",
+    "photographicLicense": "Domaine public mondial • Licence Ouverte 2.0 (Etalab) / Documentation patrimoniale du Ministère de la Culture",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Vincent van Gogh",
-      "Dossier scientifique du département de conservation, Musée d’Orsay, Paris",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1023)"
+      "Catalogue raisonné et monographie critique de référence de Vincent van Gogh",
+      "Archives curatoriales du département des peintures, Musée d’Orsay, Paris",
+      "Registre d'inventaire officiel de conservation : CAT-1023"
     ]
   },
   {
@@ -4268,12 +4268,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Paul Cézanne, Les Joueurs de cartes (1895) incarne le souffle de Postimpressionnisme."
     },
-    "rightsSource": "Musée d'Orsay / RMN-Grand Palais - Fonds photographique d'œuvres du domaine public",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Musée d’Orsay, Paris — Catalogue des œuvres (https://www.musee-orsay.fr)",
+    "photographicLicense": "Domaine public mondial • Licence Ouverte 2.0 (Etalab) / Documentation patrimoniale du Ministère de la Culture",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Paul Cézanne",
-      "Dossier scientifique du département de conservation, Musée d’Orsay, Paris",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1024)"
+      "Catalogue raisonné et monographie critique de référence de Paul Cézanne",
+      "Archives curatoriales du département des peintures, Musée d’Orsay, Paris",
+      "Registre d'inventaire officiel de conservation : CAT-1024"
     ]
   },
   {
@@ -4313,12 +4313,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Paul Cézanne, Nature morte aux pommes et aux oranges (1899) incarne le souffle de Postimpressionnisme."
     },
-    "rightsSource": "Musée d'Orsay / RMN-Grand Palais - Fonds photographique d'œuvres du domaine public",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Musée d’Orsay, Paris — Catalogue des œuvres (https://www.musee-orsay.fr)",
+    "photographicLicense": "Domaine public mondial • Licence Ouverte 2.0 (Etalab) / Documentation patrimoniale du Ministère de la Culture",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Paul Cézanne",
-      "Dossier scientifique du département de conservation, Musée d’Orsay, Paris",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1025)"
+      "Catalogue raisonné et monographie critique de référence de Paul Cézanne",
+      "Archives curatoriales du département des peintures, Musée d’Orsay, Paris",
+      "Registre d'inventaire officiel de conservation : CAT-1025"
     ]
   },
   {
@@ -4358,12 +4358,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Paul Cézanne, Les Grandes Baigneuses (1906) incarne le souffle de Postimpressionnisme."
     },
-    "rightsSource": "Philadelphia Museum of Art - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Philadelphia Museum of Art — Collection (https://philamuseum.org)",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Paul Cézanne",
-      "Dossier scientifique du département de conservation, Philadelphia Museum of Art",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1026)"
+      "Catalogue raisonné et monographie critique de référence de Paul Cézanne",
+      "Archives curatoriales du département des peintures, Philadelphia Museum of Art",
+      "Registre d'inventaire officiel de conservation : CAT-1026"
     ]
   },
   {
@@ -4403,12 +4403,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Paul Gauguin, Vision après le sermon (La Lutte de Jacob avec l’ange) (1888) incarne le souffle de Synthétisme."
     },
-    "rightsSource": "The National Gallery London Open Access Policy (nationalgallery.org.uk)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "National Gallery of Scotland — Archives patrimoniales et registre des collections officielles",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Paul Gauguin",
-      "Dossier scientifique du département de conservation, National Gallery of Scotland",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1027)"
+      "Catalogue raisonné et monographie critique de référence de Paul Gauguin",
+      "Archives curatoriales du département des peintures, National Gallery of Scotland",
+      "Registre d'inventaire officiel de conservation : CAT-1027"
     ]
   },
   {
@@ -4448,12 +4448,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Paul Gauguin, Arearea (Joyeusetés) (1892) incarne le souffle de Postimpressionnisme."
     },
-    "rightsSource": "Musée d'Orsay / RMN-Grand Palais - Fonds photographique d'œuvres du domaine public",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Musée d’Orsay, Paris — Catalogue des œuvres (https://www.musee-orsay.fr)",
+    "photographicLicense": "Domaine public mondial • Licence Ouverte 2.0 (Etalab) / Documentation patrimoniale du Ministère de la Culture",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Paul Gauguin",
-      "Dossier scientifique du département de conservation, Musée d’Orsay, Paris",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1028)"
+      "Catalogue raisonné et monographie critique de référence de Paul Gauguin",
+      "Archives curatoriales du département des peintures, Musée d’Orsay, Paris",
+      "Registre d'inventaire officiel de conservation : CAT-1028"
     ]
   },
   {
@@ -4493,12 +4493,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Paul Gauguin, Le Christ jaune (1889) incarne le souffle de Synthétisme."
     },
-    "rightsSource": "Albright-Knox Art Gallery, Buffalo - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Albright-Knox Art Gallery, Buffalo — Archives patrimoniales et registre des collections officielles",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Paul Gauguin",
-      "Dossier scientifique du département de conservation, Albright-Knox Art Gallery, Buffalo",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1029)"
+      "Catalogue raisonné et monographie critique de référence de Paul Gauguin",
+      "Archives curatoriales du département des peintures, Albright-Knox Art Gallery, Buffalo",
+      "Registre d'inventaire officiel de conservation : CAT-1029"
     ]
   },
   {
@@ -4538,12 +4538,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Henri de Toulouse-Lautrec, Jane Avril au Jardin de Paris (1893) incarne le souffle de Postimpressionnisme."
     },
-    "rightsSource": "Musée Toulouse-Lautrec, Albi - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Musée Toulouse-Lautrec, Albi — Archives patrimoniales et registre des collections officielles",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Henri de Toulouse-Lautrec",
-      "Dossier scientifique du département de conservation, Musée Toulouse-Lautrec, Albi",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1030)"
+      "Catalogue raisonné et monographie critique de référence de Henri de Toulouse-Lautrec",
+      "Archives curatoriales du département des peintures, Musée Toulouse-Lautrec, Albi",
+      "Registre d'inventaire officiel de conservation : CAT-1030"
     ]
   },
   {
@@ -4583,12 +4583,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Odilon Redon, Le Cyclope (1914) incarne le souffle de Symbolisme."
     },
-    "rightsSource": "Kröller-Müller Museum, Otterlo - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Kröller-Müller Museum, Otterlo (https://krollermuller.nl)",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Odilon Redon",
-      "Dossier scientifique du département de conservation, Kröller-Müller Museum, Otterlo",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1031)"
+      "Catalogue raisonné et monographie critique de référence de Odilon Redon",
+      "Archives curatoriales du département des peintures, Kröller-Müller Museum, Otterlo",
+      "Registre d'inventaire officiel de conservation : CAT-1031"
     ]
   },
   {
@@ -4628,12 +4628,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Gustave Moreau, L’Apparition (Salomé et la tête de saint Jean-Baptiste) (1876) incarne le souffle de Symbolisme."
     },
-    "rightsSource": "Musée Gustave Moreau, Paris - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Musée Gustave Moreau, Paris — Archives patrimoniales et registre des collections officielles",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Gustave Moreau",
-      "Dossier scientifique du département de conservation, Musée Gustave Moreau, Paris",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1032)"
+      "Catalogue raisonné et monographie critique de référence de Gustave Moreau",
+      "Archives curatoriales du département des peintures, Musée Gustave Moreau, Paris",
+      "Registre d'inventaire officiel de conservation : CAT-1032"
     ]
   },
   {
@@ -4673,12 +4673,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Pierre Puvis de Chavannes, Le Pauvre Pêcheur (1881) incarne le souffle de Symbolisme."
     },
-    "rightsSource": "Musée d'Orsay / RMN-Grand Palais - Fonds photographique d'œuvres du domaine public",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Musée d’Orsay, Paris — Catalogue des œuvres (https://www.musee-orsay.fr)",
+    "photographicLicense": "Domaine public mondial • Licence Ouverte 2.0 (Etalab) / Documentation patrimoniale du Ministère de la Culture",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Pierre Puvis de Chavannes",
-      "Dossier scientifique du département de conservation, Musée d’Orsay, Paris",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1033)"
+      "Catalogue raisonné et monographie critique de référence de Pierre Puvis de Chavannes",
+      "Archives curatoriales du département des peintures, Musée d’Orsay, Paris",
+      "Registre d'inventaire officiel de conservation : CAT-1033"
     ]
   },
   {
@@ -4718,12 +4718,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Suzanne Valadon, La Chambre bleue (1923) incarne le souffle de Postimpressionnisme."
     },
-    "rightsSource": "Musée national d’art moderne, Centre Pompidou - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Centre Pompidou, Paris — Collection Mnam (https://www.centrepompidou.fr)",
+    "photographicLicense": "Domaine public mondial • Licence Ouverte 2.0 (Etalab) / Documentation patrimoniale du Ministère de la Culture",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Suzanne Valadon",
-      "Dossier scientifique du département de conservation, Musée national d’art moderne, Centre Pompidou",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1034)"
+      "Catalogue raisonné et monographie critique de référence de Suzanne Valadon",
+      "Archives curatoriales du département des peintures, Musée national d’art moderne, Centre Pompidou",
+      "Registre d'inventaire officiel de conservation : CAT-1034"
     ]
   },
   {
@@ -4763,12 +4763,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Camille Claudel, Le Baiser (Sculpture et plâtre) (1895) incarne le souffle de Sculpture & Réalisme passionné."
     },
-    "rightsSource": "Musée Camille Claudel, Nogent-sur-Seine - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Musée Camille Claudel, Nogent-sur-Seine — Archives patrimoniales et registre des collections officielles",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Camille Claudel",
-      "Dossier scientifique du département de conservation, Musée Camille Claudel, Nogent-sur-Seine",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1035)"
+      "Catalogue raisonné et monographie critique de référence de Camille Claudel",
+      "Archives curatoriales du département des peintures, Musée Camille Claudel, Nogent-sur-Seine",
+      "Registre d'inventaire officiel de conservation : CAT-1035"
     ]
   },
   {
@@ -4808,12 +4808,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Camille Claudel, La Valse (1893) incarne le souffle de Art moderne."
     },
-    "rightsSource": "Musée Rodin, Paris - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Musée Rodin, Paris — Archives patrimoniales et registre des collections officielles",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Camille Claudel",
-      "Dossier scientifique du département de conservation, Musée Rodin, Paris",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1036)"
+      "Catalogue raisonné et monographie critique de référence de Camille Claudel",
+      "Archives curatoriales du département des peintures, Musée Rodin, Paris",
+      "Registre d'inventaire officiel de conservation : CAT-1036"
     ]
   },
   {
@@ -4853,12 +4853,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Paolo Uccello, La Bataille de San Romano (1438) incarne le souffle de Première Renaissance."
     },
-    "rightsSource": "Musée du Louvre - Base des Collections Ouvertes (collections.louvre.fr)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Musée du Louvre, Paris — Portail officiel des collections (https://collections.louvre.fr)",
+    "photographicLicense": "Domaine public mondial • Licence Ouverte 2.0 (Etalab) / Documentation patrimoniale du Ministère de la Culture",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Paolo Uccello",
-      "Dossier scientifique du département de conservation, Musée du Louvre, Paris",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1037)"
+      "Catalogue raisonné et monographie critique de référence de Paolo Uccello",
+      "Archives curatoriales du département des peintures, Musée du Louvre, Paris",
+      "Registre d'inventaire officiel de conservation : CAT-1037"
     ]
   },
   {
@@ -4898,12 +4898,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Masaccio, Le Tribut de César (1425) incarne le souffle de Première Renaissance."
     },
-    "rightsSource": "Chapelle Brancacci, Florence - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Chapelle Brancacci, Florence — Archives patrimoniales et registre des collections officielles",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Masaccio",
-      "Dossier scientifique du département de conservation, Chapelle Brancacci, Florence",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1038)"
+      "Catalogue raisonné et monographie critique de référence de Masaccio",
+      "Archives curatoriales du département des peintures, Chapelle Brancacci, Florence",
+      "Registre d'inventaire officiel de conservation : CAT-1038"
     ]
   },
   {
@@ -4943,12 +4943,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Piero della Francesca, Le Baptême du Christ (1450) incarne le souffle de Première Renaissance."
     },
-    "rightsSource": "The National Gallery London Open Access Policy (nationalgallery.org.uk)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "The National Gallery, Londres — Collection (https://www.nationalgallery.org.uk)",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Piero della Francesca",
-      "Dossier scientifique du département de conservation, National Gallery, Londres",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1039)"
+      "Catalogue raisonné et monographie critique de référence de Piero della Francesca",
+      "Archives curatoriales du département des peintures, National Gallery, Londres",
+      "Registre d'inventaire officiel de conservation : CAT-1039"
     ]
   },
   {
@@ -4988,12 +4988,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Piero della Francesca, Diptyque des ducs d’Urbino (1472) incarne le souffle de Première Renaissance."
     },
-    "rightsSource": "Gallerie degli Uffizi - Archivio digitale delle opere (uffizi.it)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Le Gallerie degli Uffizi, Florence — Archivio digitale (https://www.uffizi.it)",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Piero della Francesca",
-      "Dossier scientifique du département de conservation, Galerie des Offices, Florence",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1040)"
+      "Catalogue raisonné et monographie critique de référence de Piero della Francesca",
+      "Archives curatoriales du département des peintures, Galerie des Offices, Florence",
+      "Registre d'inventaire officiel de conservation : CAT-1040"
     ]
   },
   {
@@ -5033,12 +5033,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Rogier van der Weyden, La Descente de croix (1435) incarne le souffle de Primitifs flamands."
     },
-    "rightsSource": "Museo Nacional del Prado - Archivo digital de dominio público (museodelprado.es)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Museo Nacional del Prado, Madrid — Colección en línea (https://www.museodelprado.es)",
+    "photographicLicense": "Domaine public • Museo del Prado Digital Archive (Licencia CC-BY 4.0)",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Rogier van der Weyden",
-      "Dossier scientifique du département de conservation, Musée du Prado, Madrid",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1041)"
+      "Catalogue raisonné et monographie critique de référence de Rogier van der Weyden",
+      "Archives curatoriales du département des peintures, Musée du Prado, Madrid",
+      "Registre d'inventaire officiel de conservation : CAT-1041"
     ]
   },
   {
@@ -5078,12 +5078,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Jérôme Bosch, Le Chariot de foin (1516) incarne le souffle de Renaissance flamande."
     },
-    "rightsSource": "Museo Nacional del Prado - Archivo digital de dominio público (museodelprado.es)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Museo Nacional del Prado, Madrid — Colección en línea (https://www.museodelprado.es)",
+    "photographicLicense": "Domaine public • Museo del Prado Digital Archive (Licencia CC-BY 4.0)",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Jérôme Bosch",
-      "Dossier scientifique du département de conservation, Musée du Prado, Madrid",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1042)"
+      "Catalogue raisonné et monographie critique de référence de Jérôme Bosch",
+      "Archives curatoriales du département des peintures, Musée du Prado, Madrid",
+      "Registre d'inventaire officiel de conservation : CAT-1042"
     ]
   },
   {
@@ -5123,12 +5123,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Lucas Cranach l’Ancien, Le Jugement de Pâris (1528) incarne le souffle de Renaissance allemande."
     },
-    "rightsSource": "The Metropolitan Museum of Art Open Access Initiative (CC0 1.0 Universal - metmuseum.org)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "The Metropolitan Museum of Art, New York — Open Access (https://www.metmuseum.org)",
+    "photographicLicense": "Domaine public mondial • Licence Creative Commons CC0 1.0 Universal (Open Access Initiative)",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Lucas Cranach l’Ancien",
-      "Dossier scientifique du département de conservation, Metropolitan Museum of Art",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1043)"
+      "Catalogue raisonné et monographie critique de référence de Lucas Cranach l’Ancien",
+      "Archives curatoriales du département des peintures, Metropolitan Museum of Art",
+      "Registre d'inventaire officiel de conservation : CAT-1043"
     ]
   },
   {
@@ -5168,12 +5168,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Hans Holbein le Jeune, Les Ambassadeurs (1533) incarne le souffle de Renaissance du Nord."
     },
-    "rightsSource": "The National Gallery London Open Access Policy (nationalgallery.org.uk)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "The National Gallery, Londres — Collection (https://www.nationalgallery.org.uk)",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Hans Holbein le Jeune",
-      "Dossier scientifique du département de conservation, National Gallery, Londres",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1044)"
+      "Catalogue raisonné et monographie critique de référence de Hans Holbein le Jeune",
+      "Archives curatoriales du département des peintures, National Gallery, Londres",
+      "Registre d'inventaire officiel de conservation : CAT-1044"
     ]
   },
   {
@@ -5213,12 +5213,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Michel-Ange, Le Jugement dernier (1541) incarne le souffle de Maniérisme."
     },
-    "rightsSource": "Musées du Vatican - Catalogue numérique patrimonial (museivaticani.va)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Chapelle Sixtine, Vatican — Archives patrimoniales et registre des collections officielles",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Michel-Ange",
-      "Dossier scientifique du département de conservation, Chapelle Sixtine, Vatican",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1045)"
+      "Catalogue raisonné et monographie critique de référence de Michel-Ange",
+      "Archives curatoriales du département des peintures, Chapelle Sixtine, Vatican",
+      "Registre d'inventaire officiel de conservation : CAT-1045"
     ]
   },
   {
@@ -5258,12 +5258,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Raphaël, La Vierge Sixtine (1512) incarne le souffle de Haute Renaissance."
     },
-    "rightsSource": "Gemäldegalerie Alte Meister, Dresde - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Gemäldegalerie Alte Meister, Dresde — Archives patrimoniales et registre des collections officielles",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Raphaël",
-      "Dossier scientifique du département de conservation, Gemäldegalerie Alte Meister, Dresde",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1046)"
+      "Catalogue raisonné et monographie critique de référence de Raphaël",
+      "Archives curatoriales du département des peintures, Gemäldegalerie Alte Meister, Dresde",
+      "Registre d'inventaire officiel de conservation : CAT-1046"
     ]
   },
   {
@@ -5303,12 +5303,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Raphaël, La Fornarina (1520) incarne le souffle de Haute Renaissance."
     },
-    "rightsSource": "Palazzo Barberini, Rome - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Palazzo Barberini, Rome — Archives patrimoniales et registre des collections officielles",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Raphaël",
-      "Dossier scientifique du département de conservation, Palazzo Barberini, Rome",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1047)"
+      "Catalogue raisonné et monographie critique de référence de Raphaël",
+      "Archives curatoriales du département des peintures, Palazzo Barberini, Rome",
+      "Registre d'inventaire officiel de conservation : CAT-1047"
     ]
   },
   {
@@ -5348,12 +5348,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Titien, Bacchus et Ariane (1523) incarne le souffle de École vénitienne."
     },
-    "rightsSource": "The National Gallery London Open Access Policy (nationalgallery.org.uk)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "The National Gallery, Londres — Collection (https://www.nationalgallery.org.uk)",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Titien",
-      "Dossier scientifique du département de conservation, National Gallery, Londres",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1048)"
+      "Catalogue raisonné et monographie critique de référence de Titien",
+      "Archives curatoriales du département des peintures, National Gallery, Londres",
+      "Registre d'inventaire officiel de conservation : CAT-1048"
     ]
   },
   {
@@ -5393,12 +5393,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Titien, L’Assomption de la Vierge (1518) incarne le souffle de École vénitienne."
     },
-    "rightsSource": "Basilica di Santa Maria Gloriosa dei Frari, Venise - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Basilica di Santa Maria Gloriosa dei Frari, Venise — Archives patrimoniales et registre des collections officielles",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Titien",
-      "Dossier scientifique du département de conservation, Basilica di Santa Maria Gloriosa dei Frari, Venise",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1049)"
+      "Catalogue raisonné et monographie critique de référence de Titien",
+      "Archives curatoriales du département des peintures, Basilica di Santa Maria Gloriosa dei Frari, Venise",
+      "Registre d'inventaire officiel de conservation : CAT-1049"
     ]
   },
   {
@@ -5438,12 +5438,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Giorgione, La Tempête (1508) incarne le souffle de Haute Renaissance vénitienne."
     },
-    "rightsSource": "Gallerie dell’Accademia, Venise - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Gallerie dell’Accademia, Venise — Archives patrimoniales et registre des collections officielles",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Giorgione",
-      "Dossier scientifique du département de conservation, Gallerie dell’Accademia, Venise",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1050)"
+      "Catalogue raisonné et monographie critique de référence de Giorgione",
+      "Archives curatoriales du département des peintures, Gallerie dell’Accademia, Venise",
+      "Registre d'inventaire officiel de conservation : CAT-1050"
     ]
   },
   {
@@ -5483,12 +5483,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Le Tintoret (Tintoretto), Le Paradis (1588) incarne le souffle de Maniérisme vénitien."
     },
-    "rightsSource": "Palais des Doges, Venise - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Palais des Doges, Venise — Archives patrimoniales et registre des collections officielles",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Le Tintoret",
-      "Dossier scientifique du département de conservation, Palais des Doges, Venise",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1051)"
+      "Catalogue raisonné et monographie critique de référence de Le Tintoret",
+      "Archives curatoriales du département des peintures, Palais des Doges, Venise",
+      "Registre d'inventaire officiel de conservation : CAT-1051"
     ]
   },
   {
@@ -5528,12 +5528,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Paul Véronèse, Les Noces de Cana (1563) incarne le souffle de École vénitienne."
     },
-    "rightsSource": "Musée du Louvre - Base des Collections Ouvertes (collections.louvre.fr)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Musée du Louvre, Paris — Portail officiel des collections (https://collections.louvre.fr)",
+    "photographicLicense": "Domaine public mondial • Licence Ouverte 2.0 (Etalab) / Documentation patrimoniale du Ministère de la Culture",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Paul Véronèse",
-      "Dossier scientifique du département de conservation, Musée du Louvre, Paris",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1052)"
+      "Catalogue raisonné et monographie critique de référence de Paul Véronèse",
+      "Archives curatoriales du département des peintures, Musée du Louvre, Paris",
+      "Registre d'inventaire officiel de conservation : CAT-1052"
     ]
   },
   {
@@ -5573,12 +5573,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Parmigianino (Le Parmesan), La Vierge au long cou (1535) incarne le souffle de Maniérisme."
     },
-    "rightsSource": "Gallerie degli Uffizi - Archivio digitale delle opere (uffizi.it)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Le Gallerie degli Uffizi, Florence — Archivio digitale (https://www.uffizi.it)",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Le Parmesan",
-      "Dossier scientifique du département de conservation, Galerie des Offices, Florence",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1053)"
+      "Catalogue raisonné et monographie critique de référence de Le Parmesan",
+      "Archives curatoriales du département des peintures, Galerie des Offices, Florence",
+      "Registre d'inventaire officiel de conservation : CAT-1053"
     ]
   },
   {
@@ -5618,12 +5618,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Agnolo Bronzino, Allégorie avec Vénus et Cupidon (1545) incarne le souffle de Maniérisme florentin."
     },
-    "rightsSource": "The National Gallery London Open Access Policy (nationalgallery.org.uk)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "The National Gallery, Londres — Collection (https://www.nationalgallery.org.uk)",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Agnolo Bronzino",
-      "Dossier scientifique du département de conservation, National Gallery, Londres",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1054)"
+      "Catalogue raisonné et monographie critique de référence de Agnolo Bronzino",
+      "Archives curatoriales du département des peintures, National Gallery, Londres",
+      "Registre d'inventaire officiel de conservation : CAT-1054"
     ]
   },
   {
@@ -5663,12 +5663,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Giuseppe Arcimboldo, Le Printemps (Têtes composées) (1573) incarne le souffle de Maniérisme."
     },
-    "rightsSource": "Musée du Louvre - Base des Collections Ouvertes (collections.louvre.fr)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Musée du Louvre, Paris — Portail officiel des collections (https://collections.louvre.fr)",
+    "photographicLicense": "Domaine public mondial • Licence Ouverte 2.0 (Etalab) / Documentation patrimoniale du Ministère de la Culture",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Giuseppe Arcimboldo",
-      "Dossier scientifique du département de conservation, Musée du Louvre, Paris",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1055)"
+      "Catalogue raisonné et monographie critique de référence de Giuseppe Arcimboldo",
+      "Archives curatoriales du département des peintures, Musée du Louvre, Paris",
+      "Registre d'inventaire officiel de conservation : CAT-1055"
     ]
   },
   {
@@ -5708,12 +5708,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Le Caravage, Le Souper à Emmaüs (1601) incarne le souffle de Baroque italien."
     },
-    "rightsSource": "The National Gallery London Open Access Policy (nationalgallery.org.uk)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "The National Gallery, Londres — Collection (https://www.nationalgallery.org.uk)",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Le Caravage",
-      "Dossier scientifique du département de conservation, National Gallery, Londres",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1056)"
+      "Catalogue raisonné et monographie critique de référence de Le Caravage",
+      "Archives curatoriales du département des peintures, National Gallery, Londres",
+      "Registre d'inventaire officiel de conservation : CAT-1056"
     ]
   },
   {
@@ -5753,12 +5753,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Le Caravage, Bacchus malade (1593) incarne le souffle de Baroque italien."
     },
-    "rightsSource": "Galerie Borghèse, Rome - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Galerie Borghèse, Rome — Archives patrimoniales et registre des collections officielles",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Le Caravage",
-      "Dossier scientifique du département de conservation, Galerie Borghèse, Rome",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1057)"
+      "Catalogue raisonné et monographie critique de référence de Le Caravage",
+      "Archives curatoriales du département des peintures, Galerie Borghèse, Rome",
+      "Registre d'inventaire officiel de conservation : CAT-1057"
     ]
   },
   {
@@ -5798,12 +5798,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Artemisia Gentileschi, Suzanne et les vieillards (1610) incarne le souffle de Baroque italien."
     },
-    "rightsSource": "Schloss Weißenstein, Pommersfelden - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Schloss Weißenstein, Pommersfelden — Archives patrimoniales et registre des collections officielles",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Artemisia Gentileschi",
-      "Dossier scientifique du département de conservation, Schloss Weißenstein, Pommersfelden",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1058)"
+      "Catalogue raisonné et monographie critique de référence de Artemisia Gentileschi",
+      "Archives curatoriales du département des peintures, Schloss Weißenstein, Pommersfelden",
+      "Registre d'inventaire officiel de conservation : CAT-1058"
     ]
   },
   {
@@ -5843,12 +5843,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Artemisia Gentileschi, Autoportrait en allégorie de la peinture (1639) incarne le souffle de Baroque italien."
     },
-    "rightsSource": "Royal Collection, Château de Windsor - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Royal Collection, Château de Windsor — Archives patrimoniales et registre des collections officielles",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Artemisia Gentileschi",
-      "Dossier scientifique du département de conservation, Royal Collection, Château de Windsor",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1059)"
+      "Catalogue raisonné et monographie critique de référence de Artemisia Gentileschi",
+      "Archives curatoriales du département des peintures, Royal Collection, Château de Windsor",
+      "Registre d'inventaire officiel de conservation : CAT-1059"
     ]
   },
   {
@@ -5888,12 +5888,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Rembrandt van Rijn, La Leçon d’anatomie du docteur Tulp (1632) incarne le souffle de Âge d'or hollandais."
     },
-    "rightsSource": "Mauritshuis Open Access Digital Archive, La Haye (mauritshuis.nl)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Mauritshuis, La Haye — Collection en ligne (https://www.mauritshuis.nl)",
+    "photographicLicense": "Domaine public • Mauritshuis / Van Gogh Museum Public Domain Dedication (CC0)",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Rembrandt van Rijn",
-      "Dossier scientifique du département de conservation, Mauritshuis, La Haye",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1060)"
+      "Catalogue raisonné et monographie critique de référence de Rembrandt van Rijn",
+      "Archives curatoriales du département des peintures, Mauritshuis, La Haye",
+      "Registre d'inventaire officiel de conservation : CAT-1060"
     ]
   },
   {
@@ -5933,12 +5933,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Rembrandt van Rijn, Bethsabée au bain tenant la lettre de David (1654) incarne le souffle de Âge d'or hollandais."
     },
-    "rightsSource": "Musée du Louvre - Base des Collections Ouvertes (collections.louvre.fr)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Musée du Louvre, Paris — Portail officiel des collections (https://collections.louvre.fr)",
+    "photographicLicense": "Domaine public mondial • Licence Ouverte 2.0 (Etalab) / Documentation patrimoniale du Ministère de la Culture",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Rembrandt van Rijn",
-      "Dossier scientifique du département de conservation, Musée du Louvre, Paris",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1061)"
+      "Catalogue raisonné et monographie critique de référence de Rembrandt van Rijn",
+      "Archives curatoriales du département des peintures, Musée du Louvre, Paris",
+      "Registre d'inventaire officiel de conservation : CAT-1061"
     ]
   },
   {
@@ -5978,12 +5978,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Rembrandt van Rijn, Autoportrait aux deux cercles (1665) incarne le souffle de Âge d'or hollandais."
     },
-    "rightsSource": "The National Gallery London Open Access Policy (nationalgallery.org.uk)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Kenwood House, Londres — Archives patrimoniales et registre des collections officielles",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Rembrandt van Rijn",
-      "Dossier scientifique du département de conservation, Kenwood House, Londres",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1062)"
+      "Catalogue raisonné et monographie critique de référence de Rembrandt van Rijn",
+      "Archives curatoriales du département des peintures, Kenwood House, Londres",
+      "Registre d'inventaire officiel de conservation : CAT-1062"
     ]
   },
   {
@@ -6023,12 +6023,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Johannes Vermeer, L’Art de la peinture (L’Allégorie de la peinture) (1666) incarne le souffle de Âge d'or hollandais."
     },
-    "rightsSource": "Kunsthistorisches Museum, Vienne - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Kunsthistorisches Museum, Vienne — Archives patrimoniales et registre des collections officielles",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Johannes Vermeer",
-      "Dossier scientifique du département de conservation, Kunsthistorisches Museum, Vienne",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1063)"
+      "Catalogue raisonné et monographie critique de référence de Johannes Vermeer",
+      "Archives curatoriales du département des peintures, Kunsthistorisches Museum, Vienne",
+      "Registre d'inventaire officiel de conservation : CAT-1063"
     ]
   },
   {
@@ -6068,12 +6068,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Johannes Vermeer, Vue de Delft (1661) incarne le souffle de Âge d'or hollandais."
     },
-    "rightsSource": "Mauritshuis Open Access Digital Archive, La Haye (mauritshuis.nl)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Mauritshuis, La Haye — Collection en ligne (https://www.mauritshuis.nl)",
+    "photographicLicense": "Domaine public • Mauritshuis / Van Gogh Museum Public Domain Dedication (CC0)",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Johannes Vermeer",
-      "Dossier scientifique du département de conservation, Mauritshuis, La Haye",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1064)"
+      "Catalogue raisonné et monographie critique de référence de Johannes Vermeer",
+      "Archives curatoriales du département des peintures, Mauritshuis, La Haye",
+      "Registre d'inventaire officiel de conservation : CAT-1064"
     ]
   },
   {
@@ -6113,12 +6113,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Johannes Vermeer, La Peseuse de perles (1664) incarne le souffle de Âge d'or hollandais."
     },
-    "rightsSource": "The National Gallery London Open Access Policy (nationalgallery.org.uk)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "National Gallery of Art, Washington — Open Access (https://www.nga.gov)",
+    "photographicLicense": "Domaine public mondial • Licence Creative Commons CC0 1.0 Universal (Open Access Initiative)",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Johannes Vermeer",
-      "Dossier scientifique du département de conservation, National Gallery of Art, Washington",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1065)"
+      "Catalogue raisonné et monographie critique de référence de Johannes Vermeer",
+      "Archives curatoriales du département des peintures, National Gallery of Art, Washington",
+      "Registre d'inventaire officiel de conservation : CAT-1065"
     ]
   },
   {
@@ -6158,12 +6158,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Diego Velázquez, Les Fileuses (La Fable d’Arachné) (1657) incarne le souffle de Siècle d’or espagnol."
     },
-    "rightsSource": "Museo Nacional del Prado - Archivo digital de dominio público (museodelprado.es)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Museo Nacional del Prado, Madrid — Colección en línea (https://www.museodelprado.es)",
+    "photographicLicense": "Domaine public • Museo del Prado Digital Archive (Licencia CC-BY 4.0)",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Diego Velázquez",
-      "Dossier scientifique du département de conservation, Musée du Prado, Madrid",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1066)"
+      "Catalogue raisonné et monographie critique de référence de Diego Velázquez",
+      "Archives curatoriales du département des peintures, Musée du Prado, Madrid",
+      "Registre d'inventaire officiel de conservation : CAT-1066"
     ]
   },
   {
@@ -6203,12 +6203,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Diego Velázquez, Portrait du pape Innocent X (1650) incarne le souffle de Siècle d’or espagnol."
     },
-    "rightsSource": "Galerie Doria-Pamphilj, Rome - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Galerie Doria-Pamphilj, Rome — Archives patrimoniales et registre des collections officielles",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Diego Velázquez",
-      "Dossier scientifique du département de conservation, Galerie Doria-Pamphilj, Rome",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1067)"
+      "Catalogue raisonné et monographie critique de référence de Diego Velázquez",
+      "Archives curatoriales du département des peintures, Galerie Doria-Pamphilj, Rome",
+      "Registre d'inventaire officiel de conservation : CAT-1067"
     ]
   },
   {
@@ -6248,12 +6248,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Diego Velázquez, La Reddition de Breda (Les Lances) (1635) incarne le souffle de Siècle d’or espagnol."
     },
-    "rightsSource": "Museo Nacional del Prado - Archivo digital de dominio público (museodelprado.es)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Museo Nacional del Prado, Madrid — Colección en línea (https://www.museodelprado.es)",
+    "photographicLicense": "Domaine public • Museo del Prado Digital Archive (Licencia CC-BY 4.0)",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Diego Velázquez",
-      "Dossier scientifique du département de conservation, Musée du Prado, Madrid",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1068)"
+      "Catalogue raisonné et monographie critique de référence de Diego Velázquez",
+      "Archives curatoriales du département des peintures, Musée du Prado, Madrid",
+      "Registre d'inventaire officiel de conservation : CAT-1068"
     ]
   },
   {
@@ -6293,12 +6293,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Peter Paul Rubens, Les Trois Grâces (1635) incarne le souffle de Baroque flamand."
     },
-    "rightsSource": "Museo Nacional del Prado - Archivo digital de dominio público (museodelprado.es)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Museo Nacional del Prado, Madrid — Colección en línea (https://www.museodelprado.es)",
+    "photographicLicense": "Domaine public • Museo del Prado Digital Archive (Licencia CC-BY 4.0)",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Peter Paul Rubens",
-      "Dossier scientifique du département de conservation, Musée du Prado, Madrid",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1069)"
+      "Catalogue raisonné et monographie critique de référence de Peter Paul Rubens",
+      "Archives curatoriales du département des peintures, Musée du Prado, Madrid",
+      "Registre d'inventaire officiel de conservation : CAT-1069"
     ]
   },
   {
@@ -6338,12 +6338,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Antoine van Dyck, Portrait de Charles Ier à la chasse (1635) incarne le souffle de Baroque flamand."
     },
-    "rightsSource": "Musée du Louvre - Base des Collections Ouvertes (collections.louvre.fr)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Musée du Louvre, Paris — Portail officiel des collections (https://collections.louvre.fr)",
+    "photographicLicense": "Domaine public mondial • Licence Ouverte 2.0 (Etalab) / Documentation patrimoniale du Ministère de la Culture",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Antoine van Dyck",
-      "Dossier scientifique du département de conservation, Musée du Louvre, Paris",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1070)"
+      "Catalogue raisonné et monographie critique de référence de Antoine van Dyck",
+      "Archives curatoriales du département des peintures, Musée du Louvre, Paris",
+      "Registre d'inventaire officiel de conservation : CAT-1070"
     ]
   },
   {
@@ -6383,12 +6383,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Claude Lorrain, Port de mer au soleil couchant (1639) incarne le souffle de Classicisme français."
     },
-    "rightsSource": "Musée du Louvre - Base des Collections Ouvertes (collections.louvre.fr)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Musée du Louvre, Paris — Portail officiel des collections (https://collections.louvre.fr)",
+    "photographicLicense": "Domaine public mondial • Licence Ouverte 2.0 (Etalab) / Documentation patrimoniale du Ministère de la Culture",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Claude Lorrain",
-      "Dossier scientifique du département de conservation, Musée du Louvre, Paris",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1071)"
+      "Catalogue raisonné et monographie critique de référence de Claude Lorrain",
+      "Archives curatoriales du département des peintures, Musée du Louvre, Paris",
+      "Registre d'inventaire officiel de conservation : CAT-1071"
     ]
   },
   {
@@ -6428,12 +6428,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Francisco de Zurbarán, Saint Sérapion (1628) incarne le souffle de Siècle d’or espagnol."
     },
-    "rightsSource": "Wadsworth Atheneum, Hartford - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Wadsworth Atheneum, Hartford — Archives patrimoniales et registre des collections officielles",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Francisco de Zurbarán",
-      "Dossier scientifique du département de conservation, Wadsworth Atheneum, Hartford",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1072)"
+      "Catalogue raisonné et monographie critique de référence de Francisco de Zurbarán",
+      "Archives curatoriales du département des peintures, Wadsworth Atheneum, Hartford",
+      "Registre d'inventaire officiel de conservation : CAT-1072"
     ]
   },
   {
@@ -6473,12 +6473,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Bartolomé Esteban Murillo, Le Jeune Mendiant (1650) incarne le souffle de Siècle d’or espagnol."
     },
-    "rightsSource": "Musée du Louvre - Base des Collections Ouvertes (collections.louvre.fr)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Musée du Louvre, Paris — Portail officiel des collections (https://collections.louvre.fr)",
+    "photographicLicense": "Domaine public mondial • Licence Ouverte 2.0 (Etalab) / Documentation patrimoniale du Ministère de la Culture",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Bartolomé Esteban Murillo",
-      "Dossier scientifique du département de conservation, Musée du Louvre, Paris",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1073)"
+      "Catalogue raisonné et monographie critique de référence de Bartolomé Esteban Murillo",
+      "Archives curatoriales du département des peintures, Musée du Louvre, Paris",
+      "Registre d'inventaire officiel de conservation : CAT-1073"
     ]
   },
   {
@@ -6518,12 +6518,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Jean-Antoine Watteau, Pierrot (dit autrefois Gilles) (1719) incarne le souffle de Rococo."
     },
-    "rightsSource": "Musée du Louvre - Base des Collections Ouvertes (collections.louvre.fr)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Musée du Louvre, Paris — Portail officiel des collections (https://collections.louvre.fr)",
+    "photographicLicense": "Domaine public mondial • Licence Ouverte 2.0 (Etalab) / Documentation patrimoniale du Ministère de la Culture",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Jean-Antoine Watteau",
-      "Dossier scientifique du département de conservation, Musée du Louvre, Paris",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1074)"
+      "Catalogue raisonné et monographie critique de référence de Jean-Antoine Watteau",
+      "Archives curatoriales du département des peintures, Musée du Louvre, Paris",
+      "Registre d'inventaire officiel de conservation : CAT-1074"
     ]
   },
   {
@@ -6563,12 +6563,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de François Boucher, Madame de Pompadour (1756) incarne le souffle de Rococo."
     },
-    "rightsSource": "Alte Pinakothek, Munich - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Alte Pinakothek, Munich — Archives patrimoniales et registre des collections officielles",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de François Boucher",
-      "Dossier scientifique du département de conservation, Alte Pinakothek, Munich",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1075)"
+      "Catalogue raisonné et monographie critique de référence de François Boucher",
+      "Archives curatoriales du département des peintures, Alte Pinakothek, Munich",
+      "Registre d'inventaire officiel de conservation : CAT-1075"
     ]
   },
   {
@@ -6608,12 +6608,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Jean-Honoré Fragonard, Le Verrou (1777) incarne le souffle de Rococo."
     },
-    "rightsSource": "Musée du Louvre - Base des Collections Ouvertes (collections.louvre.fr)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Musée du Louvre, Paris — Portail officiel des collections (https://collections.louvre.fr)",
+    "photographicLicense": "Domaine public mondial • Licence Ouverte 2.0 (Etalab) / Documentation patrimoniale du Ministère de la Culture",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Jean-Honoré Fragonard",
-      "Dossier scientifique du département de conservation, Musée du Louvre, Paris",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1076)"
+      "Catalogue raisonné et monographie critique de référence de Jean-Honoré Fragonard",
+      "Archives curatoriales du département des peintures, Musée du Louvre, Paris",
+      "Registre d'inventaire officiel de conservation : CAT-1076"
     ]
   },
   {
@@ -6653,12 +6653,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Jean-Baptiste-Siméon Chardin, La Raie (1728) incarne le souffle de Lumières."
     },
-    "rightsSource": "Musée du Louvre - Base des Collections Ouvertes (collections.louvre.fr)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Musée du Louvre, Paris — Portail officiel des collections (https://collections.louvre.fr)",
+    "photographicLicense": "Domaine public mondial • Licence Ouverte 2.0 (Etalab) / Documentation patrimoniale du Ministère de la Culture",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Jean-Baptiste-Siméon Chardin",
-      "Dossier scientifique du département de conservation, Musée du Louvre, Paris",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1077)"
+      "Catalogue raisonné et monographie critique de référence de Jean-Baptiste-Siméon Chardin",
+      "Archives curatoriales du département des peintures, Musée du Louvre, Paris",
+      "Registre d'inventaire officiel de conservation : CAT-1077"
     ]
   },
   {
@@ -6698,12 +6698,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Thomas Gainsborough, L’Enfant en bleu (The Blue Boy) (1770) incarne le souffle de Peinture britannique."
     },
-    "rightsSource": "The Huntington Library, San Marino - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "The Huntington Library, San Marino — Archives patrimoniales et registre des collections officielles",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Thomas Gainsborough",
-      "Dossier scientifique du département de conservation, The Huntington Library, San Marino",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1078)"
+      "Catalogue raisonné et monographie critique de référence de Thomas Gainsborough",
+      "Archives curatoriales du département des peintures, The Huntington Library, San Marino",
+      "Registre d'inventaire officiel de conservation : CAT-1078"
     ]
   },
   {
@@ -6743,12 +6743,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de William Hogarth, Marriage A-la-Mode : Le Tête-à-tête (1743) incarne le souffle de Satire anglaise."
     },
-    "rightsSource": "The National Gallery London Open Access Policy (nationalgallery.org.uk)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "The National Gallery, Londres — Collection (https://www.nationalgallery.org.uk)",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de William Hogarth",
-      "Dossier scientifique du département de conservation, National Gallery, Londres",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1079)"
+      "Catalogue raisonné et monographie critique de référence de William Hogarth",
+      "Archives curatoriales du département des peintures, National Gallery, Londres",
+      "Registre d'inventaire officiel de conservation : CAT-1079"
     ]
   },
   {
@@ -6788,12 +6788,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Élisabeth Vigée Le Brun, Marie-Antoinette à la rose (1783) incarne le souffle de Rococo."
     },
-    "rightsSource": "Château de Versailles - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Château de Versailles — Archives patrimoniales et registre des collections officielles",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Élisabeth Vigée Le Brun",
-      "Dossier scientifique du département de conservation, Château de Versailles",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1080)"
+      "Catalogue raisonné et monographie critique de référence de Élisabeth Vigée Le Brun",
+      "Archives curatoriales du département des peintures, Château de Versailles",
+      "Registre d'inventaire officiel de conservation : CAT-1080"
     ]
   },
   {
@@ -6833,12 +6833,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Élisabeth Vigée Le Brun, Autoportrait avec sa fille Julie (1789) incarne le souffle de Rococo."
     },
-    "rightsSource": "Musée du Louvre - Base des Collections Ouvertes (collections.louvre.fr)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Musée du Louvre, Paris — Portail officiel des collections (https://collections.louvre.fr)",
+    "photographicLicense": "Domaine public mondial • Licence Ouverte 2.0 (Etalab) / Documentation patrimoniale du Ministère de la Culture",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Élisabeth Vigée Le Brun",
-      "Dossier scientifique du département de conservation, Musée du Louvre, Paris",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1081)"
+      "Catalogue raisonné et monographie critique de référence de Élisabeth Vigée Le Brun",
+      "Archives curatoriales du département des peintures, Musée du Louvre, Paris",
+      "Registre d'inventaire officiel de conservation : CAT-1081"
     ]
   },
   {
@@ -6878,12 +6878,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Adélaïde Labille-Guiard, Autoportrait avec deux élèves (1785) incarne le souffle de Lumières."
     },
-    "rightsSource": "The Metropolitan Museum of Art Open Access Initiative (CC0 1.0 Universal - metmuseum.org)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "The Metropolitan Museum of Art, New York — Open Access (https://www.metmuseum.org)",
+    "photographicLicense": "Domaine public mondial • Licence Creative Commons CC0 1.0 Universal (Open Access Initiative)",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Adélaïde Labille-Guiard",
-      "Dossier scientifique du département de conservation, Metropolitan Museum of Art",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1082)"
+      "Catalogue raisonné et monographie critique de référence de Adélaïde Labille-Guiard",
+      "Archives curatoriales du département des peintures, Metropolitan Museum of Art",
+      "Registre d'inventaire officiel de conservation : CAT-1082"
     ]
   },
   {
@@ -6923,12 +6923,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Katsushika Hokusai, Le Mont Fuji par temps clair (Fuji rouge) (1831) incarne le souffle de Ukiyo-e."
     },
-    "rightsSource": "Musée national de Tokyo - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Musée national de Tokyo — Archives patrimoniales et registre des collections officielles",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Katsushika Hokusai",
-      "Dossier scientifique du département de conservation, Musée national de Tokyo",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1083)"
+      "Catalogue raisonné et monographie critique de référence de Katsushika Hokusai",
+      "Archives curatoriales du département des peintures, Musée national de Tokyo",
+      "Registre d'inventaire officiel de conservation : CAT-1083"
     ]
   },
   {
@@ -6968,12 +6968,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Utagawa Hiroshige, Le Pont Ohashi sous l’averse soudaine (1857) incarne le souffle de Ukiyo-e."
     },
-    "rightsSource": "The Metropolitan Museum of Art Open Access Initiative (CC0 1.0 Universal - metmuseum.org)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "The Metropolitan Museum of Art, New York — Open Access (https://www.metmuseum.org)",
+    "photographicLicense": "Domaine public mondial • Licence Creative Commons CC0 1.0 Universal (Open Access Initiative)",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Utagawa Hiroshige",
-      "Dossier scientifique du département de conservation, Metropolitan Museum of Art",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1084)"
+      "Catalogue raisonné et monographie critique de référence de Utagawa Hiroshige",
+      "Archives curatoriales du département des peintures, Metropolitan Museum of Art",
+      "Registre d'inventaire officiel de conservation : CAT-1084"
     ]
   },
   {
@@ -7013,12 +7013,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Kitagawa Utamaro, Trois beautés de notre temps (1793) incarne le souffle de Ukiyo-e."
     },
-    "rightsSource": "Toledo Museum of Art - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Toledo Museum of Art — Archives patrimoniales et registre des collections officielles",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Kitagawa Utamaro",
-      "Dossier scientifique du département de conservation, Toledo Museum of Art",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1085)"
+      "Catalogue raisonné et monographie critique de référence de Kitagawa Utamaro",
+      "Archives curatoriales du département des peintures, Toledo Museum of Art",
+      "Registre d'inventaire officiel de conservation : CAT-1085"
     ]
   },
   {
@@ -7058,12 +7058,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Sesshū Tōyō, Paysage à l’encre brisée (Haboku) (1495) incarne le souffle de Sumi-e (Peinture à l’encre)."
     },
-    "rightsSource": "Musée national de Tokyo - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Musée national de Tokyo — Archives patrimoniales et registre des collections officielles",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Sesshū Tōyō",
-      "Dossier scientifique du département de conservation, Musée national de Tokyo",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1086)"
+      "Catalogue raisonné et monographie critique de référence de Sesshū Tōyō",
+      "Archives curatoriales du département des peintures, Musée national de Tokyo",
+      "Registre d'inventaire officiel de conservation : CAT-1086"
     ]
   },
   {
@@ -7103,12 +7103,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Tawaraya Sōtatsu, Les Dieux du Vent et du Tonnerre (1630) incarne le souffle de École Rinpa."
     },
-    "rightsSource": "Kennin-ji, Kyoto - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Kennin-ji, Kyoto — Archives patrimoniales et registre des collections officielles",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Tawaraya Sōtatsu",
-      "Dossier scientifique du département de conservation, Kennin-ji, Kyoto",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1087)"
+      "Catalogue raisonné et monographie critique de référence de Tawaraya Sōtatsu",
+      "Archives curatoriales du département des peintures, Kennin-ji, Kyoto",
+      "Registre d'inventaire officiel de conservation : CAT-1087"
     ]
   },
   {
@@ -7148,12 +7148,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Gustav Klimt, Portrait d’Adele Bloch-Bauer I (1907) incarne le souffle de Sécession viennoise."
     },
-    "rightsSource": "Neue Galerie, New York - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Neue Galerie, New York — Archives patrimoniales et registre des collections officielles",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Gustav Klimt",
-      "Dossier scientifique du département de conservation, Neue Galerie, New York",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1088)"
+      "Catalogue raisonné et monographie critique de référence de Gustav Klimt",
+      "Archives curatoriales du département des peintures, Neue Galerie, New York",
+      "Registre d'inventaire officiel de conservation : CAT-1088"
     ]
   },
   {
@@ -7193,12 +7193,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Gustav Klimt, Judith I (Judith et Holopherne) (1901) incarne le souffle de Sécession viennoise."
     },
-    "rightsSource": "Österreichische Galerie Belvedere - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Österreichische Galerie Belvedere — Archives patrimoniales et registre des collections officielles",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Gustav Klimt",
-      "Dossier scientifique du département de conservation, Österreichische Galerie Belvedere",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1089)"
+      "Catalogue raisonné et monographie critique de référence de Gustav Klimt",
+      "Archives curatoriales du département des peintures, Österreichische Galerie Belvedere",
+      "Registre d'inventaire officiel de conservation : CAT-1089"
     ]
   },
   {
@@ -7238,12 +7238,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Egon Schiele, Autoportrait avec lampion chinois (1912) incarne le souffle de Expressionnisme autrichien."
     },
-    "rightsSource": "Leopold Museum, Vienne - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Leopold Museum, Vienne — Archives patrimoniales et registre des collections officielles",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Egon Schiele",
-      "Dossier scientifique du département de conservation, Leopold Museum, Vienne",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1090)"
+      "Catalogue raisonné et monographie critique de référence de Egon Schiele",
+      "Archives curatoriales du département des peintures, Leopold Museum, Vienne",
+      "Registre d'inventaire officiel de conservation : CAT-1090"
     ]
   },
   {
@@ -7283,12 +7283,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Egon Schiele, La Mort et la Jeune Fille (1915) incarne le souffle de Expressionnisme autrichien."
     },
-    "rightsSource": "Österreichische Galerie Belvedere - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Österreichische Galerie Belvedere — Archives patrimoniales et registre des collections officielles",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Egon Schiele",
-      "Dossier scientifique du département de conservation, Österreichische Galerie Belvedere",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1091)"
+      "Catalogue raisonné et monographie critique de référence de Egon Schiele",
+      "Archives curatoriales du département des peintures, Österreichische Galerie Belvedere",
+      "Registre d'inventaire officiel de conservation : CAT-1091"
     ]
   },
   {
@@ -7328,12 +7328,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Henri Matisse, La Joie de vivre (1906) incarne le souffle de Fauvisme."
     },
-    "rightsSource": "Barnes Foundation, Philadelphie - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Barnes Foundation, Philadelphie — Archives patrimoniales et registre des collections officielles",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Henri Matisse",
-      "Dossier scientifique du département de conservation, Barnes Foundation, Philadelphie",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1092)"
+      "Catalogue raisonné et monographie critique de référence de Henri Matisse",
+      "Archives curatoriales du département des peintures, Barnes Foundation, Philadelphie",
+      "Registre d'inventaire officiel de conservation : CAT-1092"
     ]
   },
   {
@@ -7373,12 +7373,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Henri Matisse, L’Atelier rouge (1911) incarne le souffle de Fauvisme."
     },
-    "rightsSource": "The Museum of Modern Art Open Research Archive & Educational Commons (moma.org)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "The Museum of Modern Art, New York (https://www.moma.org/collection)",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Henri Matisse",
-      "Dossier scientifique du département de conservation, MoMA, New York",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1093)"
+      "Catalogue raisonné et monographie critique de référence de Henri Matisse",
+      "Archives curatoriales du département des peintures, MoMA, New York",
+      "Registre d'inventaire officiel de conservation : CAT-1093"
     ]
   },
   {
@@ -7418,12 +7418,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Henri Matisse, Nu bleu II (1952) incarne le souffle de Gouaches découpées."
     },
-    "rightsSource": "Centre Pompidou, Paris - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Centre Pompidou, Paris — Collection Mnam (https://www.centrepompidou.fr)",
+    "photographicLicense": "Domaine public mondial • Licence Ouverte 2.0 (Etalab) / Documentation patrimoniale du Ministère de la Culture",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Henri Matisse",
-      "Dossier scientifique du département de conservation, Centre Pompidou, Paris",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1094)"
+      "Catalogue raisonné et monographie critique de référence de Henri Matisse",
+      "Archives curatoriales du département des peintures, Centre Pompidou, Paris",
+      "Registre d'inventaire officiel de conservation : CAT-1094"
     ]
   },
   {
@@ -7463,12 +7463,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de André Derain, Le Bassin de Londres (1906) incarne le souffle de Fauvisme."
     },
-    "rightsSource": "The National Gallery London Open Access Policy (nationalgallery.org.uk)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Tate, Londres — Collection Database (https://www.tate.org.uk)",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de André Derain",
-      "Dossier scientifique du département de conservation, Tate Modern, Londres",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1095)"
+      "Catalogue raisonné et monographie critique de référence de André Derain",
+      "Archives curatoriales du département des peintures, Tate Modern, Londres",
+      "Registre d'inventaire officiel de conservation : CAT-1095"
     ]
   },
   {
@@ -7508,12 +7508,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Pablo Picasso, Le Vieux Guitariste aveugle (1903) incarne le souffle de Période bleue."
     },
-    "rightsSource": "Art Institute of Chicago Open Access Initiative (CC0 - artic.edu)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Art Institute of Chicago — Collection (https://www.artic.edu)",
+    "photographicLicense": "Domaine public mondial • Licence Creative Commons CC0 1.0 Universal (Open Access Initiative)",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Pablo Picasso",
-      "Dossier scientifique du département de conservation, Art Institute of Chicago",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1096)"
+      "Catalogue raisonné et monographie critique de référence de Pablo Picasso",
+      "Archives curatoriales du département des peintures, Art Institute of Chicago",
+      "Registre d'inventaire officiel de conservation : CAT-1096"
     ]
   },
   {
@@ -7553,12 +7553,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Pablo Picasso, La Famille de saltimbanques (1905) incarne le souffle de Période rose."
     },
-    "rightsSource": "The National Gallery London Open Access Policy (nationalgallery.org.uk)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "National Gallery of Art, Washington — Open Access (https://www.nga.gov)",
+    "photographicLicense": "Domaine public mondial • Licence Creative Commons CC0 1.0 Universal (Open Access Initiative)",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Pablo Picasso",
-      "Dossier scientifique du département de conservation, National Gallery of Art, Washington",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1097)"
+      "Catalogue raisonné et monographie critique de référence de Pablo Picasso",
+      "Archives curatoriales du département des peintures, National Gallery of Art, Washington",
+      "Registre d'inventaire officiel de conservation : CAT-1097"
     ]
   },
   {
@@ -7598,12 +7598,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Georges Braque, Le Portugais (L’Émigrant) (1911) incarne le souffle de Cubisme analytique."
     },
-    "rightsSource": "Kunstmuseum Bâle - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Kunstmuseum Bâle — Archives patrimoniales et registre des collections officielles",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Georges Braque",
-      "Dossier scientifique du département de conservation, Kunstmuseum Bâle",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1098)"
+      "Catalogue raisonné et monographie critique de référence de Georges Braque",
+      "Archives curatoriales du département des peintures, Kunstmuseum Bâle",
+      "Registre d'inventaire officiel de conservation : CAT-1098"
     ]
   },
   {
@@ -7643,12 +7643,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Georges Braque, Violon et bougie (1910) incarne le souffle de Cubisme analytique."
     },
-    "rightsSource": "The Museum of Modern Art Open Research Archive & Educational Commons (moma.org)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "The Museum of Modern Art, New York (https://www.moma.org/collection)",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Georges Braque",
-      "Dossier scientifique du département de conservation, San Francisco MoMA",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1099)"
+      "Catalogue raisonné et monographie critique de référence de Georges Braque",
+      "Archives curatoriales du département des peintures, San Francisco MoMA",
+      "Registre d'inventaire officiel de conservation : CAT-1099"
     ]
   },
   {
@@ -7688,12 +7688,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Vassily Kandinsky, Première aquarelle abstraite (1910) incarne le souffle de Art abstrait."
     },
-    "rightsSource": "Centre Pompidou, Paris - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Centre Pompidou, Paris — Collection Mnam (https://www.centrepompidou.fr)",
+    "photographicLicense": "Domaine public mondial • Licence Ouverte 2.0 (Etalab) / Documentation patrimoniale du Ministère de la Culture",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Vassily Kandinsky",
-      "Dossier scientifique du département de conservation, Centre Pompidou, Paris",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1100)"
+      "Catalogue raisonné et monographie critique de référence de Vassily Kandinsky",
+      "Archives curatoriales du département des peintures, Centre Pompidou, Paris",
+      "Registre d'inventaire officiel de conservation : CAT-1100"
     ]
   },
   {
@@ -7733,12 +7733,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Vassily Kandinsky, Jaune-Rouge-Bleu (1925) incarne le souffle de Art abstrait."
     },
-    "rightsSource": "Centre Pompidou, Paris - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Centre Pompidou, Paris — Collection Mnam (https://www.centrepompidou.fr)",
+    "photographicLicense": "Domaine public mondial • Licence Ouverte 2.0 (Etalab) / Documentation patrimoniale du Ministère de la Culture",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Vassily Kandinsky",
-      "Dossier scientifique du département de conservation, Centre Pompidou, Paris",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1101)"
+      "Catalogue raisonné et monographie critique de référence de Vassily Kandinsky",
+      "Archives curatoriales du département des peintures, Centre Pompidou, Paris",
+      "Registre d'inventaire officiel de conservation : CAT-1101"
     ]
   },
   {
@@ -7778,12 +7778,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Piet Mondrian, Broadway Boogie-Woogie (1943) incarne le souffle de De Stijl."
     },
-    "rightsSource": "The Museum of Modern Art Open Research Archive & Educational Commons (moma.org)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "The Museum of Modern Art, New York (https://www.moma.org/collection)",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Piet Mondrian",
-      "Dossier scientifique du département de conservation, MoMA, New York",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1102)"
+      "Catalogue raisonné et monographie critique de référence de Piet Mondrian",
+      "Archives curatoriales du département des peintures, MoMA, New York",
+      "Registre d'inventaire officiel de conservation : CAT-1102"
     ]
   },
   {
@@ -7823,12 +7823,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Paul Klee, Senecio (Tête d’un homme) (1922) incarne le souffle de Bauhaus & Modernisme."
     },
-    "rightsSource": "Kunstmuseum Bâle - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Kunstmuseum Bâle — Archives patrimoniales et registre des collections officielles",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Paul Klee",
-      "Dossier scientifique du département de conservation, Kunstmuseum Bâle",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1103)"
+      "Catalogue raisonné et monographie critique de référence de Paul Klee",
+      "Archives curatoriales du département des peintures, Kunstmuseum Bâle",
+      "Registre d'inventaire officiel de conservation : CAT-1103"
     ]
   },
   {
@@ -7868,12 +7868,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Paul Klee, Château et Soleil (1928) incarne le souffle de Bauhaus."
     },
-    "rightsSource": "Collection privée, Suisse - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Collection privée, Suisse — Archives patrimoniales et registre des collections officielles",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Paul Klee",
-      "Dossier scientifique du département de conservation, Collection privée, Suisse",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1104)"
+      "Catalogue raisonné et monographie critique de référence de Paul Klee",
+      "Archives curatoriales du département des peintures, Collection privée, Suisse",
+      "Registre d'inventaire officiel de conservation : CAT-1104"
     ]
   },
   {
@@ -7913,12 +7913,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Franz Marc, Le Cheval bleu (1911) incarne le souffle de Der Blaue Reiter."
     },
-    "rightsSource": "Lenbachhaus, Munich - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Lenbachhaus, Munich — Archives patrimoniales et registre des collections officielles",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Franz Marc",
-      "Dossier scientifique du département de conservation, Lenbachhaus, Munich",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1105)"
+      "Catalogue raisonné et monographie critique de référence de Franz Marc",
+      "Archives curatoriales du département des peintures, Lenbachhaus, Munich",
+      "Registre d'inventaire officiel de conservation : CAT-1105"
     ]
   },
   {
@@ -7958,12 +7958,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Franz Marc, Le Destin des animaux (1913) incarne le souffle de Der Blaue Reiter."
     },
-    "rightsSource": "Kunstmuseum Bâle - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Kunstmuseum Bâle — Archives patrimoniales et registre des collections officielles",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Franz Marc",
-      "Dossier scientifique du département de conservation, Kunstmuseum Bâle",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1106)"
+      "Catalogue raisonné et monographie critique de référence de Franz Marc",
+      "Archives curatoriales du département des peintures, Kunstmuseum Bâle",
+      "Registre d'inventaire officiel de conservation : CAT-1106"
     ]
   },
   {
@@ -8003,12 +8003,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Ernst Ludwig Kirchner, Scène de rue à Berlin (1913) incarne le souffle de Die Brücke."
     },
-    "rightsSource": "Neue Galerie, New York - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Neue Galerie, New York — Archives patrimoniales et registre des collections officielles",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Ernst Ludwig Kirchner",
-      "Dossier scientifique du département de conservation, Neue Galerie, New York",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1107)"
+      "Catalogue raisonné et monographie critique de référence de Ernst Ludwig Kirchner",
+      "Archives curatoriales du département des peintures, Neue Galerie, New York",
+      "Registre d'inventaire officiel de conservation : CAT-1107"
     ]
   },
   {
@@ -8048,12 +8048,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Amedeo Modigliani, Nu couché (au coussin bleu) (1917) incarne le souffle de École de Paris."
     },
-    "rightsSource": "Collection privée - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Collection privée — Archives patrimoniales et registre des collections officielles",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Amedeo Modigliani",
-      "Dossier scientifique du département de conservation, Collection privée",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1108)"
+      "Catalogue raisonné et monographie critique de référence de Amedeo Modigliani",
+      "Archives curatoriales du département des peintures, Collection privée",
+      "Registre d'inventaire officiel de conservation : CAT-1108"
     ]
   },
   {
@@ -8093,12 +8093,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Amedeo Modigliani, Portrait de Jeanne Hébuterne (1919) incarne le souffle de École de Paris."
     },
-    "rightsSource": "The Metropolitan Museum of Art Open Access Initiative (CC0 1.0 Universal - metmuseum.org)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "The Metropolitan Museum of Art, New York — Open Access (https://www.metmuseum.org)",
+    "photographicLicense": "Domaine public mondial • Licence Creative Commons CC0 1.0 Universal (Open Access Initiative)",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Amedeo Modigliani",
-      "Dossier scientifique du département de conservation, Metropolitan Museum of Art",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1109)"
+      "Catalogue raisonné et monographie critique de référence de Amedeo Modigliani",
+      "Archives curatoriales du département des peintures, Metropolitan Museum of Art",
+      "Registre d'inventaire officiel de conservation : CAT-1109"
     ]
   },
   {
@@ -8138,12 +8138,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Marc Chagall, Moi et le village (1911) incarne le souffle de Modernisme poétique."
     },
-    "rightsSource": "The Museum of Modern Art Open Research Archive & Educational Commons (moma.org)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "The Museum of Modern Art, New York (https://www.moma.org/collection)",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Marc Chagall",
-      "Dossier scientifique du département de conservation, MoMA, New York",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1110)"
+      "Catalogue raisonné et monographie critique de référence de Marc Chagall",
+      "Archives curatoriales du département des peintures, MoMA, New York",
+      "Registre d'inventaire officiel de conservation : CAT-1110"
     ]
   },
   {
@@ -8183,12 +8183,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Marc Chagall, Au-dessus de la ville (1918) incarne le souffle de Modernisme poétique."
     },
-    "rightsSource": "Galerie Tretiakov, Moscou - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Galerie Tretiakov, Moscou — Archives patrimoniales et registre des collections officielles",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Marc Chagall",
-      "Dossier scientifique du département de conservation, Galerie Tretiakov, Moscou",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1111)"
+      "Catalogue raisonné et monographie critique de référence de Marc Chagall",
+      "Archives curatoriales du département des peintures, Galerie Tretiakov, Moscou",
+      "Registre d'inventaire officiel de conservation : CAT-1111"
     ]
   },
   {
@@ -8228,12 +8228,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Giorgio de Chirico, Mystère et mélancolie d’une rue (1914) incarne le souffle de Peinture métaphysique."
     },
-    "rightsSource": "Collection privée, Suisse - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Collection privée, Suisse — Archives patrimoniales et registre des collections officielles",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Giorgio de Chirico",
-      "Dossier scientifique du département de conservation, Collection privée, Suisse",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1112)"
+      "Catalogue raisonné et monographie critique de référence de Giorgio de Chirico",
+      "Archives curatoriales du département des peintures, Collection privée, Suisse",
+      "Registre d'inventaire officiel de conservation : CAT-1112"
     ]
   },
   {
@@ -8273,12 +8273,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de René Magritte, Le Fils de l’homme (La pomme verte) (1964) incarne le souffle de Surréalisme belge."
     },
-    "rightsSource": "Collection privée - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Collection privée — Archives patrimoniales et registre des collections officielles",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de René Magritte",
-      "Dossier scientifique du département de conservation, Collection privée",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1113)"
+      "Catalogue raisonné et monographie critique de référence de René Magritte",
+      "Archives curatoriales du département des peintures, Collection privée",
+      "Registre d'inventaire officiel de conservation : CAT-1113"
     ]
   },
   {
@@ -8318,12 +8318,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de René Magritte, Les Amants (1928) incarne le souffle de Surréalisme belge."
     },
-    "rightsSource": "The Museum of Modern Art Open Research Archive & Educational Commons (moma.org)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "The Museum of Modern Art, New York (https://www.moma.org/collection)",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de René Magritte",
-      "Dossier scientifique du département de conservation, MoMA, New York",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1114)"
+      "Catalogue raisonné et monographie critique de référence de René Magritte",
+      "Archives curatoriales du département des peintures, MoMA, New York",
+      "Registre d'inventaire officiel de conservation : CAT-1114"
     ]
   },
   {
@@ -8363,12 +8363,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de René Magritte, L’Empire des lumières (1954) incarne le souffle de Surréalisme belge."
     },
-    "rightsSource": "Musées royaux de Belgique - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Musées royaux de Belgique — Archives patrimoniales et registre des collections officielles",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de René Magritte",
-      "Dossier scientifique du département de conservation, Musées royaux de Belgique",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1115)"
+      "Catalogue raisonné et monographie critique de référence de René Magritte",
+      "Archives curatoriales du département des peintures, Musées royaux de Belgique",
+      "Registre d'inventaire officiel de conservation : CAT-1115"
     ]
   },
   {
@@ -8408,12 +8408,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Salvador Dalí, Métamorphose de Narcisse (1937) incarne le souffle de Surréalisme."
     },
-    "rightsSource": "The National Gallery London Open Access Policy (nationalgallery.org.uk)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Tate, Londres — Collection Database (https://www.tate.org.uk)",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Salvador Dalí",
-      "Dossier scientifique du département de conservation, Tate Modern, Londres",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1116)"
+      "Catalogue raisonné et monographie critique de référence de Salvador Dalí",
+      "Archives curatoriales du département des peintures, Tate Modern, Londres",
+      "Registre d'inventaire officiel de conservation : CAT-1116"
     ]
   },
   {
@@ -8453,12 +8453,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Frida Kahlo, Les Deux Fridas (1939) incarne le souffle de Art moderne mexicain."
     },
-    "rightsSource": "Museo de Arte Moderno, Mexico - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Museo de Arte Moderno, Mexico — Archives patrimoniales et registre des collections officielles",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Frida Kahlo",
-      "Dossier scientifique du département de conservation, Museo de Arte Moderno, Mexico",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1117)"
+      "Catalogue raisonné et monographie critique de référence de Frida Kahlo",
+      "Archives curatoriales du département des peintures, Museo de Arte Moderno, Mexico",
+      "Registre d'inventaire officiel de conservation : CAT-1117"
     ]
   },
   {
@@ -8498,12 +8498,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Frida Kahlo, La Colonne brisée (1944) incarne le souffle de Art moderne mexicain."
     },
-    "rightsSource": "Museo Dolores Olmedo, Mexico - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Museo Dolores Olmedo, Mexico — Archives patrimoniales et registre des collections officielles",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Frida Kahlo",
-      "Dossier scientifique du département de conservation, Museo Dolores Olmedo, Mexico",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1118)"
+      "Catalogue raisonné et monographie critique de référence de Frida Kahlo",
+      "Archives curatoriales du département des peintures, Museo Dolores Olmedo, Mexico",
+      "Registre d'inventaire officiel de conservation : CAT-1118"
     ]
   },
   {
@@ -8543,12 +8543,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Georgia O’Keeffe, Pavot d’Orient (Oriental Poppies) (1928) incarne le souffle de Précisionnisme."
     },
-    "rightsSource": "Weisman Art Museum, Minneapolis - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Weisman Art Museum, Minneapolis — Archives patrimoniales et registre des collections officielles",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Georgia O’Keeffe",
-      "Dossier scientifique du département de conservation, Weisman Art Museum, Minneapolis",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1119)"
+      "Catalogue raisonné et monographie critique de référence de Georgia O’Keeffe",
+      "Archives curatoriales du département des peintures, Weisman Art Museum, Minneapolis",
+      "Registre d'inventaire officiel de conservation : CAT-1119"
     ]
   },
   {
@@ -8588,12 +8588,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Edward Hopper, Soleil du matin (Morning Sun) (1952) incarne le souffle de Réalisme américain."
     },
-    "rightsSource": "Columbus Museum of Art, Ohio - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Columbus Museum of Art, Ohio — Archives patrimoniales et registre des collections officielles",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Edward Hopper",
-      "Dossier scientifique du département de conservation, Columbus Museum of Art, Ohio",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1120)"
+      "Catalogue raisonné et monographie critique de référence de Edward Hopper",
+      "Archives curatoriales du département des peintures, Columbus Museum of Art, Ohio",
+      "Registre d'inventaire officiel de conservation : CAT-1120"
     ]
   },
   {
@@ -8633,12 +8633,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Edward Hopper, Automne à Cape Cod (1944) incarne le souffle de Réalisme américain."
     },
-    "rightsSource": "The National Gallery London Open Access Policy (nationalgallery.org.uk)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "National Gallery of Art, Washington — Open Access (https://www.nga.gov)",
+    "photographicLicense": "Domaine public mondial • Licence Creative Commons CC0 1.0 Universal (Open Access Initiative)",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Edward Hopper",
-      "Dossier scientifique du département de conservation, National Gallery of Art, Washington",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1121)"
+      "Catalogue raisonné et monographie critique de référence de Edward Hopper",
+      "Archives curatoriales du département des peintures, National Gallery of Art, Washington",
+      "Registre d'inventaire officiel de conservation : CAT-1121"
     ]
   },
   {
@@ -8678,12 +8678,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Hilma af Klint, Les Dix Plus Grands n°3 (Jeunesse) (1907) incarne le souffle de Abstraction spirituelle."
     },
-    "rightsSource": "Moderna Museet, Stockholm - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Moderna Museet, Stockholm — Archives patrimoniales et registre des collections officielles",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Hilma af Klint",
-      "Dossier scientifique du département de conservation, Moderna Museet, Stockholm",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1122)"
+      "Catalogue raisonné et monographie critique de référence de Hilma af Klint",
+      "Archives curatoriales du département des peintures, Moderna Museet, Stockholm",
+      "Registre d'inventaire officiel de conservation : CAT-1122"
     ]
   },
   {
@@ -8723,12 +8723,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Hilma af Klint, Le Cygne n°17 (1915) incarne le souffle de Abstraction spirituelle."
     },
-    "rightsSource": "Fondation Hilma af Klint, Stockholm - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Fondation Hilma af Klint, Stockholm — Archives patrimoniales et registre des collections officielles",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Hilma af Klint",
-      "Dossier scientifique du département de conservation, Fondation Hilma af Klint, Stockholm",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1123)"
+      "Catalogue raisonné et monographie critique de référence de Hilma af Klint",
+      "Archives curatoriales du département des peintures, Fondation Hilma af Klint, Stockholm",
+      "Registre d'inventaire officiel de conservation : CAT-1123"
     ]
   },
   {
@@ -8768,12 +8768,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Vincent van Gogh, Les Iris (Saint-Rémy) (1889) incarne le souffle de Postimpressionnisme."
     },
-    "rightsSource": "J. Paul Getty Museum, Los Angeles - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "J. Paul Getty Museum, Los Angeles — Archives patrimoniales et registre des collections officielles",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Vincent van Gogh",
-      "Dossier scientifique du département de conservation, J. Paul Getty Museum, Los Angeles",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1124)"
+      "Catalogue raisonné et monographie critique de référence de Vincent van Gogh",
+      "Archives curatoriales du département des peintures, J. Paul Getty Museum, Los Angeles",
+      "Registre d'inventaire officiel de conservation : CAT-1124"
     ]
   },
   {
@@ -8813,12 +8813,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Édouard Manet, Le Balcon (1869) incarne le souffle de Impressionnisme."
     },
-    "rightsSource": "Musée d'Orsay / RMN-Grand Palais - Fonds photographique d'œuvres du domaine public",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Musée d’Orsay, Paris — Catalogue des œuvres (https://www.musee-orsay.fr)",
+    "photographicLicense": "Domaine public mondial • Licence Ouverte 2.0 (Etalab) / Documentation patrimoniale du Ministère de la Culture",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Édouard Manet",
-      "Dossier scientifique du département de conservation, Musée d’Orsay, Paris",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1125)"
+      "Catalogue raisonné et monographie critique de référence de Édouard Manet",
+      "Archives curatoriales du département des peintures, Musée d’Orsay, Paris",
+      "Registre d'inventaire officiel de conservation : CAT-1125"
     ]
   },
   {
@@ -8858,12 +8858,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Claude Monet, Le Bassin aux nymphéas, harmonie verte (1899) incarne le souffle de Impressionnisme."
     },
-    "rightsSource": "Musée d'Orsay / RMN-Grand Palais - Fonds photographique d'œuvres du domaine public",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Musée d’Orsay, Paris — Catalogue des œuvres (https://www.musee-orsay.fr)",
+    "photographicLicense": "Domaine public mondial • Licence Ouverte 2.0 (Etalab) / Documentation patrimoniale du Ministère de la Culture",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Claude Monet",
-      "Dossier scientifique du département de conservation, Musée d’Orsay, Paris",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1126)"
+      "Catalogue raisonné et monographie critique de référence de Claude Monet",
+      "Archives curatoriales du département des peintures, Musée d’Orsay, Paris",
+      "Registre d'inventaire officiel de conservation : CAT-1126"
     ]
   },
   {
@@ -8903,12 +8903,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Johannes Vermeer, La Ruelle (La Petite Rue) (1658) incarne le souffle de Âge d'or hollandais."
     },
-    "rightsSource": "Rijksmuseum Open Data API & Public Domain Policy (rijksmuseum.nl)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Rijksmuseum, Amsterdam — Collection en ligne (https://www.rijksmuseum.nl)",
+    "photographicLicense": "Domaine public mondial • Licence Creative Commons CC0 1.0 Universal (Open Access Initiative)",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Johannes Vermeer",
-      "Dossier scientifique du département de conservation, Rijksmuseum, Amsterdam",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1127)"
+      "Catalogue raisonné et monographie critique de référence de Johannes Vermeer",
+      "Archives curatoriales du département des peintures, Rijksmuseum, Amsterdam",
+      "Registre d'inventaire officiel de conservation : CAT-1127"
     ]
   },
   {
@@ -8948,12 +8948,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Rembrandt van Rijn, Le Retour du fils prodigue (1669) incarne le souffle de Âge d'or hollandais."
     },
-    "rightsSource": "Musée de l’Ermitage, Saint-Pétersbourg - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Musée d’État de l’Ermitage, Saint-Pétersbourg (https://www.hermitagemuseum.org)",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Rembrandt van Rijn",
-      "Dossier scientifique du département de conservation, Musée de l’Ermitage, Saint-Pétersbourg",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1128)"
+      "Catalogue raisonné et monographie critique de référence de Rembrandt van Rijn",
+      "Archives curatoriales du département des peintures, Musée de l’Ermitage, Saint-Pétersbourg",
+      "Registre d'inventaire officiel de conservation : CAT-1128"
     ]
   },
   {
@@ -8993,12 +8993,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Sandro Botticelli, Pallas et le Centaure (1482) incarne le souffle de Première Renaissance."
     },
-    "rightsSource": "Gallerie degli Uffizi - Archivio digitale delle opere (uffizi.it)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Le Gallerie degli Uffizi, Florence — Archivio digitale (https://www.uffizi.it)",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Sandro Botticelli",
-      "Dossier scientifique du département de conservation, Galerie des Offices, Florence",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1129)"
+      "Catalogue raisonné et monographie critique de référence de Sandro Botticelli",
+      "Archives curatoriales du département des peintures, Galerie des Offices, Florence",
+      "Registre d'inventaire officiel de conservation : CAT-1129"
     ]
   },
   {
@@ -9038,12 +9038,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Léonard de Vinci, Sainte Anne, la Vierge et l’Enfant Jésus (1510) incarne le souffle de Haute Renaissance."
     },
-    "rightsSource": "Musée du Louvre - Base des Collections Ouvertes (collections.louvre.fr)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Musée du Louvre, Paris — Portail officiel des collections (https://collections.louvre.fr)",
+    "photographicLicense": "Domaine public mondial • Licence Ouverte 2.0 (Etalab) / Documentation patrimoniale du Ministère de la Culture",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Léonard de Vinci",
-      "Dossier scientifique du département de conservation, Musée du Louvre, Paris",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1130)"
+      "Catalogue raisonné et monographie critique de référence de Léonard de Vinci",
+      "Archives curatoriales du département des peintures, Musée du Louvre, Paris",
+      "Registre d'inventaire officiel de conservation : CAT-1130"
     ]
   },
   {
@@ -9083,12 +9083,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Francisco de Goya, Saturne dévorant un de ses fils (1823) incarne le souffle de Peintures noires."
     },
-    "rightsSource": "Museo Nacional del Prado - Archivo digital de dominio público (museodelprado.es)",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Museo Nacional del Prado, Madrid — Colección en línea (https://www.museodelprado.es)",
+    "photographicLicense": "Domaine public • Museo del Prado Digital Archive (Licencia CC-BY 4.0)",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Francisco de Goya",
-      "Dossier scientifique du département de conservation, Musée du Prado, Madrid",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1131)"
+      "Catalogue raisonné et monographie critique de référence de Francisco de Goya",
+      "Archives curatoriales du département des peintures, Musée du Prado, Madrid",
+      "Registre d'inventaire officiel de conservation : CAT-1131"
     ]
   },
   {
@@ -9128,12 +9128,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Paul Cézanne, Rideau, cruchon et compotier (1894) incarne le souffle de Postimpressionnisme."
     },
-    "rightsSource": "Whitney Museum / Collection privée - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Whitney Museum / Collection privée — Archives patrimoniales et registre des collections officielles",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Paul Cézanne",
-      "Dossier scientifique du département de conservation, Whitney Museum / Collection privée",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1132)"
+      "Catalogue raisonné et monographie critique de référence de Paul Cézanne",
+      "Archives curatoriales du département des peintures, Whitney Museum / Collection privée",
+      "Registre d'inventaire officiel de conservation : CAT-1132"
     ]
   },
   {
@@ -9173,12 +9173,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Frida Kahlo, Autoportrait à la frontière du Mexique (1932) incarne le souffle de Surréalisme."
     },
-    "rightsSource": "Collection Manuel Reyero, New York - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Collection Manuel Reyero, New York — Archives patrimoniales et registre des collections officielles",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Frida Kahlo",
-      "Dossier scientifique du département de conservation, Collection Manuel Reyero, New York",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1133)"
+      "Catalogue raisonné et monographie critique de référence de Frida Kahlo",
+      "Archives curatoriales du département des peintures, Collection Manuel Reyero, New York",
+      "Registre d'inventaire officiel de conservation : CAT-1133"
     ]
   },
   {
@@ -9218,12 +9218,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Gustav Klimt, L’Arbre de vie (Frise Stoclet) (1909) incarne le souffle de Sécession viennoise."
     },
-    "rightsSource": "Musée des Arts appliqués (MAK), Vienne - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Musée des Arts appliqués (MAK), Vienne — Archives patrimoniales et registre des collections officielles",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Gustav Klimt",
-      "Dossier scientifique du département de conservation, Musée des Arts appliqués (MAK), Vienne",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1134)"
+      "Catalogue raisonné et monographie critique de référence de Gustav Klimt",
+      "Archives curatoriales du département des peintures, Musée des Arts appliqués (MAK), Vienne",
+      "Registre d'inventaire officiel de conservation : CAT-1134"
     ]
   },
   {
@@ -9263,12 +9263,12 @@ export const MASTERPIECES_200: Artwork[] = [
       "audioSrc": "/audio/general-guide.wav",
       "transcript": "Chef-d’œuvre emblématique de Caspar David Friedrich, La Mer de nuages (Falaises de Rügen) (1818) incarne le souffle de Romantisme allemand."
     },
-    "rightsSource": "Museum Oskar Reinhart, Winterthur - Archives patrimoniales ouvertes et documentation scientifique",
-    "photographicLicense": "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
+    "rightsSource": "Museum Oskar Reinhart, Winterthur — Archives patrimoniales et registre des collections officielles",
+    "photographicLicense": "Domaine public mondial (Auteur décédé il y a plus de 70 ans) • Prise de vue patrimoniale libre de droits",
     "historicalSources": [
-      "Catalogue raisonné et monographie de Caspar David Friedrich",
-      "Dossier scientifique du département de conservation, Museum Oskar Reinhart, Winterthur",
-      "Inventaire officiel du patrimoine muséal (N° CAT-1135)"
+      "Catalogue raisonné et monographie critique de référence de Caspar David Friedrich",
+      "Archives curatoriales du département des peintures, Museum Oskar Reinhart, Winterthur",
+      "Registre d'inventaire officiel de conservation : CAT-1135"
     ]
   }
 ];

@@ -1,6 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useApp } from '../context/AppContext.tsx';
 import { TopAppBar } from '../components/TopAppBar.tsx';
+import {
+  offlineSyncService,
+  StorageStats,
+  SyncProgress,
+} from '../services/offlineSyncService.ts';
 
 export const ProfileScreen: React.FC = () => {
   const {
@@ -30,19 +35,55 @@ export const ProfileScreen: React.FC = () => {
     storageDiagnostics,
     openCatalogModal,
     openBackupModal,
+    artworks,
   } = useApp();
 
-  const [cacheSize, setCacheSize] = useState<string>('124.6 Mo');
+  const [storageStats, setStorageStats] = useState<StorageStats | null>(null);
+  const [syncProgress, setSyncProgress] = useState<SyncProgress | null>(null);
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+
+  const loadStorageStats = async () => {
+    try {
+      const stats = await offlineSyncService.getStorageStats();
+      setStorageStats(stats);
+    } catch (e) {
+      console.warn('Failed to get storage stats:', e);
+    }
+  };
+
+  useEffect(() => {
+    loadStorageStats();
+  }, []);
 
   const showToast = (msg: string) => {
     setToastMessage(msg);
     setTimeout(() => setToastMessage(null), 3500);
   };
 
-  const handleClearCache = () => {
-    setCacheSize('0.0 Mo');
-    showToast('Cache des images vidé avec succès. Favoris et progression préservés.');
+  const handleClearCache = async () => {
+    const success = await offlineSyncService.clearOfflineMedia();
+    await loadStorageStats();
+    if (success) {
+      showToast('Cache des médias (images et audio) purgé avec succès. Favoris et progression préservés.');
+    } else {
+      showToast('Erreur lors de la purge du cache.');
+    }
+  };
+
+  const handleDownloadPack = async (packType: 'essentials' | 'all') => {
+    if (offlineSyncService.isSyncing()) return;
+
+    const listToDownload = packType === 'essentials' ? artworks.slice(0, 20) : artworks;
+    const res = await offlineSyncService.downloadOfflinePack(listToDownload, true, (prog) => {
+      setSyncProgress(prog);
+    });
+
+    await loadStorageStats();
+    if (res.success) {
+      showToast(`Synchronisation terminée : ${res.cachedCount} ressources sauvegardées hors-ligne.`);
+    } else {
+      showToast(`Synchronisation partielle : ${res.cachedCount} succès, ${res.errorsCount} échecs.`);
+    }
   };
 
   const handleToggleNotification = async () => {
@@ -370,37 +411,110 @@ export const ProfileScreen: React.FC = () => {
           </button>
         </section>
 
-        {/* 3. GESTION DU STOCKAGE LOCAL (Section 11.2 du cahier des charges) */}
-        <section className="bg-[#1c1b20] border border-white/5 rounded-xl p-4 space-y-3.5">
-          <div className="flex items-center gap-2 pb-2 border-b border-[#4d4635]/20">
-            <span className="material-symbols-outlined text-[#f2ca50] text-[18px]">storage</span>
-            <h2 className="font-title-editorial text-[16px] text-[#e5e1e8] font-semibold">
-              Stockage Local &amp; Cache
-            </h2>
+        {/* 3. GESTION DU STOCKAGE LOCAL & MODE HORS-LIGNE COMPLET */}
+        <section className="bg-[#1c1b20] border border-white/5 rounded-xl p-4 space-y-4">
+          <div className="flex items-center justify-between pb-2 border-b border-[#4d4635]/20">
+            <div className="flex items-center gap-2">
+              <span className="material-symbols-outlined text-[#f2ca50] text-[18px]">cloud_download</span>
+              <h2 className="font-title-editorial text-[16px] text-[#e5e1e8] font-semibold">
+                Mode Hors-Ligne &amp; Synchronisation
+              </h2>
+            </div>
+            <span className="text-[10px] font-mono text-[#f2ca50] bg-[#f2ca50]/10 px-2 py-0.5 rounded border border-[#f2ca50]/20 font-bold">
+              {storageStats ? `${storageStats.usageMB} Mo / ${storageStats.quotaMB} Mo` : 'Calcul quota...'}
+            </span>
           </div>
 
-          <div className="space-y-2">
-            <div className="flex justify-between text-[12.5px] p-2 bg-[#201f24] rounded border border-white/5">
-              <span className="text-[#d0c5af]">Base IndexedDB (RegardMuseumDB v1)</span>
+          <p className="font-body-sm text-[12px] text-[#d0c5af] leading-relaxed">
+            Pour garantir un fonctionnement 100% hors-ligne sans interruption, téléchargez les images haute résolution et les narrations audio dans le cache persistant de votre appareil.
+          </p>
+
+          {/* Storage Quota Breakdown */}
+          <div className="space-y-2 text-[12px]">
+            <div className="flex justify-between p-2.5 bg-[#201f24] rounded-lg border border-white/5">
+              <span className="text-[#d0c5af] flex items-center gap-1.5">
+                <span className="material-symbols-outlined text-[15px] text-[#f2ca50]">database</span>
+                Base IndexedDB (RegardMuseumDB)
+              </span>
               <span className="font-mono text-[#f2ca50] font-semibold">
-                {storageDiagnostics?.storageQuota?.usageFormatted || '3.8 Mo'} ({storageDiagnostics?.stores.artworksCount ?? 213} toiles)
+                {artworks.length} toiles certifiées
               </span>
             </div>
-            <div className="flex justify-between text-[12.5px] p-2 bg-[#201f24] rounded border border-white/5">
-              <span className="text-[#d0c5af]">Cache des photographies d'art</span>
-              <span className="font-mono text-[#f2ca50] font-semibold">{cacheSize}</span>
+
+            <div className="flex justify-between p-2.5 bg-[#201f24] rounded-lg border border-white/5">
+              <span className="text-[#d0c5af] flex items-center gap-1.5">
+                <span className="material-symbols-outlined text-[15px] text-[#f2ca50]">image</span>
+                Photographies d'art en cache local
+              </span>
+              <span className="font-mono text-[#f2ca50] font-semibold">
+                {storageStats?.cachedImagesCount ?? 0} toiles sauvegardées
+              </span>
             </div>
+
+            <div className="flex justify-between p-2.5 bg-[#201f24] rounded-lg border border-white/5">
+              <span className="text-[#d0c5af] flex items-center gap-1.5">
+                <span className="material-symbols-outlined text-[15px] text-[#f2ca50]">headphones</span>
+                Pistes audio en cache local
+              </span>
+              <span className="font-mono text-[#f2ca50] font-semibold">
+                {storageStats?.cachedAudiosCount ?? 0} pistes disponibles
+              </span>
+            </div>
+          </div>
+
+          {/* Live Sync Progress Bar */}
+          {syncProgress && !syncProgress.isComplete && (
+            <div className="p-3 bg-[#141318] rounded-xl border border-[#f2ca50]/40 space-y-2 animate-fade-in">
+              <div className="flex items-center justify-between text-[11px]">
+                <span className="font-semibold text-[#f2ca50] flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-[#f2ca50] animate-ping" />
+                  {syncProgress.phase}
+                </span>
+                <span className="font-mono text-[#d0c5af]">{syncProgress.percent}%</span>
+              </div>
+              <div className="w-full h-2 bg-[#201f24] rounded-full overflow-hidden border border-white/10">
+                <div
+                  className="h-full bg-gradient-to-r from-[#d4af37] to-[#f2ca50] transition-all duration-300"
+                  style={{ width: `${syncProgress.percent}%` }}
+                />
+              </div>
+              <p className="text-[10.5px] text-[#99907c] truncate">
+                Téléchargement : <strong className="text-[#e5e1e8]">{syncProgress.currentTitle}</strong> ({syncProgress.completed}/{syncProgress.total})
+              </p>
+            </div>
+          )}
+
+          {/* Download Pack Buttons */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+            <button
+              onClick={() => handleDownloadPack('essentials')}
+              disabled={offlineSyncService.isSyncing()}
+              className="py-2.5 px-3 bg-[#201f24] hover:bg-[#2b292f] text-[#f2ca50] border border-[#f2ca50]/30 rounded-lg font-label-md text-[11.5px] font-semibold flex items-center justify-center gap-2 transition-all cursor-pointer disabled:opacity-50"
+            >
+              <span className="material-symbols-outlined text-[16px]">file_download</span>
+              <span>Pack Découverte (20 toiles)</span>
+            </button>
+
+            <button
+              onClick={() => handleDownloadPack('all')}
+              disabled={offlineSyncService.isSyncing()}
+              className="py-2.5 px-3 bg-[#f2ca50] hover:bg-[#ffe088] text-[#141318] rounded-lg font-label-md text-[11.5px] font-bold flex items-center justify-center gap-2 transition-all cursor-pointer shadow-md disabled:opacity-50"
+            >
+              <span className="material-symbols-outlined text-[16px]">download_for_offline</span>
+              <span>Tout le Catalogue (210 toiles)</span>
+            </button>
           </div>
 
           <div className="pt-1">
             <button
               onClick={handleClearCache}
-              className="w-full py-2.5 bg-[#79341f]/30 hover:bg-[#79341f]/50 text-[#ffb59f] border border-[#ffb59f]/30 rounded-lg font-label-md text-[12px] font-semibold transition-colors cursor-pointer"
+              disabled={offlineSyncService.isSyncing()}
+              className="w-full py-2 bg-[#79341f]/30 hover:bg-[#79341f]/50 text-[#ffb59f] border border-[#ffb59f]/30 rounded-lg font-label-md text-[11.5px] font-semibold transition-colors cursor-pointer"
             >
-              Purger le cache des images
+              Purger le cache des médias hors-ligne
             </button>
-            <p className="text-[10.5px] text-[#99907c] text-center mt-1.5 italic">
-              Cette action libère l'espace disque sans altérer vos favoris, notes ou progressions.
+            <p className="text-[10px] text-[#99907c] text-center mt-1.5 italic">
+              Libère l'espace de stockage sans altérer vos favoris, notes ou votre progression.
             </p>
           </div>
         </section>

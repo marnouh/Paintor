@@ -632,13 +632,10 @@ export const ARTWORKS: Artwork[] = [
     const fromMasterpiece = MASTERPIECES_200.find((m) => m.id === b.id);
     return {
       ...b,
-      rightsSource: b.rightsSource || fromMasterpiece?.rightsSource || `${b.museum} - Base des Collections Ouvertes`,
-      photographicLicense: b.photographicLicense || fromMasterpiece?.photographicLicense || "Reproduction photographique 2D fidèle d'une œuvre du domaine public exempte de tout droit privatif exclusif (Directive européenne 2019/790, art. 14 / CJUE).",
-      historicalSources: b.historicalSources || fromMasterpiece?.historicalSources || [
-        `Catalogue raisonné et monographie de ${b.artist}`,
-        `Dossier scientifique du département de conservation, ${b.museum}`,
-        `Inventaire officiel du patrimoine muséal (N° ${b.inventoryNumber})`
-      ],
+      inventoryNumber: b.inventoryNumber || fromMasterpiece?.inventoryNumber || 'Non répertorié',
+      rightsSource: b.rightsSource || fromMasterpiece?.rightsSource || '',
+      photographicLicense: b.photographicLicense || fromMasterpiece?.photographicLicense || '',
+      historicalSources: b.historicalSources || fromMasterpiece?.historicalSources || [],
     };
   }),
   ...MASTERPIECES_200.filter((m) => !BASE_DETAILED_ARTWORKS.some((b) => b.id === m.id)),

@@ -131,7 +131,7 @@ Conformément au cahier des charges et aux arbitrages techniques d'architecture 
 L'ensemble des données réside dans la base IndexedDB locale `RegardMuseumDB` répartie en **7 ObjectStores** spécialisés :
 
 1. `artworks` (clé primaire `id`) :
-   - Contient l'intégralité du corpus de peintures (213+ toiles canoniques enrichies avec dimensions, pigments, cartel muséal, 4 chapitres scientifiques et points d'intérêt).
+   - Contient l'intégralité du corpus de peintures (210 toiles canoniques certifiées et enrichies avec dimensions, pigments, cartel muséal, 4 chapitres scientifiques et points d'intérêt).
    - Index secondaires : `artist`, `movement`, `period`, `year`.
    - Modifiable à tout moment par l'utilisateur via le gestionnaire de catalogue (import/export JSON avec validation de schéma stricte).
 2. `artists` (clé primaire `id`) :

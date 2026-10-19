@@ -2,7 +2,7 @@
  * IndexedDB Service for Regard - PWA Local Architecture
  * Database: RegardMuseumDB (v1)
  * ObjectStores:
- *  - artworks: Catalog of artworks (213+ canonical + user imports)
+ *  - artworks: Catalog of artworks (210 canonical + user imports)
  *  - artists: Biographical profiles of painters (105+ artists)
  *  - bookmarks: Saved artworks with added timestamps
  *  - history: Real visited artworks with timestamps and read duration (starts empty)
@@ -299,9 +299,49 @@ class IndexedDbService {
     return arts.length > 0 ? arts : ARTWORKS;
   }
 
+  /**
+   * Atomically replaces the artworks catalog in a SINGLE IndexedDB transaction.
+   * If any step fails or the transaction is interrupted, the transaction aborts
+   * and rolls back automatically, preventing an empty or corrupted catalog state.
+   */
+  public async atomicReplaceArtworks(artworks: Artwork[], version?: string): Promise<void> {
+    const db = await this.getDb();
+    const stores = version ? ['artworks', 'app_settings'] : ['artworks'];
+
+    return new Promise((resolve, reject) => {
+      const tx = db.transaction(stores, 'readwrite');
+      const artStore = tx.objectStore('artworks');
+
+      tx.onerror = () => {
+        reject(tx.error || new Error('Erreur transactionnelle lors du remplacement atomique du catalogue.'));
+      };
+
+      tx.onabort = () => {
+        reject(new Error('Transaction IndexedDB annulée : le catalogue antérieur a été préservé intact.'));
+      };
+
+      tx.oncomplete = () => {
+        resolve();
+      };
+
+      // 1. Clear within the atomic transaction
+      artStore.clear();
+
+      // 2. Bulk insert all artworks in the same atomic transaction
+      for (const artwork of artworks) {
+        artStore.put(artwork);
+      }
+
+      // 3. Record new catalog version atomically in the same transaction
+      if (version) {
+        const settingsStore = tx.objectStore('app_settings');
+        settingsStore.put({ key: 'catalog_version', value: version });
+      }
+    });
+  }
+
   public async saveArtworks(artworks: Artwork[]): Promise<void> {
-    await this.clear('artworks');
-    await this.bulkPut('artworks', artworks);
+    await this.atomicReplaceArtworks(artworks);
   }
 
   public async addOrUpdateArtworks(artworks: Artwork[]): Promise<void> {
@@ -309,8 +349,7 @@ class IndexedDbService {
   }
 
   public async resetArtworksToDefault(): Promise<void> {
-    await this.clear('artworks');
-    await this.bulkPut('artworks', ARTWORKS);
+    await this.atomicReplaceArtworks(ARTWORKS, '1.1.0');
   }
 
   // --- Artists Operations ---
@@ -406,6 +445,87 @@ class IndexedDbService {
     await this.delete('notes', id);
   }
 
+  /**
+   * Atomically restores user data (bookmarks, history, notes, user_progress, and optional artworks)
+   * in a single readwrite IndexedDB transaction.
+   * If any step errors or the transaction aborts, all stores roll back automatically.
+   */
+  public async atomicRestoreAllUserData(
+    payload: {
+      bookmarks?: StoredBookmark[];
+      history?: StoredHistoryItem[];
+      notes?: StoredNote[];
+      progress?: { points: number; completedSteps: number[] };
+      artworks?: Artwork[];
+    },
+    mode: 'merge' | 'replace'
+  ): Promise<void> {
+    const db = await this.getDb();
+    const storeNames: string[] = ['bookmarks', 'history', 'notes', 'user_progress'];
+    if (payload.artworks && payload.artworks.length > 0) {
+      storeNames.push('artworks');
+    }
+
+    return new Promise((resolve, reject) => {
+      const tx = db.transaction(storeNames, 'readwrite');
+
+      tx.onerror = () => {
+        reject(tx.error || new Error('Erreur transactionnelle lors de la restauration atomique.'));
+      };
+
+      tx.onabort = () => {
+        reject(new Error('Transaction de restauration annulée : les données précédentes sont restées intactes.'));
+      };
+
+      tx.oncomplete = () => {
+        resolve();
+      };
+
+      // 1. Bookmarks
+      if (payload.bookmarks) {
+        const bStore = tx.objectStore('bookmarks');
+        if (mode === 'replace') bStore.clear();
+        for (const b of payload.bookmarks) {
+          bStore.put(b);
+        }
+      }
+
+      // 2. History
+      if (payload.history) {
+        const hStore = tx.objectStore('history');
+        if (mode === 'replace') hStore.clear();
+        for (const h of payload.history) {
+          hStore.put(h);
+        }
+      }
+
+      // 3. Notes
+      if (payload.notes) {
+        const nStore = tx.objectStore('notes');
+        if (mode === 'replace') nStore.clear();
+        for (const n of payload.notes) {
+          nStore.put(n);
+        }
+      }
+
+      // 4. Progress
+      if (payload.progress) {
+        const pStore = tx.objectStore('user_progress');
+        pStore.put({ key: 'points', value: payload.progress.points });
+        pStore.put({ key: 'completed_steps', value: payload.progress.completedSteps });
+      }
+
+      // 5. Artworks (if present)
+      if (payload.artworks && payload.artworks.length > 0) {
+        const aStore = tx.objectStore('artworks');
+        if (mode === 'replace') aStore.clear();
+        for (const a of payload.artworks) {
+          aStore.put(a);
+        }
+      }
+    });
+  }
+
   // --- User Progress (Points, Steps) ---
 
   public async getUserProgress(): Promise<{ points: number; completedSteps: number[] }> {
@@ -497,44 +617,37 @@ class IndexedDbService {
       const parsed = JSON.parse(jsonString);
       const data = parsed.data || parsed;
 
-      let artworkCount = 0;
-      if (Array.isArray(data.artworks) && data.artworks.length > 0) {
-        await this.saveArtworks(data.artworks);
-        artworkCount = data.artworks.length;
-      }
+      const artworks = Array.isArray(data.artworks) ? data.artworks : undefined;
+      const bookmarks = Array.isArray(data.bookmarks) ? data.bookmarks : undefined;
+      const history = Array.isArray(data.history) ? data.history : undefined;
+      const notes = Array.isArray(data.notes) ? data.notes : undefined;
+      const progress = data.progress ? { points: data.progress.points || 0, completedSteps: data.progress.completedSteps || [] } : undefined;
+
+      await this.atomicRestoreAllUserData(
+        {
+          artworks,
+          bookmarks,
+          history,
+          notes,
+          progress,
+        },
+        'replace'
+      );
 
       if (Array.isArray(data.artists) && data.artists.length > 0) {
         await this.saveArtists(data.artists);
       }
 
-      if (Array.isArray(data.bookmarks)) {
-        await this.clear('bookmarks');
-        await this.bulkPut('bookmarks', data.bookmarks);
-      }
-
-      if (Array.isArray(data.history)) {
-        await this.clear('history');
-        await this.bulkPut('history', data.history);
-      }
-
-      if (Array.isArray(data.notes)) {
-        await this.clear('notes');
-        await this.bulkPut('notes', data.notes);
-      }
-
-      if (data.progress) {
-        await this.saveUserProgress(data.progress.points || 0, data.progress.completedSteps || []);
-      }
-
+      const artworkCount = artworks ? artworks.length : 0;
       return {
         success: true,
-        message: `Restauration réussie dans IndexedDB (${artworkCount} œuvres indexées).`,
+        message: `Restauration atomique réussie dans IndexedDB (${artworkCount} œuvres indexées).`,
         count: artworkCount,
       };
     } catch (err: any) {
       return {
         success: false,
-        message: `Erreur lors de l'import : ${err.message}`,
+        message: `Erreur transactionnelle lors de l'import : ${err.message}`,
         count: 0,
       };
     }

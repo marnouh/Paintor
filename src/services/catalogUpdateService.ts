@@ -190,27 +190,38 @@ class CatalogUpdateService {
       onProgress?.('Vérification de l\'empreinte cryptographique SHA-256...', 40);
 
       // 2. Cryptographic Checksum verification (SHA-256)
-      if (window.crypto && window.crypto.subtle) {
+      if (manifest.sha256Checksum) {
+        if (!window.crypto || !window.crypto.subtle) {
+          throw new Error(
+            "Échec de sécurité : L'API cryptographique native (crypto.subtle) n'est pas disponible dans ce contexte. La mise à jour est interrompue pour éviter d'appliquer un fichier non authentifié."
+          );
+        }
         const enc = new TextEncoder();
         const dataBuffer = enc.encode(text);
         const hashBuffer = await window.crypto.subtle.digest('SHA-256', dataBuffer);
         const calculatedHash = bufferToHex(hashBuffer);
 
-        if (manifest.sha256Checksum && calculatedHash.toLowerCase() !== manifest.sha256Checksum.toLowerCase()) {
+        if (calculatedHash.toLowerCase() !== manifest.sha256Checksum.toLowerCase()) {
           throw new Error(
             `Échec de vérification d'intégrité : l'empreinte SHA-256 calculée (${calculatedHash.slice(0, 8)}...) ne correspond pas à celle du manifeste (${manifest.sha256Checksum.slice(0, 8)}...). Paquet rejeté pour protéger votre base de données.`
           );
         }
       }
 
-      // 3. Schema validation
+      // 3. Schema validation & announced count verification
       onProgress?.('Validation du schéma muséal et des cartels...', 65);
       const validation = validateArtworksJson(text);
       if (!validation.isValid && validation.errors.length > 0) {
         throw new Error(`Schéma de catalogue invalide : ${validation.errors[0].message}`);
       }
 
-      // 4. Atomic apply in IndexedDB
+      if (manifest.artworksCount && validation.sanitizedArtworks.length !== manifest.artworksCount) {
+        throw new Error(
+          `Incohérence de données : le manifeste annonce ${manifest.artworksCount} œuvres, mais le fichier validé en contient ${validation.sanitizedArtworks.length}. Mise à jour interrompue.`
+        );
+      }
+
+      // 4. Truly Atomic apply in a single IndexedDB transaction
       onProgress?.('Enregistrement atomique dans IndexedDB (RegardMuseumDB)...', 85);
       const sanitizedArtworks: Artwork[] = validation.sanitizedArtworks;
 
@@ -220,8 +231,8 @@ class CatalogUpdateService {
       const userCustomArtworks = currentArtworks.filter((a) => !canonicalIds.has(a.id));
       const finalArtworks = [...sanitizedArtworks, ...userCustomArtworks];
 
-      await indexedDbService.saveArtworks(finalArtworks);
-      await this.setCatalogVersion(manifest.catalogVersion);
+      // Single transaction: clears, inserts all artworks, and stores version
+      await indexedDbService.atomicReplaceArtworks(finalArtworks, manifest.catalogVersion);
 
       // 5. Service Worker update check
       onProgress?.('Actualisation des caches PWA et de l\'index BM25...', 95);

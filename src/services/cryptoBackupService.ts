@@ -331,133 +331,187 @@ class CryptoBackupService {
   /**
    * Apply validated data to IndexedDB
    */
+  /**
+   * Apply validated data to IndexedDB in a SINGLE atomic transaction across all stores.
+   * Performs structural validation of each store before applying any mutations.
+   * If any step fails or is aborted, all stores roll back completely.
+   */
   public async restoreData(
     data: any,
     mode: 'merge' | 'replace'
   ): Promise<{ success: boolean; message: string; details: any }> {
     try {
-      const details = {
-        artworksUpdated: 0,
-        bookmarksRestored: 0,
-        notesRestored: 0,
-        historyRestored: 0,
-        progressRestored: false,
-      };
-
-      // 1. Artworks
-      if (Array.isArray(data.artworks) && data.artworks.length > 0) {
-        if (mode === 'replace') {
-          await indexedDbService.saveArtworks(data.artworks);
-          details.artworksUpdated = data.artworks.length;
-        } else {
-          // Merge artworks
-          const current = await indexedDbService.getArtworks();
-          const map = new Map<string, Artwork>();
-          for (const a of current) map.set(a.id, a);
-          for (const a of data.artworks) map.set(a.id, a);
-          const merged = Array.from(map.values());
-          await indexedDbService.saveArtworks(merged);
-          details.artworksUpdated = merged.length;
-        }
+      if (!data || typeof data !== 'object') {
+        throw new Error('Données de sauvegarde invalides ou corrompues (objet manquant).');
       }
 
-      // 2. Bookmarks
+      // --- 1. Structural validation of stores ---
+      const validatedBookmarks: StoredBookmark[] = [];
       if (Array.isArray(data.bookmarks)) {
-        if (mode === 'replace') {
-          await indexedDbService.clearStore('bookmarks');
-          await indexedDbService.bulkPutItems('bookmarks', data.bookmarks);
-          details.bookmarksRestored = data.bookmarks.length;
-        } else {
-          // Merge bookmarks
-          const current = await indexedDbService.getBookmarks();
-          const map = new Map<string, StoredBookmark>();
-          for (const b of current) map.set(b.artworkId, b);
-          for (const b of data.bookmarks) {
-            const id = typeof b === 'string' ? b : b.artworkId;
-            if (id) {
-              map.set(id, { artworkId: id, addedAt: b.addedAt || Date.now() });
-            }
+        for (const b of data.bookmarks) {
+          const artworkId = typeof b === 'string' ? b.trim() : (b?.artworkId ? String(b.artworkId).trim() : null);
+          if (artworkId && artworkId.length > 0) {
+            validatedBookmarks.push({
+              artworkId,
+              addedAt: typeof b?.addedAt === 'number' && !isNaN(b.addedAt) ? b.addedAt : Date.now(),
+            });
           }
-          const merged = Array.from(map.values());
-          await indexedDbService.clearStore('bookmarks');
-          await indexedDbService.bulkPutItems('bookmarks', merged);
-          details.bookmarksRestored = merged.length;
         }
       }
 
-      // 3. History
+      const validatedHistory: StoredHistoryItem[] = [];
       if (Array.isArray(data.history)) {
-        if (mode === 'replace') {
-          await indexedDbService.clearStore('history');
-          await indexedDbService.bulkPutItems('history', data.history);
-          details.historyRestored = data.history.length;
-        } else {
-          const current = await indexedDbService.getHistory();
-          const map = new Map<string, StoredHistoryItem>();
-          for (const h of current) map.set(h.artworkId, h);
-          for (const h of data.history) {
-            if (h.artworkId) {
-              const existing = map.get(h.artworkId);
-              map.set(h.artworkId, {
-                artworkId: h.artworkId,
-                lastVisitedAt: Math.max(existing?.lastVisitedAt || 0, h.lastVisitedAt || 0),
-                visitCount: (existing?.visitCount || 0) + (h.visitCount || 1),
-                readMinutes: (existing?.readMinutes || 0) + (h.readMinutes || 2),
-              });
-            }
+        for (const h of data.history) {
+          if (h && typeof h.artworkId === 'string' && h.artworkId.trim().length > 0) {
+            validatedHistory.push({
+              artworkId: h.artworkId.trim(),
+              lastVisitedAt: typeof h.lastVisitedAt === 'number' && !isNaN(h.lastVisitedAt) ? h.lastVisitedAt : Date.now(),
+              visitCount: typeof h.visitCount === 'number' && h.visitCount > 0 ? Math.floor(h.visitCount) : 1,
+              readMinutes: typeof h.readMinutes === 'number' && h.readMinutes > 0 ? Math.floor(h.readMinutes) : 2,
+            });
           }
-          const merged = Array.from(map.values());
-          await indexedDbService.clearStore('history');
-          await indexedDbService.bulkPutItems('history', merged);
-          details.historyRestored = merged.length;
         }
       }
 
-      // 4. Notes
+      const validatedNotes: StoredNote[] = [];
       if (Array.isArray(data.notes)) {
-        if (mode === 'replace') {
-          await indexedDbService.clearStore('notes');
-          await indexedDbService.bulkPutItems('notes', data.notes);
-          details.notesRestored = data.notes.length;
-        } else {
-          const current = await indexedDbService.getNotes();
-          const map = new Map<string, StoredNote>();
-          for (const n of current) map.set(n.id, n);
-          for (const n of data.notes) {
-            if (n.id) map.set(n.id, n);
+        for (const n of data.notes) {
+          if (n && typeof n.id === 'string' && typeof n.content === 'string') {
+            validatedNotes.push({
+              id: n.id,
+              artworkId: n.artworkId ? String(n.artworkId) : undefined,
+              title: typeof n.title === 'string' ? n.title : 'Note de contemplation',
+              content: n.content,
+              createdAt: typeof n.createdAt === 'number' ? n.createdAt : Date.now(),
+              updatedAt: typeof n.updatedAt === 'number' ? n.updatedAt : Date.now(),
+            });
           }
-          const merged = Array.from(map.values());
-          await indexedDbService.clearStore('notes');
-          await indexedDbService.bulkPutItems('notes', merged);
-          details.notesRestored = merged.length;
         }
       }
 
-      // 5. User Progress
-      if (data.progress) {
-        const currentProgress = await indexedDbService.getUserProgress();
-        const newPoints = mode === 'replace'
-          ? (data.progress.points || 0)
-          : Math.max(currentProgress.points || 0, data.progress.points || 0);
-
-        const currentSteps = new Set(currentProgress.completedSteps || []);
+      let validatedProgress: { points: number; completedSteps: number[] } | undefined = undefined;
+      if (data.progress && typeof data.progress === 'object') {
+        const rawPoints = Number(data.progress.points);
+        const points = !isNaN(rawPoints) && rawPoints >= 0 ? Math.floor(rawPoints) : 0;
+        const steps: number[] = [];
         if (Array.isArray(data.progress.completedSteps)) {
-          for (const s of data.progress.completedSteps) currentSteps.add(s);
+          for (const s of data.progress.completedSteps) {
+            const stepNum = Number(s);
+            if (!isNaN(stepNum) && stepNum >= 0) steps.push(Math.floor(stepNum));
+          }
         }
-
-        await indexedDbService.saveUserProgress(newPoints, Array.from(currentSteps));
-        details.progressRestored = true;
+        validatedProgress = { points, completedSteps: steps };
       }
+
+      const validatedArtworks: Artwork[] = [];
+      if (Array.isArray(data.artworks)) {
+        for (const a of data.artworks) {
+          if (a && typeof a.id === 'string' && typeof a.title === 'string') {
+            validatedArtworks.push(a);
+          }
+        }
+      }
+
+      // --- 2. Calculate Final Payloads (Merge vs Replace) in memory ---
+      let finalBookmarks = validatedBookmarks;
+      let finalHistory = validatedHistory;
+      let finalNotes = validatedNotes;
+      let finalProgress = validatedProgress;
+      let finalArtworks = validatedArtworks;
+
+      if (mode === 'merge') {
+        // Bookmarks merge
+        const currentBookmarks = await indexedDbService.getBookmarks();
+        const bMap = new Map<string, StoredBookmark>();
+        for (const b of currentBookmarks) bMap.set(b.artworkId, b);
+        for (const b of validatedBookmarks) bMap.set(b.artworkId, b);
+        finalBookmarks = Array.from(bMap.values());
+
+        // History merge
+        const currentHistory = await indexedDbService.getHistory();
+        const hMap = new Map<string, StoredHistoryItem>();
+        for (const h of currentHistory) hMap.set(h.artworkId, h);
+        for (const h of validatedHistory) {
+          const existing = hMap.get(h.artworkId);
+          hMap.set(h.artworkId, {
+            artworkId: h.artworkId,
+            lastVisitedAt: Math.max(existing?.lastVisitedAt || 0, h.lastVisitedAt),
+            visitCount: (existing?.visitCount || 0) + h.visitCount,
+            readMinutes: (existing?.readMinutes || 0) + h.readMinutes,
+          });
+        }
+        finalHistory = Array.from(hMap.values());
+
+        // Notes merge
+        const currentNotes = await indexedDbService.getNotes();
+        const nMap = new Map<string, StoredNote>();
+        for (const n of currentNotes) nMap.set(n.id, n);
+        for (const n of validatedNotes) nMap.set(n.id, n);
+        finalNotes = Array.from(nMap.values());
+
+        // Progress merge
+        const currentProg = await indexedDbService.getUserProgress();
+        const mergedPoints = Math.max(currentProg.points || 0, validatedProgress?.points || 0);
+        const stepsSet = new Set<number>(currentProg.completedSteps || []);
+        if (validatedProgress) {
+          for (const s of validatedProgress.completedSteps) stepsSet.add(s);
+        }
+        finalProgress = { points: mergedPoints, completedSteps: Array.from(stepsSet) };
+
+        // Artworks merge
+        if (validatedArtworks.length > 0) {
+          const currentArts = await indexedDbService.getArtworks();
+          const aMap = new Map<string, Artwork>();
+          for (const a of currentArts) aMap.set(a.id, a);
+          for (const a of validatedArtworks) aMap.set(a.id, a);
+          finalArtworks = Array.from(aMap.values());
+        }
+      }
+
+      // --- 3. Execute Truly Atomic Transaction in IndexedDB ---
+      await indexedDbService.atomicRestoreAllUserData(
+        {
+          bookmarks: finalBookmarks,
+          history: finalHistory,
+          notes: finalNotes,
+          progress: finalProgress,
+          artworks: finalArtworks.length > 0 ? finalArtworks : undefined,
+        },
+        mode
+      );
+
+      // --- 4. Synchronize with localStorage for instant reactivity across restarts ---
+      try {
+        localStorage.setItem(
+          'regard_bookmarks',
+          JSON.stringify(finalBookmarks.map((b) => b.artworkId))
+        );
+        localStorage.setItem('regard_history', JSON.stringify(finalHistory));
+        if (finalProgress) {
+          localStorage.setItem('regard_points', String(finalProgress.points));
+          localStorage.setItem('regard_completed_steps', JSON.stringify(finalProgress.completedSteps));
+        }
+      } catch (storageErr) {
+        console.warn('LocalStorage sync warning:', storageErr);
+      }
+
+      const details = {
+        artworksUpdated: finalArtworks.length,
+        bookmarksRestored: finalBookmarks.length,
+        notesRestored: finalNotes.length,
+        historyRestored: finalHistory.length,
+        progressRestored: !!finalProgress,
+      };
 
       return {
         success: true,
-        message: 'Restauration effectuée avec succès dans IndexedDB.',
+        message: `Restauration atomique réussie (${mode === 'merge' ? 'fusion' : 'remplacement'}). Base de données synchronisée et intègre.`,
         details,
       };
     } catch (e: any) {
       return {
         success: false,
-        message: `Erreur durant l'application de la restauration : ${e.message}`,
+        message: `Échec de la restauration (opération annulée sans perte de données) : ${e.message}`,
         details: null,
       };
     }

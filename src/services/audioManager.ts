@@ -226,7 +226,9 @@ class AudioManager {
     const transcript = guide?.transcript || artwork.openingText || artwork.quote || '';
     const artworkImage = artwork.imageUrl;
 
-    const currentMode = forceMode || (this.state?.artworkId === artworkId ? this.state.mode : 'file');
+    // Default to 'speech' (authentic voice reading the curatorial transcript)
+    // The wav files in /audio/ are 20-second ambient soundscapes
+    const currentMode = forceMode || (this.state?.artworkId === artworkId ? this.state.mode : 'speech');
     const prevRate = this.state?.playbackRate || 1.0;
     const prevVol = this.state?.volume ?? 1.0;
     const prevMute = this.state?.isMuted ?? false;
@@ -234,14 +236,19 @@ class AudioManager {
     // Reset speech synthesis if active
     this.stopSpeech();
 
+    // Actual duration: 20s for ambient WAV loop, or full transcript duration for speech
+    const wordsCount = transcript.split(/\s+/).filter(Boolean).length;
+    const speechEstimatedSeconds = Math.max(25, Math.round(wordsCount / (2.5 * prevRate)));
+    const activeDuration = currentMode === 'speech' ? (guide?.durationSeconds || speechEstimatedSeconds) : 20;
+
     this.state = {
       artworkId: artwork.id,
       title,
       subtitle,
-      speaker,
+      speaker: currentMode === 'speech' ? (guide?.speaker || 'Conservateur (Voix de synthèse)') : 'Ambiance muséale (Acoustique)',
       audioSrc,
       artworkImage,
-      duration,
+      duration: activeDuration,
       currentTime: 0,
       isPlaying: false,
       isLoading: true,
@@ -252,7 +259,9 @@ class AudioManager {
       isMuted: prevMute,
       transcript,
       mode: currentMode,
-      audioFormat: 'WAVE PCM (16-bit 22.05 kHz Stéréo)',
+      audioFormat: currentMode === 'speech'
+        ? 'Synthèse Vocale Web Speech API (Français haute-fidélité)'
+        : 'WAVE PCM (16-bit 44.1 kHz Stéréo • Ambiance sonore)',
       audioElementConnected: this.audioElement !== null,
     };
     this.notify();

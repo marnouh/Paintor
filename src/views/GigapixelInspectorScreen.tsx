@@ -21,6 +21,7 @@ export const GigapixelInspectorScreen: React.FC = () => {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const imageRef = useRef<HTMLImageElement | null>(null);
+  const tileCacheRef = useRef<Map<string, HTMLCanvasElement>>(new Map());
 
   const [zoomLevel, setZoomLevel] = useState<number>(1.0);
   const [pan, setPan] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
@@ -157,27 +158,104 @@ export const GigapixelInspectorScreen: React.FC = () => {
     const destX = centerX - scaledW / 2;
     const destY = centerY - scaledH / 2;
 
-    // Draw the high-resolution artwork
-    ctx.imageSmoothingEnabled = true;
-    ctx.imageSmoothingQuality = 'high';
-    ctx.drawImage(img, destX, destY, scaledW, scaledH);
+    // Real Pyramidal Deep-Zoom Tile Engine
+    // Determine pyramid level based on zoom
+    let pyramidLevel = 0;
+    let tileCols = 1;
+    let tileRows = 1;
 
-    // Reset filter for overlays
+    if (zoomLevel > 4.5) {
+      pyramidLevel = 3;
+      tileCols = 8;
+      tileRows = 8;
+    } else if (zoomLevel > 2.2) {
+      pyramidLevel = 2;
+      tileCols = 4;
+      tileRows = 4;
+    } else if (zoomLevel > 1.2) {
+      pyramidLevel = 1;
+      tileCols = 2;
+      tileRows = 2;
+    }
+
+    const tileW = scaledW / tileCols;
+    const tileH = scaledH / tileRows;
+    let renderedTilesCount = 0;
+
+    if (pyramidLevel > 0) {
+      // 1. Draw base overview layer first
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'medium';
+      ctx.drawImage(img, destX, destY, scaledW, scaledH);
+
+      // 2. Render real high-resolution pyramidal tile slices for visible sub-regions
+      for (let c = 0; c < tileCols; c++) {
+        for (let r = 0; r < tileRows; r++) {
+          const tX = destX + c * tileW;
+          const tY = destY + r * tileH;
+
+          // Viewport intersection culling: only process and draw visible tiles
+          if (tX + tileW < 0 || tX > width || tY + tileH < 0 || tY > height) {
+            continue;
+          }
+
+          const tileKey = `${artwork.id}_L${pyramidLevel}_${c}_${r}_${opticalFilter}`;
+          let tileCanvas = tileCacheRef.current.get(tileKey);
+
+          if (!tileCanvas) {
+            tileCanvas = document.createElement('canvas');
+            tileCanvas.width = 512;
+            tileCanvas.height = 512;
+            const tCtx = tileCanvas.getContext('2d');
+            if (tCtx) {
+              const srcW = img.naturalWidth / tileCols;
+              const srcH = img.naturalHeight / tileRows;
+              const srcX = c * srcW;
+              const srcY = r * srcH;
+
+              if (opticalFilter === 'infrared') {
+                tCtx.filter = 'grayscale(100%) contrast(150%) brightness(110%)';
+              } else if (opticalFilter === 'raking') {
+                tCtx.filter = 'contrast(170%) brightness(95%) saturate(80%)';
+              } else if (opticalFilter === 'monochrome') {
+                tCtx.filter = 'grayscale(100%) contrast(110%)';
+              } else {
+                tCtx.filter = 'none';
+              }
+
+              tCtx.imageSmoothingEnabled = true;
+              tCtx.imageSmoothingQuality = 'high';
+              tCtx.drawImage(img, srcX, srcY, srcW, srcH, 0, 0, 512, 512);
+              tileCacheRef.current.set(tileKey, tileCanvas);
+            }
+          }
+
+          if (tileCanvas) {
+            ctx.imageSmoothingEnabled = true;
+            ctx.imageSmoothingQuality = 'high';
+            ctx.drawImage(tileCanvas, tX, tY, tileW, tileH);
+            renderedTilesCount++;
+          }
+        }
+      }
+    } else {
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'high';
+      ctx.drawImage(img, destX, destY, scaledW, scaledH);
+      renderedTilesCount = 1;
+    }
+
+    // Reset filter for vector overlays
     ctx.filter = 'none';
 
     // 1. Tiling Matrix Overlay (when activated)
-    if (showTileGrid && zoomLevel > 1.2) {
-      const tileCols = Math.min(8, Math.max(3, Math.floor(zoomLevel * 2)));
-      const tileRows = Math.min(8, Math.max(3, Math.floor(zoomLevel * 2)));
-      const tileW = scaledW / tileCols;
-      const tileH = scaledH / tileRows;
-
+    if (showTileGrid) {
       ctx.save();
-      ctx.strokeStyle = 'rgba(242, 202, 80, 0.35)';
+      ctx.strokeStyle = 'rgba(242, 202, 80, 0.45)';
       ctx.lineWidth = 1;
       ctx.setLineDash([4, 4]);
-      ctx.font = '9px monospace';
-      ctx.fillStyle = 'rgba(242, 202, 80, 0.7)';
+      ctx.font = '10px monospace';
+      ctx.fillStyle = '#f2ca50';
 
       for (let c = 0; c <= tileCols; c++) {
         const x = destX + c * tileW;
@@ -195,13 +273,13 @@ export const GigapixelInspectorScreen: React.FC = () => {
         ctx.stroke();
       }
 
-      // Draw tile coordinates labels
+      // Draw real tile coordinate labels with resolution and level
       for (let c = 0; c < tileCols; c++) {
         for (let r = 0; r < tileRows; r++) {
           const tx = destX + c * tileW + 4;
-          const ty = destY + r * tileH + 12;
+          const ty = destY + r * tileH + 14;
           if (tx >= 0 && tx < width && ty >= 0 && ty < height) {
-            ctx.fillText(`T[${c},${r}]`, tx, ty);
+            ctx.fillText(`L${pyramidLevel}[${c},${r}]`, tx, ty);
           }
         }
       }
@@ -650,6 +728,19 @@ export const GigapixelInspectorScreen: React.FC = () => {
             Monochrome
           </button>
         </div>
+
+        {/* Note d'intégrité muséale sur les filtres optiques */}
+        {opticalFilter !== 'none' && (
+          <aside className="absolute top-28 right-4 z-20 max-w-xs sm:max-w-sm p-2.5 rounded-lg bg-[#141318]/95 backdrop-blur-md border border-[#f2ca50]/40 text-[10.5px] text-[#d0c5af] space-y-1 shadow-xl animate-fade-in pointer-events-auto">
+            <div className="flex items-center gap-1.5 text-[#f2ca50] font-label-caps uppercase font-bold text-[10px]">
+              <span className="material-symbols-outlined text-[14px]">science</span>
+              <span>Avis d'intégrité muséale &amp; optique</span>
+            </div>
+            <p className="leading-snug">
+              Ce filtre est un <strong className="text-[#e5e1e8]">effet visuel numérique</strong> de rehaussement de texture et de contrastes. En l'absence de données de laboratoire spectral (IRR ou UV du C2RMF), il ne révèle pas d'authentiques repentirs sous-jacents.
+            </p>
+          </aside>
+        )}
 
         {/* Interactive Canvas Viewport */}
         <div

@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import { useApp } from '../context/AppContext.tsx';
-import { SearchBenchmarkResult } from '../services/searchEngine.ts';
+import {
+  searchEngine,
+  levenshteinDistance,
+  SearchBenchmarkResult,
+} from '../services/searchEngine.ts';
 
 export const SearchScreen: React.FC = () => {
   const {
@@ -12,6 +16,7 @@ export const SearchScreen: React.FC = () => {
     openArtist,
     openMovement,
     artworks,
+    artists,
     searchFTS,
     ftsStats,
     runSearchBenchmark,
@@ -22,6 +27,7 @@ export const SearchScreen: React.FC = () => {
     'Nuit étoilée',
     'Clair-obscur',
     'Artemisia Gentileschi',
+    'XIXe siècle',
   ]);
 
   const [benchmarkResults, setBenchmarkResults] = useState<SearchBenchmarkResult[] | null>(null);
@@ -38,13 +44,46 @@ export const SearchScreen: React.FC = () => {
     }, 120);
   };
 
-  const query = searchQuery || 'Vermeer';
+  const query = searchQuery || '';
+  const normQuery = searchEngine.normalizeString(query);
 
   // Real Full-Text Search with BM25 scoring & tokenization
-  const ftsResults = searchFTS(query);
-  const matchingArtworks = ftsResults.length > 0 ? ftsResults.map((r) => r.artwork) : artworks.slice(0, 5);
+  const ftsResults = query ? searchFTS(query) : [];
+  const matchingArtworks = ftsResults.length > 0 ? ftsResults.map((r) => r.artwork) : (query ? [] : artworks.slice(0, 4));
 
-  const isVermeerMatch = query.toLowerCase().includes('vermeer');
+  // Dynamic cross-search in Artists
+  const matchingArtists = artists.filter((art) => {
+    if (!normQuery) return false;
+    const nameNorm = searchEngine.normalizeString(art.name);
+    const bioNorm = searchEngine.normalizeString(art.biographyShort || art.biographyLong || art.bio || art.longBio || '');
+    const movNorm = searchEngine.normalizeString(
+      (art.mainMovements && art.mainMovements.length > 0)
+        ? art.mainMovements.join(' ')
+        : (art.movement || '')
+    );
+    return (
+      nameNorm.includes(normQuery) ||
+      bioNorm.includes(normQuery) ||
+      movNorm.includes(normQuery) ||
+      levenshteinDistance(nameNorm, normQuery) <= 2
+    );
+  });
+
+  // Dynamic cross-search in Movements
+  const allMovements = Array.from(new Set(artworks.map((a) => a.movement).filter(Boolean)));
+  const matchingMovements = allMovements.filter((mov) => {
+    if (!normQuery) return false;
+    const movNorm = searchEngine.normalizeString(mov);
+    return movNorm.includes(normQuery) || levenshteinDistance(movNorm, normQuery) <= 2;
+  });
+
+  // Dynamic cross-search in Periods / Centuries
+  const allPeriods = Array.from(new Set(artworks.map((a) => a.period).filter(Boolean)));
+  const matchingPeriods = allPeriods.filter((per) => {
+    if (!normQuery) return false;
+    const perNorm = searchEngine.normalizeString(per);
+    return perNorm.includes(normQuery);
+  });
 
   return (
     <div className="min-h-screen bg-[#141318] text-[#e5e1e8] pb-28 font-body-md">
@@ -373,55 +412,123 @@ export const SearchScreen: React.FC = () => {
               </article>
             ))}
 
-            {/* Notice Artiste Vermeer */}
-            {isVermeerMatch && (
-              <article
-                onClick={() => openArtist('vermeer')}
-                className="p-3.5 rounded-lg bg-[#201f24] border border-[#f2ca50]/30 relative overflow-hidden group cursor-pointer shadow-[0_0_20px_rgba(212,175,55,0.06)]"
-              >
-                <div className="flex items-center justify-between mb-2">
-                  <span className="font-label-caps text-[9.5px] uppercase tracking-wider text-[#f2ca50] bg-[#f2ca50]/10 border border-[#f2ca50]/30 px-2 py-0.5 rounded flex items-center gap-1 font-semibold">
-                    <span className="material-symbols-outlined text-[12px]">person</span>
-                    Notice Artiste
-                  </span>
-                  <span className="text-[10.5px] font-label-caps text-[#99907c]">
-                    Delft, Provinces-Unies
-                  </span>
-                </div>
+            {/* Correspondances Artistes Dynamiques */}
+            {matchingArtists.length > 0 && (
+              <div className="space-y-2 pt-1">
+                <span className="font-label-caps text-[10px] uppercase tracking-wider text-[#f2ca50] block font-semibold">
+                  Artistes Correspondants ({matchingArtists.length})
+                </span>
+                {matchingArtists.map((artist) => {
+                  const artistArtworkCount = artworks.filter(
+                    (a) => a.artist && a.artist.toLowerCase().includes(artist.name.toLowerCase())
+                  ).length;
 
-                <div className="flex items-center gap-3.5">
-                  <div className="w-12 h-12 rounded-full border border-[#f2ca50]/40 overflow-hidden flex-shrink-0 bg-[#0e0e12]">
-                    <img
-                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuCxWy-uOYhe46RJZlDkROyP-8FQ0feqPs70jdajiSzA5EdgAaBJW_D3f5nmdwSE7gRiXDFOU4Rq02bOObsnYjN6ZDaL0Dh8Iy1ofp5uDa5k0xjlIoolLvWSmTFCpIm-eLdaGm7_w0uw_Gi_6Wv9p9rduWnG6Rhvwi3MCoRAPNh4N2CrFBUXEPXFb-Z4QKjF-lu2fwyANrVk2wdwt_hqtypYsZDxprhnUCHG_pLIJRwdRXP_EyMV2Q"
-                      alt="Johannes Vermeer"
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <div className="min-w-0 flex-1">
-                    <h4 className="font-title-editorial text-[16px] text-[#e5e1e8] font-semibold group-hover:text-[#f2ca50] transition-colors">
-                      Johannes Vermeer{' '}
-                      <span className="font-body-sm text-[12px] text-[#99907c] font-normal">
-                        (1632–1675)
-                      </span>
-                    </h4>
-                    <p className="font-body-sm text-[11.5px] text-[#d0c5af] line-clamp-1">
-                      Maître du Siècle d'or néerlandais • Intimisme flamand
-                    </p>
-                  </div>
-                  <span className="material-symbols-outlined text-[#99907c] group-hover:text-[#f2ca50] transition-colors">
-                    chevron_right
-                  </span>
-                </div>
+                  return (
+                    <article
+                      key={artist.id}
+                      onClick={() => openArtist(artist.id)}
+                      className="p-3.5 rounded-lg bg-[#201f24] border border-[#f2ca50]/30 relative overflow-hidden group cursor-pointer shadow-[0_0_20px_rgba(212,175,55,0.06)] hover:border-[#f2ca50] transition-all"
+                    >
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="font-label-caps text-[9.5px] uppercase tracking-wider text-[#f2ca50] bg-[#f2ca50]/10 border border-[#f2ca50]/30 px-2 py-0.5 rounded flex items-center gap-1 font-semibold">
+                          <span className="material-symbols-outlined text-[12px]">person</span>
+                          Notice Artiste
+                        </span>
+                        <span className="text-[10.5px] font-label-caps text-[#99907c]">
+                          {artist.nationalityOrRegion || artist.nationality || (artist.mainMovements && artist.mainMovements[0]) || artist.movement}
+                        </span>
+                      </div>
 
-                <div className="mt-2.5 pt-2 border-t border-[#36343a]/40 flex items-center justify-between text-[11px]">
-                  <span className="text-[#d0c5af]">
-                    <strong className="text-[#f2ca50] font-medium">2 toiles</strong> répertoriées dans l'index local
-                  </span>
-                  <span className="text-[#f2ca50] hover:underline font-label-caps text-[10.5px] font-semibold">
-                    Consulter la biographie →
-                  </span>
+                      <div className="flex items-center gap-3.5">
+                        <div className="w-12 h-12 rounded-full border border-[#f2ca50]/40 overflow-hidden flex-shrink-0 bg-[#0e0e12]">
+                          <img
+                            src={artist.avatarUrl || artist.imageUrl || 'https://lh3.googleusercontent.com/aida-public/AB6AXuCxWy-uOYhe46RJZlDkROyP-8FQ0feqPs70jdajiSzA5EdgAaBJW_D3f5nmdwSE7gRiXDFOU4Rq02bOObsnYjN6ZDaL0Dh8Iy1ofp5uDa5k0xjlIoolLvWSmTFCpIm-eLdaGm7_w0uw_Gi_6Wv9p9rduWnG6Rhvwi3MCoRAPNh4N2CrFBUXEPXFb-Z4QKjF-lu2fwyANrVk2wdwt_hqtypYsZDxprhnUCHG_pLIJRwdRXP_EyMV2Q'}
+                            alt={artist.name}
+                            className="w-full h-full object-cover"
+                          />
+                        </div>
+                        <div className="min-w-0 flex-1">
+                          <h4 className="font-title-editorial text-[16px] text-[#e5e1e8] font-semibold group-hover:text-[#f2ca50] transition-colors">
+                            {artist.name}{' '}
+                            <span className="font-body-sm text-[12px] text-[#99907c] font-normal">
+                              ({artist.datesDisplay || artist.dates || `${artist.birthYear}–${artist.deathYear || ''}`})
+                            </span>
+                          </h4>
+                          <p className="font-body-sm text-[11.5px] text-[#d0c5af] line-clamp-1">
+                            {artist.biographyShort || artist.bio || artist.shortBio || (artist.mainMovements && artist.mainMovements.join(', ')) || artist.movement}
+                          </p>
+                        </div>
+                        <span className="material-symbols-outlined text-[#99907c] group-hover:text-[#f2ca50] transition-colors">
+                          chevron_right
+                        </span>
+                      </div>
+
+                      <div className="mt-2.5 pt-2 border-t border-[#36343a]/40 flex items-center justify-between text-[11px]">
+                        <span className="text-[#d0c5af]">
+                          <strong className="text-[#f2ca50] font-medium">{artistArtworkCount} toile(s)</strong> répertoriée(s) dans le corpus
+                        </span>
+                        <span className="text-[#f2ca50] hover:underline font-label-caps text-[10.5px] font-semibold">
+                          Consulter la biographie →
+                        </span>
+                      </div>
+                    </article>
+                  );
+                })}
+              </div>
+            )}
+
+            {/* Correspondances Mouvements Picturaux */}
+            {matchingMovements.length > 0 && (
+              <div className="p-3 rounded-lg bg-[#1c1b20] border border-white/5 space-y-2">
+                <span className="font-label-caps text-[10px] uppercase tracking-wider text-[#f2ca50] block font-semibold flex items-center gap-1.5">
+                  <span className="material-symbols-outlined text-[13px]">palette</span>
+                  Mouvements &amp; Courants correspondants ({matchingMovements.length})
+                </span>
+                <div className="flex flex-wrap gap-2">
+                  {matchingMovements.map((mov) => {
+                    const count = artworks.filter((a) => a.movement === mov).length;
+                    return (
+                      <button
+                        key={mov}
+                        onClick={() => setSearchQuery(mov)}
+                        className="px-3 py-1.5 rounded-lg bg-[#201f24] hover:bg-[#2b292f] border border-[#f2ca50]/30 hover:border-[#f2ca50] text-[#e5e1e8] text-[12px] flex items-center gap-1.5 transition-all cursor-pointer"
+                      >
+                        <span className="text-[#f2ca50] font-medium">{mov}</span>
+                        <span className="text-[10px] text-[#99907c] bg-[#141318] px-1.5 py-0.2 rounded font-mono">
+                          {count}
+                        </span>
+                      </button>
+                    );
+                  })}
                 </div>
-              </article>
+              </div>
+            )}
+
+            {/* Correspondances Siècles & Périodes */}
+            {matchingPeriods.length > 0 && (
+              <div className="p-3 rounded-lg bg-[#1c1b20] border border-white/5 space-y-2">
+                <span className="font-label-caps text-[10px] uppercase tracking-wider text-[#d0c5af] block font-semibold flex items-center gap-1.5">
+                  <span className="material-symbols-outlined text-[13px] text-[#f2ca50]">timelapse</span>
+                  Périodes &amp; Siècles ({matchingPeriods.length})
+                </span>
+                <div className="flex flex-wrap gap-2">
+                  {matchingPeriods.map((per) => {
+                    const count = artworks.filter((a) => a.period === per).length;
+                    return (
+                      <button
+                        key={per}
+                        onClick={() => setSearchQuery(per)}
+                        className="px-3 py-1.5 rounded-lg bg-[#201f24] hover:bg-[#2b292f] border border-white/10 hover:border-[#f2ca50] text-[#e5e1e8] text-[12px] flex items-center gap-1.5 transition-all cursor-pointer"
+                      >
+                        <span>{per}</span>
+                        <span className="text-[10px] text-[#f2ca50] bg-[#141318] px-1.5 py-0.2 rounded font-mono">
+                          {count} toiles
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
             )}
           </div>
         </section>

@@ -241,17 +241,43 @@ export const AudioPlayerFloating: React.FC = () => {
             onClick={() => setIsAudioModalOpen(true)}
             className="flex-1 min-w-0 cursor-pointer group"
           >
-            <div className="flex items-center gap-1.5">
-              <span className="font-label-caps text-[9px] text-[#f2ca50] uppercase font-bold tracking-wider">
-                {currentAudio.mode === 'speech' ? 'Synthèse Vocale (TTS)' : 'Piste Audio Réelle (WAV)'}
-              </span>
-              <span className="text-[10px] text-[#99907c] truncate">• {currentAudio.speaker}</span>
+            <div className="flex items-center gap-1.5 flex-wrap mb-1">
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  switchAudioMode('speech');
+                }}
+                className={`font-label-caps text-[9px] px-2 py-0.5 rounded font-bold tracking-wider cursor-pointer transition-colors border ${
+                  currentAudio.mode === 'speech'
+                    ? 'bg-[#f2ca50] text-[#3c2f00] border-[#f2ca50]'
+                    : 'bg-[#201f24] text-[#d0c5af] border-white/10 hover:border-[#f2ca50]/40'
+                }`}
+                title="Écouter la synthèse vocale lisant mot-à-mot le cartel scientifique"
+              >
+                🎙️ Voix Curatoriale
+              </button>
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  switchAudioMode('file');
+                }}
+                className={`font-label-caps text-[9px] px-2 py-0.5 rounded font-bold tracking-wider cursor-pointer transition-colors border ${
+                  currentAudio.mode === 'file'
+                    ? 'bg-[#f2ca50] text-[#3c2f00] border-[#f2ca50]'
+                    : 'bg-[#201f24] text-[#d0c5af] border-white/10 hover:border-[#f2ca50]/40'
+                }`}
+                title="Écouter l'ambiance sonore contemplative de galerie"
+              >
+                🎵 Ambiance Muséale (WAV)
+              </button>
             </div>
             <h4 className="text-[13px] font-medium text-[#e5e1e8] group-hover:text-[#f2ca50] truncate transition-colors leading-snug">
               {currentAudio.title}
             </h4>
             <p className="text-[11px] text-[#99907c] truncate leading-tight">
-              {currentAudio.subtitle}
+              {currentAudio.mode === 'file' ? 'Ambiance acoustique immersive • 20s' : currentAudio.subtitle}
             </p>
           </div>
 

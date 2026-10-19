@@ -142,7 +142,7 @@ export const SystemSettingsModal: React.FC = () => {
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 text-[11px]">
               <div className="p-2 rounded bg-[#201f24] border border-white/5 flex flex-col">
                 <span className="text-[#99907c]">Œuvres</span>
-                <span className="text-[#f2ca50] font-bold text-[13px]">{storageDiagnostics?.stores.artworksCount ?? 213}</span>
+                <span className="text-[#f2ca50] font-bold text-[13px]">{storageDiagnostics?.stores.artworksCount ?? 210}</span>
               </div>
               <div className="p-2 rounded bg-[#201f24] border border-white/5 flex flex-col">
                 <span className="text-[#99907c]">Artistes</span>
