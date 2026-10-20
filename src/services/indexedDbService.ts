@@ -63,17 +63,33 @@ class IndexedDbService {
   private dbPromise: Promise<IDBDatabase> | null = null;
 
   public isSupported(): boolean {
-    return typeof window !== 'undefined' && 'indexedDB' in window;
+    return (
+      typeof indexedDB !== 'undefined' ||
+      (typeof window !== 'undefined' && 'indexedDB' in window)
+    );
+  }
+
+  public async closeDb(): Promise<void> {
+    if (this.dbPromise) {
+      try {
+        const db = await this.dbPromise;
+        db.close();
+      } catch {
+        // ignore
+      }
+      this.dbPromise = null;
+    }
   }
 
   public getDb(): Promise<IDBDatabase> {
     if (!this.isSupported()) {
-      return Promise.reject(new Error('IndexedDB is not supported in this browser.'));
+      return Promise.reject(new Error('IndexedDB is not supported in this environment.'));
     }
 
     if (!this.dbPromise) {
       this.dbPromise = new Promise<IDBDatabase>((resolve, reject) => {
-        const request = window.indexedDB.open(DB_NAME, DB_VERSION);
+        const idb = (typeof window !== 'undefined' && window.indexedDB) ? window.indexedDB : indexedDB;
+        const request = idb.open(DB_NAME, DB_VERSION);
 
         request.onupgradeneeded = (event) => {
           const db = (event.target as IDBOpenDBRequest).result;
@@ -384,6 +400,17 @@ class IndexedDbService {
     await this.bulkPut(storeName, items);
   }
 
+  public async addBookmark(artworkId: string): Promise<void> {
+    await this.put<StoredBookmark>('bookmarks', {
+      artworkId,
+      addedAt: Date.now(),
+    });
+  }
+
+  public async removeBookmark(artworkId: string): Promise<void> {
+    await this.delete('bookmarks', artworkId);
+  }
+
   public async toggleBookmark(artworkId: string): Promise<boolean> {
     const existing = await this.get<StoredBookmark>('bookmarks', artworkId);
     if (existing) {
@@ -512,6 +539,8 @@ class IndexedDbService {
       if (payload.progress) {
         const pStore = tx.objectStore('user_progress');
         pStore.put({ key: 'points', value: payload.progress.points });
+        pStore.put({ key: 'completedSteps', value: payload.progress.completedSteps });
+        // Also persist legacy snake_case alias for absolute backward-compatibility
         pStore.put({ key: 'completed_steps', value: payload.progress.completedSteps });
       }
 
@@ -530,13 +559,17 @@ class IndexedDbService {
 
   public async getUserProgress(): Promise<{ points: number; completedSteps: number[] }> {
     const points = (await this.getKeyVal<number>('user_progress', 'points')) ?? 0;
-    const completedSteps = (await this.getKeyVal<number[]>('user_progress', 'completedSteps')) ?? [];
+    const completedSteps =
+      (await this.getKeyVal<number[]>('user_progress', 'completedSteps')) ??
+      (await this.getKeyVal<number[]>('user_progress', 'completed_steps')) ??
+      [];
     return { points, completedSteps };
   }
 
   public async saveUserProgress(points: number, completedSteps: number[]): Promise<void> {
     await this.setKeyVal('user_progress', 'points', points);
     await this.setKeyVal('user_progress', 'completedSteps', completedSteps);
+    await this.setKeyVal('user_progress', 'completed_steps', completedSteps);
   }
 
   // --- Diagnostics & Storage Metrics ---

@@ -31,6 +31,8 @@ const AppContent: React.FC = () => {
     selectedMovementId,
     closeMovement,
     openArtwork,
+    isAirplaneModeSimulated,
+    toggleAirplaneModeSimulated,
   } = useApp();
 
   const renderScreen = () => {
@@ -65,6 +67,26 @@ const AppContent: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-[#141318] text-[#e5e1e8] transition-colors duration-300">
+      {isAirplaneModeSimulated && (
+        <aside
+          role="status"
+          aria-label="Mode Avion Simulé"
+          className="sticky top-0 z-50 bg-[#79341f] text-[#ffb59f] px-3.5 py-2 text-[11.5px] font-medium flex items-center justify-between border-b border-[#ffb59f]/30 shadow-lg animate-fade-in"
+        >
+          <div className="flex items-center gap-2">
+            <span className="material-symbols-outlined text-[16px] animate-pulse">airplanemode_active</span>
+            <span>
+              <strong>Mode Avion Simulé Actif :</strong> Réseau externe neutralisé. Navigation, toiles en cache, deep-zoom et audio opèrent 100% hors-ligne.
+            </span>
+          </div>
+          <button
+            onClick={toggleAirplaneModeSimulated}
+            className="px-2 py-0.5 rounded bg-black/40 hover:bg-black/60 text-white text-[11px] font-semibold transition-colors cursor-pointer border border-white/20"
+          >
+            Quitter le mode avion
+          </button>
+        </aside>
+      )}
       {renderScreen()}
       {showBottomNav && <BottomNavBar />}
       <FilterModal />

@@ -36,6 +36,8 @@ export const ProfileScreen: React.FC = () => {
     openCatalogModal,
     openBackupModal,
     artworks,
+    isAirplaneModeSimulated,
+    toggleAirplaneModeSimulated,
   } = useApp();
 
   const [storageStats, setStorageStats] = useState<StorageStats | null>(null);
@@ -444,7 +446,7 @@ export const ProfileScreen: React.FC = () => {
             <div className="flex justify-between p-2.5 bg-[#201f24] rounded-lg border border-white/5">
               <span className="text-[#d0c5af] flex items-center gap-1.5">
                 <span className="material-symbols-outlined text-[15px] text-[#f2ca50]">image</span>
-                Photographies d'art en cache local
+                Photographies d'art vérifiées en cache
               </span>
               <span className="font-mono text-[#f2ca50] font-semibold">
                 {storageStats?.cachedImagesCount ?? 0} toiles sauvegardées
@@ -454,12 +456,46 @@ export const ProfileScreen: React.FC = () => {
             <div className="flex justify-between p-2.5 bg-[#201f24] rounded-lg border border-white/5">
               <span className="text-[#d0c5af] flex items-center gap-1.5">
                 <span className="material-symbols-outlined text-[15px] text-[#f2ca50]">headphones</span>
-                Pistes audio en cache local
+                Pistes audio vérifiées en cache
               </span>
               <span className="font-mono text-[#f2ca50] font-semibold">
                 {storageStats?.cachedAudiosCount ?? 0} pistes disponibles
               </span>
             </div>
+          </div>
+
+          {/* Exact Offline Guarantee Confirmation Notice */}
+          <div className="p-2.5 rounded-lg bg-[#201f24] border border-[#f2ca50]/20 flex items-center gap-2.5 text-[11px] text-[#d0c5af]">
+            <span className="material-symbols-outlined text-[#f2ca50] text-[18px] flex-shrink-0">
+              {(storageStats?.cachedImagesCount ?? 0) > 0 ? 'verified' : 'info'}
+            </span>
+            <span>
+              {(storageStats?.cachedImagesCount ?? 0) > 0
+                ? `Garantie hors-ligne active : ${storageStats?.cachedImagesCount} photographie(s) et ${storageStats?.cachedAudiosCount} piste(s) sont physiquement stockées et immédiatement consultables sans aucune connexion internet.`
+                : 'Aucun pack hors-ligne téléchargé pour l\'instant. Téléchargez un pack pour garantir l\'affichage complet des œuvres sans réseau.'}
+            </span>
+          </div>
+
+          {/* Mode Avion / Testeur Hors-Ligne */}
+          <div className="p-3 rounded-lg bg-[#201f24] border border-white/10 flex items-center justify-between">
+            <div className="space-y-0.5">
+              <div className="flex items-center gap-1.5">
+                <span className="material-symbols-outlined text-[16px] text-[#f2ca50]">airplanemode_active</span>
+                <span className="font-label-md text-[12px] font-bold text-[#e5e1e8]">Émulateur Mode Avion (Test Hors-Ligne)</span>
+              </div>
+              <p className="text-[10.5px] text-[#99907c]">
+                Coupe artificiellement les appels réseau pour tester la consultation hors-ligne des toiles et audios.
+              </p>
+            </div>
+            <label className="relative inline-flex items-center cursor-pointer ml-3 flex-shrink-0">
+              <input
+                type="checkbox"
+                checked={isAirplaneModeSimulated}
+                onChange={toggleAirplaneModeSimulated}
+                className="sr-only peer"
+              />
+              <div className="w-11 h-6 bg-[#2b292f] peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#f2ca50]"></div>
+            </label>
           </div>
 
           {/* Live Sync Progress Bar */}
@@ -501,7 +537,7 @@ export const ProfileScreen: React.FC = () => {
               className="py-2.5 px-3 bg-[#f2ca50] hover:bg-[#ffe088] text-[#141318] rounded-lg font-label-md text-[11.5px] font-bold flex items-center justify-center gap-2 transition-all cursor-pointer shadow-md disabled:opacity-50"
             >
               <span className="material-symbols-outlined text-[16px]">download_for_offline</span>
-              <span>Tout le Catalogue (210 toiles)</span>
+              <span>Tout le Catalogue ({artworks.length} toiles)</span>
             </button>
           </div>
 

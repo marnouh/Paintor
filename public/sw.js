@@ -51,7 +51,8 @@ self.addEventListener('fetch', (event) => {
   // 1. Handling Images (Cache-first with network fallback & opaque response support)
   if (isImage) {
     event.respondWith(
-      caches.open(IMAGES_CACHE_NAME).then(async (cache) => {
+      (async () => {
+        const cache = await caches.open(IMAGES_CACHE_NAME);
         const cachedResponse = await cache.match(event.request);
         if (cachedResponse) {
           return cachedResponse;
@@ -61,14 +62,14 @@ self.addEventListener('fetch', (event) => {
           const networkResponse = await fetch(event.request);
           // Cache successful response OR opaque response (cross-origin images)
           if (networkResponse && (networkResponse.status === 200 || networkResponse.type === 'opaque')) {
-            cache.put(event.request, networkResponse.clone());
+            const putPromise = cache.put(event.request, networkResponse.clone());
+            event.waitUntil(putPromise);
           }
           return networkResponse;
         } catch (fetchErr) {
-          // If offline and not in cache, fallback
           return cachedResponse || new Response('', { status: 408, statusText: 'Offline - Image Not Cached' });
         }
-      })
+      })()
     );
     return;
   }
@@ -76,7 +77,8 @@ self.addEventListener('fetch', (event) => {
   // 2. Handling Audio (Cache-first with network fallback)
   if (isAudio) {
     event.respondWith(
-      caches.open(AUDIO_CACHE_NAME).then(async (cache) => {
+      (async () => {
+        const cache = await caches.open(AUDIO_CACHE_NAME);
         const cachedResponse = await cache.match(event.request);
         if (cachedResponse) {
           return cachedResponse;
@@ -85,44 +87,47 @@ self.addEventListener('fetch', (event) => {
         try {
           const networkResponse = await fetch(event.request);
           if (networkResponse && (networkResponse.status === 200 || networkResponse.type === 'opaque')) {
-            cache.put(event.request, networkResponse.clone());
+            const putPromise = cache.put(event.request, networkResponse.clone());
+            event.waitUntil(putPromise);
           }
           return networkResponse;
         } catch (fetchErr) {
           return cachedResponse || new Response('', { status: 408, statusText: 'Offline - Audio Not Cached' });
         }
-      })
+      })()
     );
     return;
   }
 
   // 3. Handling Navigation and standard assets (Network first with cache fallback)
   event.respondWith(
-    caches.match(event.request).then((cachedResponse) => {
+    (async () => {
+      const cachedResponse = await caches.match(event.request);
       if (cachedResponse && event.request.mode !== 'navigate') {
         return cachedResponse;
       }
 
-      return fetch(event.request)
-        .then((response) => {
-          if (!response || response.status !== 200 || response.type !== 'basic') {
-            return response;
-          }
+      try {
+        const response = await fetch(event.request);
+        if (response && response.status === 200 && response.type === 'basic') {
           const responseToCache = response.clone();
-          caches.open(APP_CACHE_NAME).then((cache) => {
-            cache.put(event.request, responseToCache);
-          });
-          return response;
-        })
-        .catch(() => {
-          if (cachedResponse) {
-            return cachedResponse;
-          }
-          if (event.request.mode === 'navigate') {
-            return caches.match('/index.html');
-          }
-        });
-    })
+          const cache = await caches.open(APP_CACHE_NAME);
+          const putPromise = cache.put(event.request, responseToCache);
+          event.waitUntil(putPromise);
+        }
+        return response;
+      } catch (err) {
+        if (cachedResponse) {
+          return cachedResponse;
+        }
+        if (event.request.mode === 'navigate') {
+          const appCache = await caches.open(APP_CACHE_NAME);
+          const offlineFallback = await appCache.match('/index.html');
+          if (offlineFallback) return offlineFallback;
+        }
+        return new Response('Hors-ligne', { status: 503, statusText: 'Service Unavailable' });
+      }
+    })()
   );
 });
 

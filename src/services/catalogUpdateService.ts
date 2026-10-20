@@ -191,14 +191,18 @@ class CatalogUpdateService {
 
       // 2. Cryptographic Checksum verification (SHA-256)
       if (manifest.sha256Checksum) {
-        if (!window.crypto || !window.crypto.subtle) {
+        const subtle = (typeof window !== 'undefined' && window.crypto?.subtle)
+          ? window.crypto.subtle
+          : (typeof globalThis !== 'undefined' && (globalThis as any).crypto?.subtle ? (globalThis as any).crypto.subtle : null);
+
+        if (!subtle) {
           throw new Error(
             "Échec de sécurité : L'API cryptographique native (crypto.subtle) n'est pas disponible dans ce contexte. La mise à jour est interrompue pour éviter d'appliquer un fichier non authentifié."
           );
         }
         const enc = new TextEncoder();
         const dataBuffer = enc.encode(text);
-        const hashBuffer = await window.crypto.subtle.digest('SHA-256', dataBuffer);
+        const hashBuffer = await subtle.digest('SHA-256', dataBuffer);
         const calculatedHash = bufferToHex(hashBuffer);
 
         if (calculatedHash.toLowerCase() !== manifest.sha256Checksum.toLowerCase()) {

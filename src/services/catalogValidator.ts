@@ -58,6 +58,7 @@ export const validateSingleArtwork = (
     return { isValid: false, errors, warnings };
   }
 
+  // 1. Mandatory Fields (Champs obligatoires stricts)
   const title = typeof raw.title === 'string' ? raw.title.trim() : '';
   if (!title) {
     errors.push({ index, field: 'title', message: 'Le titre de l’œuvre est obligatoire et doit être une chaîne non vide.' });
@@ -70,8 +71,7 @@ export const validateSingleArtwork = (
 
   let year: number = 0;
   if (raw.year === undefined || raw.year === null || raw.year === '') {
-    warnings.push({ index, field: 'year', message: 'Année manquante, valeur par défaut 1880 appliquée.', artworkTitle: title });
-    year = 1880;
+    errors.push({ index, field: 'year', message: 'L’année de création est obligatoire.', artworkTitle: title });
   } else {
     const parsedYear = Number(raw.year);
     if (isNaN(parsedYear) || parsedYear < -40000 || parsedYear > 2050) {
@@ -81,30 +81,30 @@ export const validateSingleArtwork = (
     }
   }
 
-  const movement = typeof raw.movement === 'string' && raw.movement.trim() ? raw.movement.trim() : 'Histoire de l’art';
-  if (!raw.movement) {
-    warnings.push({ index, field: 'movement', message: 'Mouvement artistique non spécifié.', artworkTitle: title });
-  }
-
-  const museum = typeof raw.museum === 'string' && raw.museum.trim() ? raw.museum.trim() : 'Musée d’art';
-  if (!raw.museum) {
-    warnings.push({ index, field: 'museum', message: 'Lieu de conservation non renseigné.', artworkTitle: title });
-  }
-
   let imageUrl = typeof raw.imageUrl === 'string' ? raw.imageUrl.trim() : '';
   if (!imageUrl) {
-    warnings.push({
+    errors.push({
       index,
       field: 'imageUrl',
-      message: 'Image manquante, une image de réserve haute définition sera utilisée.',
+      message: 'L’URL de l’image est obligatoire pour toute fiche du catalogue (aucune image factice ou inventée n’est autorisée).',
       artworkTitle: title,
     });
-    imageUrl = 'https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=1200&q=80';
   } else if (!imageUrl.startsWith('http://') && !imageUrl.startsWith('https://') && !imageUrl.startsWith('/')) {
     errors.push({ index, field: 'imageUrl', message: 'L’URL de l’image doit commencer par https:// ou /', artworkTitle: title });
   }
 
-  // Generate slug ID if not present or invalid
+  // 2. Controlled Fields (Movement & Museum)
+  const movement = typeof raw.movement === 'string' && raw.movement.trim() ? raw.movement.trim() : 'Mouvement non spécifié';
+  if (!raw.movement) {
+    warnings.push({ index, field: 'movement', message: 'Mouvement artistique non spécifié (signalé comme non spécifié).', artworkTitle: title });
+  }
+
+  const museum = typeof raw.museum === 'string' && raw.museum.trim() ? raw.museum.trim() : 'Lieu de conservation non communiqué';
+  if (!raw.museum) {
+    warnings.push({ index, field: 'museum', message: 'Lieu de conservation non renseigné (signalé comme non communiqué).', artworkTitle: title });
+  }
+
+  // 3. ID handling: preserve authentic ID or compute deterministic canonical slug
   let id = typeof raw.id === 'string' && raw.id.trim() ? raw.id.trim().toLowerCase().replace(/[^a-z0-9-_]/g, '-') : '';
   if (!id) {
     const generatedSlug = (title + '-' + (year > 0 ? year : 'ant'))
@@ -113,16 +113,51 @@ export const validateSingleArtwork = (
       .replace(/[\u0300-\u036f]/g, '')
       .replace(/[^a-z0-9]+/g, '-')
       .replace(/^-+|-+$/g, '');
-    id = generatedSlug || `oeuvre-${index + 1}-${Date.now()}`;
+    id = generatedSlug || `oeuvre-${index + 1}`;
   }
 
-  // Check audio guide
-  let audioGuide: AudioGuideData | undefined;
+  // 4. Strict Curatorial & Rights Metadata (No fabrication of fake numbers or generic claims)
+  const hasValidInventory = typeof raw.inventoryNumber === 'string' && raw.inventoryNumber.trim().length > 0;
+  const inventoryNumber = hasValidInventory ? raw.inventoryNumber.trim() : 'Non répertorié / En attente d’inventaire';
+  if (!hasValidInventory) {
+    warnings.push({
+      index,
+      field: 'inventoryNumber',
+      message: 'Numéro d’inventaire absent : consigné comme "Non répertorié" sans invention d’identifiant factice.',
+      artworkTitle: title,
+    });
+  }
+
+  const hasValidLegalStatus = typeof raw.legalStatus === 'string' && raw.legalStatus.trim().length > 0;
+  const legalStatus = hasValidLegalStatus ? raw.legalStatus.trim() : 'Statut juridique : Non vérifié (en attente de certificat)';
+  if (!hasValidLegalStatus) {
+    warnings.push({
+      index,
+      field: 'legalStatus',
+      message: 'Statut juridique non documenté : consigné comme non vérifié sans allégation générique.',
+      artworkTitle: title,
+    });
+  }
+
+  const rightsSource = typeof raw.rightsSource === 'string' && raw.rightsSource.trim().length > 0
+    ? raw.rightsSource.trim()
+    : (raw.museum ? `Registre des collections de l’institution détentrice (${museum})` : 'Source patrimoniale : Non vérifiée');
+
+  const photographicLicense = typeof raw.photographicLicense === 'string' && raw.photographicLicense.trim().length > 0
+    ? raw.photographicLicense.trim()
+    : 'Licence photographique : Non vérifiée';
+
+  const historicalSources: string[] = Array.isArray(raw.historicalSources)
+    ? raw.historicalSources.filter((s: any) => typeof s === 'string' && s.trim().length > 0).map((s: string) => s.trim())
+    : [];
+
+  // 5. Audio Guide: only attach if actually provided in raw data (never fabricate a fake curator audio)
+  let audioGuide: AudioGuideData | undefined = undefined;
   if (raw.audioGuide && typeof raw.audioGuide === 'object') {
-    const audioTitle = raw.audioGuide.title || 'Guide audio officiel';
-    const speaker = raw.audioGuide.speaker || 'Claire D., Conservatrice';
-    const audioSrc = raw.audioGuide.audioSrc || '/audio/general-guide.wav';
-    const transcript = raw.audioGuide.transcript || raw.openingText || raw.quote || `Présentation de l’œuvre ${title} par ${artist}.`;
+    const audioTitle = typeof raw.audioGuide.title === 'string' && raw.audioGuide.title.trim() ? raw.audioGuide.title.trim() : 'Notice audio';
+    const speaker = typeof raw.audioGuide.speaker === 'string' && raw.audioGuide.speaker.trim() ? raw.audioGuide.speaker.trim() : 'Claire D., Conservatrice';
+    const audioSrc = typeof raw.audioGuide.audioSrc === 'string' && raw.audioGuide.audioSrc.trim() ? raw.audioGuide.audioSrc.trim() : '/audio/general-guide.wav';
+    const transcript = typeof raw.audioGuide.transcript === 'string' ? raw.audioGuide.transcript.trim() : (raw.openingText || raw.quote || '');
     const durationSeconds = Number(raw.audioGuide.durationSeconds) || 120;
     const duration = raw.audioGuide.duration || `${Math.floor(durationSeconds / 60)} min ${durationSeconds % 60} s`;
 
@@ -133,16 +168,6 @@ export const validateSingleArtwork = (
       speaker,
       audioSrc,
       transcript,
-    };
-  } else {
-    // Provide default audio guide with speech transcript
-    audioGuide = {
-      title: 'Commentaire du conservateur',
-      duration: '2 min 00 s',
-      durationSeconds: 120,
-      speaker: 'Claire D., Conservatrice',
-      audioSrc: '/audio/general-guide.wav',
-      transcript: raw.openingText || raw.quote || `Bienvenue devant ${title}, peinte par ${artist} en ${year}. Cette œuvre est rattachée au mouvement ${movement} et conservée au ${museum}.`,
     };
   }
 
@@ -160,22 +185,25 @@ export const validateSingleArtwork = (
     title,
     subtitle: raw.subtitle || `${movement} • ${year > 0 ? year : Math.abs(year) + ' av. J.-C.'}`,
     artist,
-    artistDates: raw.artistDates || 'Maître d’art',
-    artistOrigin: raw.artistOrigin || 'Collection internationale',
+    artistDates: raw.artistDates || 'Dates non documentées',
+    artistOrigin: raw.artistOrigin || 'Origine non documentée',
     year,
     dateDisplay: raw.dateDisplay || `${year > 0 ? year : Math.abs(year) + ' av. J.-C.'}`,
     movement,
     period: raw.period || inferPeriodFromYear(year),
-    technique: raw.technique || 'Huile sur toile',
-    dimensions: raw.dimensions || 'Dimensions d’origine',
+    technique: raw.technique || 'Technique non précisée',
+    dimensions: raw.dimensions || 'Dimensions non communiquées',
     museum,
-    museumFull: raw.museumFull || `${museum}, Collections publiques`,
-    inventoryNumber: raw.inventoryNumber || `INV-${id.toUpperCase().slice(0, 8)}`,
-    legalStatus: raw.legalStatus || 'Domaine Public / Open Access',
+    museumFull: raw.museumFull || (raw.museum ? `${raw.museum}, Collections publiques` : 'Institution non renseignée'),
+    inventoryNumber,
+    legalStatus,
+    rightsSource,
+    photographicLicense,
+    historicalSources,
     imageUrl,
     quote: raw.quote || undefined,
-    openingText: raw.openingText || `Cette œuvre de ${artist} (${year}) représente un temps fort de l'esthétique ${movement}.`,
-    firstObservation: raw.firstObservation || 'Remarquez la composition et le traitement de la lumière qui orientent le regard du spectateur.',
+    openingText: raw.openingText || raw.quote || undefined,
+    firstObservation: raw.firstObservation || undefined,
     audioGuide,
     hotspots: Array.isArray(raw.hotspots) ? raw.hotspots : undefined,
     tags,

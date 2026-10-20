@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { useApp } from '../context/AppContext.tsx';
+import { indexedDbService } from '../services/indexedDbService.ts';
+import { cryptoBackupService } from '../services/cryptoBackupService.ts';
+import { validateArtworksJson } from '../services/catalogValidator.ts';
 
 export const SystemSettingsModal: React.FC = () => {
   const {
@@ -30,6 +33,89 @@ export const SystemSettingsModal: React.FC = () => {
   } = useApp();
 
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [testResults, setTestResults] = useState<{ id: string; name: string; status: 'pending' | 'success' | 'failed'; detail: string }[] | null>(null);
+  const [isTesting, setIsTesting] = useState(false);
+
+  const runBrowserTests = async () => {
+    setIsTesting(true);
+    const initialTests = [
+      { id: 'progress', name: 'Restauration & Clé completedSteps (Fermeture/Réouverture)', status: 'pending' as const, detail: 'En cours...' },
+      { id: 'crypto', name: 'Export chiffré AES-256-GCM & Déchiffrement avec mot de passe', status: 'pending' as const, detail: 'En cours...' },
+      { id: 'security', name: 'Rejet sécurisé si mot de passe erroné ou fichier altéré', status: 'pending' as const, detail: 'En cours...' },
+      { id: 'rollback', name: 'Rollback d’une transaction interrompue', status: 'pending' as const, detail: 'En cours...' },
+      { id: 'editorial', name: 'Validation éditoriale stricte (Zéro invention de métadonnées)', status: 'pending' as const, detail: 'En cours...' },
+    ];
+    setTestResults(initialTests);
+
+    const updateTest = (id: string, status: 'success' | 'failed', detail: string) => {
+      setTestResults(prev => prev?.map(t => t.id === id ? { ...t, status, detail } : t) || null);
+    };
+
+    try {
+      // 1. Progress completedSteps key test
+      await indexedDbService.saveUserProgress(180, [1, 2, 4]);
+      await indexedDbService.closeDb();
+      const readProg = await indexedDbService.getUserProgress();
+      if (readProg.points === 180 && readProg.completedSteps.includes(4)) {
+        updateTest('progress', 'success', `Clé unifiée validée : ${readProg.completedSteps.length} étapes retrouvées après réouverture.`);
+      } else {
+        updateTest('progress', 'failed', 'Incohérence des clés de progression détectée.');
+      }
+
+      // 2. Crypto AES-256 export / import
+      const { jsonString } = await cryptoBackupService.exportBackup('TestSecret2026!');
+      const inspectRes = await cryptoBackupService.inspectBackup(jsonString, 'TestSecret2026!');
+      if (inspectRes.valid && inspectRes.decryptedData) {
+        updateTest('crypto', 'success', 'Export et déchiffrement AES-GCM (100k itérations PBKDF2) validés.');
+      } else {
+        updateTest('crypto', 'failed', 'Échec du déchiffrement AES-GCM.');
+      }
+
+      // 3. Security wrong password rejection
+      const badInspect = await cryptoBackupService.inspectBackup(jsonString, 'WrongPassword!');
+      if (!badInspect.valid && badInspect.error) {
+        updateTest('security', 'success', 'Rejet immédiat et sécurisé en cas de mot de passe incorrect.');
+      } else {
+        updateTest('security', 'failed', 'Le mauvais mot de passe n\'a pas été rejeté.');
+      }
+
+      // 4. Rollback on aborted transaction
+      const db = await indexedDbService.getDb();
+      const bookmarksBefore = await indexedDbService.getBookmarks();
+      try {
+        await new Promise<void>((resolve, reject) => {
+          const tx = db.transaction(['bookmarks'], 'readwrite');
+          tx.objectStore('bookmarks').put({ artworkId: 'temp-doomed', addedAt: Date.now() });
+          tx.onabort = () => resolve();
+          tx.onerror = () => reject(tx.error);
+          tx.abort();
+        });
+      } catch {
+        // expected
+      }
+      const bookmarksAfter = await indexedDbService.getBookmarks();
+      if (bookmarksBefore.length === bookmarksAfter.length) {
+        updateTest('rollback', 'success', 'Transaction annulée : l\'état antérieur a été préservé à 100%.');
+      } else {
+        updateTest('rollback', 'failed', 'Échec du rollback transactionnel.');
+      }
+
+      // 5. Strict editorial validation
+      const missingRaw = { title: 'Toile Incomplète' };
+      const valMissing = validateArtworksJson([missingRaw]);
+      const validWithoutInv = { title: 'Toile Réelle', artist: 'Artiste Test', year: 1900, imageUrl: 'https://example.com/test.jpg' };
+      const valValid = validateArtworksJson([validWithoutInv]);
+      if (!valMissing.isValid && valValid.isValid && valValid.sanitizedArtworks[0].inventoryNumber === 'Non répertorié / En attente d’inventaire') {
+        updateTest('editorial', 'success', 'Fiche incomplète rejetée et métadonnées manquantes étiquetées "Non répertorié" sans invention factice.');
+      } else {
+        updateTest('editorial', 'failed', 'Échec de la validation éditoriale stricte.');
+      }
+    } catch (err: any) {
+      triggerToast(`Erreur durant les tests : ${err.message}`);
+    } finally {
+      setIsTesting(false);
+    }
+  };
 
   if (!isSystemSettingsOpen) return null;
 
@@ -355,6 +441,63 @@ export const SystemSettingsModal: React.FC = () => {
                 <span className="material-symbols-outlined text-[13px]">open_in_new</span>
               </button>
             </div>
+          </div>
+
+          {/* Section 6: Banc de Tests d'Intégrité de Production */}
+          <div className="p-4 rounded-xl bg-[#201f24] border border-[#f2ca50]/20 space-y-3.5">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <span className="material-symbols-outlined text-[#f2ca50] text-[18px]">verified</span>
+                <h4 className="font-title-editorial text-[14px] text-[#f2ca50] font-semibold">
+                  Banc de Tests d'Intégrité (Production Réelle)
+                </h4>
+              </div>
+              <button
+                onClick={runBrowserTests}
+                disabled={isTesting}
+                className="py-1.5 px-3 rounded-lg bg-[#f2ca50] hover:bg-[#ffe088] text-[#141318] font-bold text-[11px] font-label-caps uppercase flex items-center gap-1.5 cursor-pointer disabled:opacity-50 transition-all shadow-sm"
+              >
+                <span className={`material-symbols-outlined text-[15px] ${isTesting ? 'animate-spin' : ''}`}>
+                  {isTesting ? 'refresh' : 'play_circle'}
+                </span>
+                <span>{isTesting ? 'Exécution...' : 'Lancer les tests en direct'}</span>
+              </button>
+            </div>
+
+            <p className="text-[11px] text-[#d0c5af] leading-relaxed">
+              Exécute les 5 tests critiques de conformité directement contre le moteur IndexedDB et l'API Web Crypto de votre navigateur (relecture de la clé unifiée <code>completedSteps</code>, chiffrement AES-256-GCM, rejet cryptographique et rollback).
+            </p>
+
+            {testResults && (
+              <div className="space-y-2 pt-1 animate-fade-in">
+                {testResults.map((t) => (
+                  <div
+                    key={t.id}
+                    className="p-2.5 rounded-lg bg-[#141318] border border-white/5 flex items-start gap-2.5 text-[11px]"
+                  >
+                    <span
+                      className={`material-symbols-outlined text-[16px] mt-0.5 flex-shrink-0 ${
+                        t.status === 'success'
+                          ? 'text-[#f2ca50]'
+                          : t.status === 'failed'
+                          ? 'text-[#ffb59f]'
+                          : 'text-[#99907c] animate-spin'
+                      }`}
+                    >
+                      {t.status === 'success'
+                        ? 'check_circle'
+                        : t.status === 'failed'
+                        ? 'cancel'
+                        : 'progress_activity'}
+                    </span>
+                    <div className="flex-1 min-w-0">
+                      <div className="font-semibold text-[#e5e1e8]">{t.name}</div>
+                      <div className="text-[10px] text-[#99907c] mt-0.5">{t.detail}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
 

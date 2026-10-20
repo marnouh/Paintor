@@ -231,6 +231,10 @@ interface AppContextType {
   openBackupModal: () => void;
   refreshUserData: () => Promise<void>;
   catalogVersion: string;
+
+  // Test Hors-Ligne & Simulation Mode Avion
+  isAirplaneModeSimulated: boolean;
+  toggleAirplaneModeSimulated: () => void;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -308,6 +312,25 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [isDbReady, setIsDbReady] = useState<boolean>(false);
   const [isBackupModalOpen, setIsBackupModalOpen] = useState<boolean>(false);
   const [catalogVersion, setCatalogVersion] = useState<string>('1.1.0');
+  const [isAirplaneModeSimulated, setIsAirplaneModeSimulated] = useState<boolean>(() => {
+    try {
+      return localStorage.getItem('regard_airplane_mode') === 'true';
+    } catch {
+      return false;
+    }
+  });
+
+  const toggleAirplaneModeSimulated = () => {
+    setIsAirplaneModeSimulated((prev) => {
+      const next = !prev;
+      try {
+        localStorage.setItem('regard_airplane_mode', String(next));
+      } catch {
+        // ignore
+      }
+      return next;
+    });
+  };
 
   const openBackupModal = () => setIsBackupModalOpen(true);
 
@@ -1418,6 +1441,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         openBackupModal,
         refreshUserData,
         catalogVersion,
+
+        // Test Hors-Ligne & Simulation Mode Avion
+        isAirplaneModeSimulated,
+        toggleAirplaneModeSimulated,
       }}
     >
       {children}

@@ -91,8 +91,31 @@ function base64ToBuffer(base64: string): Uint8Array {
 }
 
 class CryptoBackupService {
+  private getSubtle(): SubtleCrypto {
+    if (typeof window !== 'undefined' && window.crypto && window.crypto.subtle) {
+      return window.crypto.subtle;
+    }
+    if (typeof globalThis !== 'undefined' && (globalThis as any).crypto && (globalThis as any).crypto.subtle) {
+      return (globalThis as any).crypto.subtle;
+    }
+    throw new Error('Web Crypto API (subtle) non disponible.');
+  }
+
+  private getRandomValues(array: Uint8Array): Uint8Array {
+    if (typeof window !== 'undefined' && window.crypto) {
+      return window.crypto.getRandomValues(array as any) as any;
+    }
+    if (typeof globalThis !== 'undefined' && (globalThis as any).crypto) {
+      return (globalThis as any).crypto.getRandomValues(array as any) as any;
+    }
+    throw new Error('Web Crypto API non disponible.');
+  }
+
   private isCryptoAvailable(): boolean {
-    return typeof window !== 'undefined' && !!window.crypto && !!window.crypto.subtle;
+    return (
+      (typeof window !== 'undefined' && !!window.crypto && !!window.crypto.subtle) ||
+      (typeof globalThis !== 'undefined' && !!(globalThis as any).crypto && !!(globalThis as any).crypto.subtle)
+    );
   }
 
   /**
@@ -100,7 +123,8 @@ class CryptoBackupService {
    */
   private async deriveKey(passphrase: string, salt: Uint8Array, iterations = 100000): Promise<CryptoKey> {
     const enc = new TextEncoder();
-    const keyMaterial = await window.crypto.subtle.importKey(
+    const subtle = this.getSubtle();
+    const keyMaterial = await subtle.importKey(
       'raw',
       enc.encode(passphrase),
       { name: 'PBKDF2' },
@@ -108,7 +132,7 @@ class CryptoBackupService {
       ['deriveKey']
     );
 
-    return window.crypto.subtle.deriveKey(
+    return subtle.deriveKey(
       {
         name: 'PBKDF2',
         salt: salt as BufferSource,
@@ -149,14 +173,14 @@ class CryptoBackupService {
       }
 
       // Generate random salt (16 bytes) and IV (12 bytes for AES-GCM)
-      const salt = window.crypto.getRandomValues(new Uint8Array(16));
-      const iv = window.crypto.getRandomValues(new Uint8Array(12));
+      const salt = this.getRandomValues(new Uint8Array(16));
+      const iv = this.getRandomValues(new Uint8Array(12));
 
       const key = await this.deriveKey(passphrase.trim(), salt, 100000);
       const enc = new TextEncoder();
       const plaintextBuffer = enc.encode(JSON.stringify(dataPayload));
 
-      const ciphertextBuffer = await window.crypto.subtle.encrypt(
+      const ciphertextBuffer = await this.getSubtle().encrypt(
         {
           name: 'AES-GCM',
           iv: iv as BufferSource,
@@ -239,7 +263,7 @@ class CryptoBackupService {
           const ciphertext = base64ToBuffer(parsed.ciphertext);
 
           const key = await this.deriveKey(passphrase.trim(), salt, iterations);
-          const decryptedBuffer = await window.crypto.subtle.decrypt(
+          const decryptedBuffer = await this.getSubtle().decrypt(
             {
               name: 'AES-GCM',
               iv: iv as BufferSource,
@@ -482,14 +506,16 @@ class CryptoBackupService {
 
       // --- 4. Synchronize with localStorage for instant reactivity across restarts ---
       try {
-        localStorage.setItem(
-          'regard_bookmarks',
-          JSON.stringify(finalBookmarks.map((b) => b.artworkId))
-        );
-        localStorage.setItem('regard_history', JSON.stringify(finalHistory));
-        if (finalProgress) {
-          localStorage.setItem('regard_points', String(finalProgress.points));
-          localStorage.setItem('regard_completed_steps', JSON.stringify(finalProgress.completedSteps));
+        if (typeof localStorage !== 'undefined') {
+          localStorage.setItem(
+            'regard_bookmarks',
+            JSON.stringify(finalBookmarks.map((b) => b.artworkId))
+          );
+          localStorage.setItem('regard_history', JSON.stringify(finalHistory));
+          if (finalProgress) {
+            localStorage.setItem('regard_points', String(finalProgress.points));
+            localStorage.setItem('regard_completed_steps', JSON.stringify(finalProgress.completedSteps));
+          }
         }
       } catch (storageErr) {
         console.warn('LocalStorage sync warning:', storageErr);
